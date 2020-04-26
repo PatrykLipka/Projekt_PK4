@@ -158,6 +158,8 @@
     <ClInclude Include="Round.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vec2D.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -179,6 +181,7 @@
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vec2D.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -246,6 +249,7 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\ProjektPK4\Chopek_5klatek.png" />
     <Image Include="Chili.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -10,11 +10,12 @@ class Enemy {
 	int points;
 
 public:
-	virtual void Collision(const Object& object);
-	virtual void DrawEnemy(Graphics& gtx);
-	virtual void Shoot();
-	virtual void ChangeHealth(float changeHP);
-	virtual bool isDead();
-	//virtual Enemy(object, health);
-	virtual void Movement();
+	Enemy(Object object, float health, float probability, bool isAlive, int points) :object(object), health(health),
+		probability(probability), isAlive(isAlive), points(points) {};
+	virtual void Collision(const Object& object) = 0;
+	virtual void DrawEnemy(Graphics& gtx) = 0;
+	virtual void Shoot() = 0;
+	virtual void ChangeHealth(float changeHP) = 0;
+	virtual bool isDead() = 0;
+	virtual void Movement() = 0;
 };
