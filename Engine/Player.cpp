@@ -74,7 +74,8 @@ void Player::CheckCollisions(std::vector<Object> obstacles)
 
 void Player::Draw( Graphics & gfx)
 {
-	animations[(int)iCurentSeqence].Draw(object.pos, gfx);
+	Vec2D pos{ object.hitbox.left,object.hitbox.top };
+	animations[(int)iCurentSeqence].Draw(pos, gfx);
 }
 
 void Player::Update(float dt)
