@@ -2,13 +2,13 @@
 #include "Obstacle.h"
 #include "Crate.h"
 #include "vector"
+#include "Surface.h"
+#include "Graphics.h"
 
-class Map {
-	float x;
-	float y;
-	std::vector<Obstacle> obstacles;
-	std::vector<Crate> crates;
+class Map {	
 public:
 	virtual void DrawMap(Graphics& gfx);
 	virtual void InitMap();
+	
 };
+

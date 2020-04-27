@@ -28,6 +28,7 @@
 #include "Surface.h"
 #include "Animation.h"
 #include "FrameTimer.h"
+#include "Board.h"
 
 class Game
 {
@@ -50,6 +51,7 @@ private:
     Player player;
     FrameTimer ft;
     std::vector<Object> vec;
+    Board board;
     
 	/********************************/
 	/*  User Variables              */
