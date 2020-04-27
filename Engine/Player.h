@@ -30,7 +30,7 @@ class Player
 	Object object;
 	Sequences iCurentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("Chopek_5klatek.png", 160, 192);
+	Surface surface = Surface("Player1.png", 160, 192);
 	std::vector<Vec2D> canBeHit;
 	public:
 	Player(Object obj, float hel,bool isAlive);

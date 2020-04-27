@@ -25,13 +25,15 @@ Game::Game(MainWindow& wnd)
     :
     wnd(wnd),
     gfx(wnd),
-    frame(Vec2D(0,0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
+    frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
     player(Object(Vec2D(28, 26), Vec2D(3, 3), 32, 48), 100, true)
+    
 
 {
 
 }
+
 
 void Game::Go()
 {
@@ -43,15 +45,15 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false,ft.Mark()); }
+    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, ft.Mark()); }
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, ft.Mark()); }
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, ft.Mark()); }
     if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, ft.Mark()); }
     if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, ft.Mark()); }
-    
+
     player.CheckCollisions(vec);
-   // player.Draw(gfx);
-    mov ={0.0,0.0 };
+    // player.Draw(gfx);
+    mov = { 0.0,0.0 };
 }
 
 void Game::ComposeFrame()
