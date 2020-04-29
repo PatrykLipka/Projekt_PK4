@@ -335,6 +335,7 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 	assert(src.bottom <= s.GetHeight() );
 	for (int dy = src.top; dy < src.bottom; dy++) {
 		for (int dx = src.left; dx < src.right; dx++) {
+			if(s.GetPixel(dx,dy)!=Colors::MakeRGB(255,0,128))
 			PutPixel(x + dx - src.left, y + dy - src.top, s.GetPixel(dx, dy));
 		}
 	}

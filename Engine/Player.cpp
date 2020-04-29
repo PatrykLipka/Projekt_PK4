@@ -105,10 +105,10 @@ Player::Player(Object obj, float hel,bool isAlive):object(obj),health(hel),isAli
 	aimsDown = true;
 	aimsUp = false;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.00001f));
+		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.001f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(0, 48 * (i-(int)Sequences::StandDown), 32, 48, 1, surface, 0.00001f));
+		animations.emplace_back(Animation(0, 48 * (i-(int)Sequences::StandDown), 32, 48, 1, surface, 0.001f));
 	}
 	
 }

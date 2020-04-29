@@ -57,6 +57,7 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-    board.DrawBoard(gfx);
+     board.DrawBoard(gfx);
     player.Draw(gfx);
+  
 }
