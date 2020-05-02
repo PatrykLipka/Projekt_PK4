@@ -20,8 +20,7 @@ protected:
 	bool aimsUp;
 
 public:
-	Enemy(Object object, float health, float probability, bool isAlive, int points) :object(object), health(health),
-		probability(probability), isAlive(isAlive), points(points) {};
+	Enemy(Object object, float health, float probability, bool isAlive, int points);
 	virtual void CheckCollisions(std::vector<Object> obstacles) = 0;
 	virtual void DrawEnemy(Graphics& gtx) = 0;
 	virtual void Shoot() = 0;
@@ -29,5 +28,5 @@ public:
 	virtual bool isDead() = 0;
 	virtual void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt) = 0;
 	virtual void Draw(Graphics& gfx) = 0;
-	virtual void Update(float dt);
+	virtual void Update(float dt)=0;
 };
