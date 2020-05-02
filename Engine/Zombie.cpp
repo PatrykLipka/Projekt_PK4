@@ -13,7 +13,7 @@ bool Zombie::isDead()
 
 void Zombie::Movement(float dt, const Object& playerObject)
 {
-	float playerX = playerObject.pos.x;
+	float playerX = playerObject.pos.x-32;
 	float playerY = playerObject.pos.y;
 
 	float dirX = playerX - object.pos.x;
