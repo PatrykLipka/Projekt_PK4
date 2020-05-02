@@ -108,10 +108,10 @@ void Zombie::Movement(float dt, const Object& playerObject)
 	}
 
 	else {
-		if (dirX > 10) iCurrentSeqence = Sequences::StandRight;
-		else if (dirX < -10) iCurrentSeqence = Sequences::StandLeft;
-		else if (dirX >= -10 && dirX <= 10 && dirY > 0) iCurrentSeqence = Sequences::StandDown;
-		else if (dirX >= -10 && dirX <= 10 && dirY < 0) iCurrentSeqence = Sequences::StandUp;
+		if (dirX > 12) iCurrentSeqence = Sequences::StandRight;
+		else if (dirX < -12) iCurrentSeqence = Sequences::StandLeft;
+		else if (dirX >= -12 && dirX <= 12 && dirY > 0) iCurrentSeqence = Sequences::StandDown;
+		else if (dirX >= -12 && dirX <= 12 && dirY < 0) iCurrentSeqence = Sequences::StandUp;
 		else {
 			iCurrentSeqence = Sequences::StandDown;
 		}
