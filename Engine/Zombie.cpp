@@ -108,7 +108,13 @@ void Zombie::Movement(float dt, const Object& playerObject)
 	}
 
 	else {
-		iCurrentSeqence = Sequences::StandDown;
+		if (dirX > 0) iCurrentSeqence = Sequences::StandRight;
+		else if (dirX < 0) iCurrentSeqence = Sequences::StandLeft;
+		else if (dirX == 0 && dirY > 0) iCurrentSeqence = Sequences::StandDown;
+		else if (dirX == 0 && dirY < 0) iCurrentSeqence = Sequences::StandUp;
+		else {
+			iCurrentSeqence = Sequences::StandDown;
+		}
 	}
 	object.hitbox.DoActualization(object.pos, object.width, object.height);
 	Update(dt);
@@ -136,10 +142,10 @@ Zombie::Zombie(Object object, float health, float probability, bool isAlive, int
 	aimsDown = true;
 	aimsUp = false;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.001f));
+		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.15f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(0, 48 * (i - (int)Sequences::StandDown), 32, 48, 1, surface, 0.001f));
+		animations.emplace_back(Animation(0, 48 * (i - (int)Sequences::StandDown), 32, 48, 1, surface, 0.15f));
 	}
 }
 
