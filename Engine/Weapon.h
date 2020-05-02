@@ -8,8 +8,9 @@ class Weapon {
 	float distance;
 	float spread;
 	int ammo;
-//	Sound sound;
+	//Sound sound;
 public:
-	virtual void Shoot();
-	virtual void Upgrade(Points points);
+	//virtual void Shoot();
+	//virtual void Upgrade(Points points);
+	Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo);
 };

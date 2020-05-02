@@ -27,8 +27,8 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(28, 26), Vec2D(3, 3), 32, 48), 100, true)
-
+    player(Object(Vec2D(28, 26), Vec2D(3, 3), 32, 48), 100, true),
+    zombie(Object(Vec2D(100, 500), Vec2D(3, 3), 32, 48),100,50,true,5)
 {
 
 }
@@ -58,6 +58,7 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
      board.DrawBoard(gfx);
-    player.Draw(gfx);
+     zombie.Draw(gfx);
+     player.Draw(gfx);
   
 }

@@ -146,6 +146,7 @@
     <ClInclude Include="FirstMap.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Glock.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="lodepng.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="FirstMap.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Glock.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="lodepng.cpp" />
@@ -187,6 +189,7 @@
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vec2D.cpp" />
+    <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
