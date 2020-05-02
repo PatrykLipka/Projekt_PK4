@@ -1,6 +1,7 @@
 #pragma once
 class Vec2D
-{public:
+{
+public:
 	Vec2D(float x, float y);
 	Vec2D(const Vec2D& vec);
 	Vec2D& operator =(const Vec2D& vec);
