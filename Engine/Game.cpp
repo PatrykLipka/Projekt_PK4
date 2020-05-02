@@ -44,12 +44,13 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-    zombie.Movement(ft.Mark(), player.getObject());
-    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, ft.Mark()); }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, ft.Mark()); }
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, ft.Mark()); }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, ft.Mark()); }
-    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, ft.Mark()); }
+    float clock = ft.Mark();
+    zombie.Movement(clock, player.getObject());
+    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock); }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock); }
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock); }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock); }
+    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock); }
 
     
 
