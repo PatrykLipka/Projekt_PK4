@@ -200,5 +200,11 @@
     <Image Include="..\..\ProjektPK4\Chopek_5klatek.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Map1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Map0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

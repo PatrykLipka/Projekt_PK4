@@ -260,6 +260,8 @@
   <ItemGroup>
     <Image Include="..\..\ProjektPK4\Chopek_5klatek.png" />
     <Image Include="Chili.ico" />
+    <Image Include="Map0.png" />
+    <Image Include="Map1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
