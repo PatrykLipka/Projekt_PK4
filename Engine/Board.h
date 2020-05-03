@@ -9,7 +9,7 @@
 
 class Board {
 	//Round round;
-	std::list<Weapon> allWeapons;
+	//std::list<Weapon> allWeapons;
 	//Points points;
 	Map *  map;
 public:

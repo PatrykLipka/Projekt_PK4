@@ -30,6 +30,7 @@
 #include "FrameTimer.h"
 #include "Board.h"
 #include "Zombie.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -53,7 +54,7 @@ private:
     FrameTimer ft;
     std::vector<Object> vec;
     Board board;
-    Zombie zombie;
+    Enemy * zombie;
 
     
 	/********************************/

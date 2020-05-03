@@ -31,6 +31,8 @@ void Zombie::Shoot()
 {
 }
 
+
+
 Zombie::Zombie(Object object, float health, float probability, bool isAlive, int points) :Enemy(object, health, probability, isAlive, points) {
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.001f));
@@ -49,6 +51,16 @@ void Zombie::Draw(Graphics& gfx)
 void Zombie::Update(float dt)
 {
 	animations[(int)iCurentSeqence].Update(dt);
+}
+
+Object Zombie::Getobject()const 
+{
+	return this->object;
+}
+
+void Zombie::CalculateDistance(const Vec2D& pos)
+{
+	distance = sqrt(pow(object.pos.x - pos.x, 2) + pow(object.pos.y - pos.y, 2));
 }
 
 

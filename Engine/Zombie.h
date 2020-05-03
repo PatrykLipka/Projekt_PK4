@@ -22,6 +22,7 @@ class Zombie : public Enemy
 	
 
 public:
+	Zombie();
 	Zombie(Object object, float health, float probability, bool isAlive, int points);;
 	void Draw(Graphics& gfx)override;
 	void CheckCollisions(std::vector<Object> obstacles)override;
@@ -31,4 +32,6 @@ public:
 	bool isDead()override;
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt)override;
 	void Update(float dt)override;
+	Object Getobject()const override;
+	void CalculateDistance(const Vec2D& pos)override;
 };
