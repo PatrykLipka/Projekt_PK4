@@ -2,9 +2,7 @@
 
 
 
-void Zombie::ChangeHealth(float changeHP)
-{
-}
+
 
 bool Zombie::IsAlive()
 {
@@ -14,7 +12,7 @@ bool Zombie::IsAlive()
 
 void Zombie::Movement(float dt, const Object& playerObject)
 {
-	float playerX = playerObject.pos.x-32;
+	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
 
 	float dirX = playerX - object.pos.x;
@@ -156,7 +154,7 @@ Zombie::Zombie(Object object, float health, float probability, bool isAlive, int
 
 void Zombie::Draw(Graphics& gfx)
 {
-	Vec2D pos{ object.hitbox.right,object.hitbox.top };
+	Vec2D pos{ object.hitbox.left,object.hitbox.top };
 	animations[(int)iCurrentSeqence].Draw(pos, gfx);
 }
 
@@ -175,10 +173,15 @@ void Zombie::CalculateDistance(const Vec2D& pos)
 	distance = sqrt(pow(object.pos.x - pos.x, 2) + pow(object.pos.y - pos.y, 2));
 }
 
-void Zombie::Hitted()
+void Zombie::Hitted(const float & dmg)
 {
-	isAlive = false;
+	ChangeHealth(dmg);
 }
 
 
-
+void Zombie::ChangeHealth(float changeHP)
+{
+	
+	if ((this->health -= changeHP) > 0) { isAlive = true; }
+	else { isAlive = false; }
+}

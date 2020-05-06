@@ -31,5 +31,5 @@ public:
 	void Update(float dt)override;
 	Object Getobject()const override;
 	void CalculateDistance(const Vec2D& pos)override;
-	void Hitted()override;
+	void Hitted(const float& dmg)override;
 };

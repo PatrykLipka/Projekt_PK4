@@ -33,6 +33,10 @@
 #include "Zombie.h"
 #include "Weapon.h"
 #include "Glock.h"
+#include <algorithm>
+#include <string>
+#include <iostream>
+#include <cctype>
 
 
 class Game

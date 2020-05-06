@@ -52,7 +52,7 @@ void Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 	}
 	std::stable_sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
 	if(!avaliableTarget.empty())
-	avaliableTarget[0]->Hitted();
+	avaliableTarget[0]->Hitted(damage);
 	CleanVector();
 
 }

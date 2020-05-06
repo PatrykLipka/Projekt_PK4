@@ -32,5 +32,5 @@ public:
 	virtual void Update(float dt) = 0;
 	virtual void CalculateDistance(const Vec2D& pos)=0;
 	virtual Object Getobject()const = 0;
-	virtual void Hitted() = 0;
+	virtual void Hitted(const float& dmg) = 0;
 };
