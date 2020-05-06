@@ -29,8 +29,11 @@
 #include "Animation.h"
 #include "FrameTimer.h"
 #include "Board.h"
-#include "Zombie.h"
 #include "Enemy.h"
+#include "Zombie.h"
+#include "Weapon.h"
+#include "Glock.h"
+
 
 class Game
 {
@@ -54,7 +57,7 @@ private:
     FrameTimer ft;
     std::vector<Object> vec;
     Board board;
-    Enemy * zombie;
+    std::vector<Enemy*>enemy;
 
     
 	/********************************/

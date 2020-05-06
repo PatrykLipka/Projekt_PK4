@@ -53,8 +53,7 @@ void Game::UpdateModel()
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock); }
     if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock); }
     if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock); }
-    if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-        player.Shot(enemy); }
+     if (wnd.kbd.KeyIsPressed(VK_SPACE)) { player.Shot(enemy); }
 
     
 

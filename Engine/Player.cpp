@@ -83,6 +83,11 @@ void Player::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
+void Player::Shot(std::vector<Enemy*> enemy)
+{
+	weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy, object.pos);
+}
+
 
 //void Player::CheckCrate(std::vector<Crate>& crates)
 //{
@@ -98,7 +103,7 @@ void Player::Update(float dt)
 //	}
 //}
 
-Player::Player(Object obj, float hel,bool isAlive):object(obj),health(hel),isAlive(isAlive)
+Player::Player(Object obj, float hel,bool isAlive,Weapon * weapon):object(obj),health(hel),isAlive(isAlive),weapon(weapon)
 {
 	aimsRight = false;
 	aimsLeft = false;

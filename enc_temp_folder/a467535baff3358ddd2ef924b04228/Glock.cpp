@@ -38,7 +38,7 @@ bool compare_distance(Enemy * obj1 , Enemy * obj2){
 
 void Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)
 {
- 	calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsDown, pos);
+	calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsDown, pos);
 	std::vector<Enemy*> avaliableTarget;
 	
 	int numberousOfEnemy = enemy.size();
