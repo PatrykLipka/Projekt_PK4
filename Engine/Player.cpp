@@ -1,15 +1,15 @@
 #include "Player.h"
 
-void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt)
+void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles)
 {
 	if (aim_R) {
-		aimsRight=true;
-		aimsLeft=false;
-		aimsDown=false;
-		aimsUp=false;
+		aimsRight = true;
+		aimsLeft = false;
+		aimsDown = false;
+		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingRight;
-		if((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
-		object.pos.x += object.movement.x;
+		if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
+			object.pos.x += object.movement.x;
 		else {
 			float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
 			object.pos.x += dx;
@@ -61,14 +61,15 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt)
 		else if (aim_L)iCurrentSeqence = Sequences::StandLeft;
 		else if (aim_U)iCurrentSeqence = Sequences::StandUp;
 	}
+	CheckCollisions(obstacles);
 	object.hitbox.DoActualization(object.pos,object.width,object.height);
 	Update(dt);
 }
 
-void Player::CheckCollisions(std::vector<Object> obstacles)
+void Player::CheckCollisions(std::vector<Obstacle> obstacles)
 {
 	for (auto obs : obstacles) {
-		this->object.IsOverLapping(obs, aimsRight, aimsLeft, aimsDown, aimsUp);
+		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}
 }
 
@@ -110,12 +111,11 @@ Player::Player(Object obj, float hel,bool isAlive,Weapon * weapon):object(obj),h
 	aimsDown = true;
 	aimsUp = false;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(32, 48 * i, 32, 48, 4, surface, 0.1f));
+		animations.emplace_back(Animation(0, obj.height * i, obj.width, obj.height, 4, surface, 0.1f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(0, 48 * (i-(int)Sequences::StandDown), 32, 48, 1, surface, 0.1f));
+		animations.emplace_back(Animation(0, obj.height * (i-(int)Sequences::StandDown), obj.width, obj.height ,1, surface, 0.1f));
 	}
-	
 }
 
 Object Player::getObject()

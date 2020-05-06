@@ -1,17 +1,16 @@
 #pragma once
 #include "Map.h"
-#include "Graphics.h"
-class FirstMap :
+class SecondMap :
 	public Map
 {
 	float width = 0;
 	float height = 0;
 	std::vector<Obstacle> obstacles;
 	std::vector<Crate> crates;
+	const Surface& surface = Surface("Map1.png", 1200, 800);
 public:
-	const Surface& surface = Surface("FirstMap.png", 1200, 800);
 	void DrawMap(Graphics& gfx)override;
-	std::vector<Obstacle> GetObstacles();
-	virtual void InitMap();
+	void InitMap()override;	
+	std::vector<Obstacle> GetObstacles()override;
 };
 

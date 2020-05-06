@@ -28,13 +28,12 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(56, 52), Vec2D(2, 2), 32, 48), 100, true, new Glock( 0,  100,  1,  150,  1, 1))
-{
+    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  100,  1,  150,  1, 1))
+{  
    enemy.push_back(new Zombie(Object(Vec2D(100, 500), Vec2D(1, 1), 32, 48),100,50,true,5));
    enemy.push_back(new Zombie(Object(Vec2D(200, 500), Vec2D(1, 1), 32, 48), 100, 50, true, 5));
+   board.InitBoard();
 }
-
-
 void Game::Go()
 {
     gfx.BeginFrame();
@@ -49,15 +48,13 @@ void Game::UpdateModel()
     for (auto opponent : enemy) {
         opponent->Movement(clock, player.getObject());
     }
-    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock); }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock); }
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock); }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock); }
-    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock); }
+    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles()); }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles()); }
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles()); }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles()); }
+    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles()); }
     if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy); }
     enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](Enemy* e) {return !e->IsAlive();}), enemy.end());
-    player.CheckCollisions(vec);
-    player.Draw(gfx);
     mov = { 0.0,0.0 };
 }
 

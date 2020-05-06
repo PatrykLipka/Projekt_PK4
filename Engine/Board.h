@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "Map.h"
 #include "FirstMap.h"
+#include "SecondMap.h"
+#include "Obstacle.h"
 #include <list>
 
 class Board {
@@ -19,5 +21,6 @@ public:
 	void SpawnEnemies();
 	void InitBoard();
 	void DrawBoard(Graphics & gfx);
+	std::vector<Obstacle> GetObstacles();
 	
 };

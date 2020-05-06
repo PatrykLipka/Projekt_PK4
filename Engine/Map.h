@@ -7,8 +7,9 @@
 
 class Map {	
 public:
-	virtual void DrawMap(Graphics& gfx);
-	virtual void InitMap();
+	virtual void DrawMap(Graphics& gfx)=0;
+	virtual void InitMap()=0;
+	virtual std::vector<Obstacle> GetObstacles()=0;
 	
 };
 

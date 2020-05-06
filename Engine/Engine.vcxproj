@@ -154,11 +154,13 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Points.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Round.h" />
+    <ClInclude Include="SecondMap.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vec2D.h" />
     <ClInclude Include="Weapon.h" />
@@ -181,10 +183,12 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Points.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Round.cpp" />
+    <ClCompile Include="SecondMap.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vec2D.cpp" />
     <ClCompile Include="Weapon.cpp" />

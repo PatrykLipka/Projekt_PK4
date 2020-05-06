@@ -339,7 +339,6 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 			PutPixel(x + dx - src.left, y + dy - src.top, s.GetPixel(dx, dy));
 		}
 	}
-
 }
 
 void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s)
