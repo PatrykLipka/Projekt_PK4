@@ -34,6 +34,7 @@ Game::Game(MainWindow& wnd)
    enemy.push_back(new Zombie(Object(Vec2D(200, 500), Vec2D(1, 1), 32, 48), 100, 50, true, 5));
    board.InitBoard();
 }
+
 void Game::Go()
 {
     gfx.BeginFrame();
@@ -45,9 +46,7 @@ void Game::Go()
 void Game::UpdateModel()
 {
     float clock = ft.Mark();
-    for (auto opponent : enemy) {
-        opponent->Movement(clock, player.getObject());
-    }
+    for (auto opponent : enemy) {opponent->Movement(clock, player.getObject());}
     if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles()); }
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles()); }
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles()); }

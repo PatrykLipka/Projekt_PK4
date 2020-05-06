@@ -6,10 +6,31 @@ void SecondMap::DrawMap(Graphics& gfx)
 }
 
 void SecondMap::InitMap()
-{// 248,168
+{// 248,168 322,443
 	Vec2D pos = { 248 + 41,168 + 40 };
 	Obstacle ob(Object(pos, Vec2D(0, 0), 82, 79));
 	obstacles.push_back(ob);
+	Vec2D pos1 = { 322 + 41,443 + 40 };
+	Obstacle ob1(Object(pos1, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob1);
+	Vec2D pos2 = { 403 + 41,522 + 40 };
+	Obstacle ob2(Object(pos2, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob2);
+	Vec2D pos3 = { 653 + 41,175 + 40 };
+	Obstacle ob3(Object(pos3, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob3);
+	Vec2D pos4 = { 735 + 41,256 + 40 };
+	Obstacle ob4(Object(pos4, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob4);
+	Vec2D pos5 = { 736 + 41,396 + 40 };
+	Obstacle ob5(Object(pos5, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob5);
+	Vec2D pos6 = { 914 + 41,570 + 40 };
+	Obstacle ob6(Object(pos6, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob6);
+	Vec2D pos7 = { 997 + 41,104 + 40 };
+	Obstacle ob7(Object(pos7, Vec2D(0, 0), 82, 79));
+	obstacles.push_back(ob7);
 }
 
 std::vector<Obstacle> SecondMap::GetObstacles()
