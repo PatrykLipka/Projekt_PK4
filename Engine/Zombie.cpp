@@ -10,7 +10,7 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-void Zombie::Movement(float dt, const Object& playerObject)
+void Zombie::Movement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -115,15 +115,16 @@ void Zombie::Movement(float dt, const Object& playerObject)
 			iCurrentSeqence = Sequences::StandDown;
 		}
 	}
+	CheckCollisions(obstacles);
 	object.hitbox.DoActualization(object.pos, object.width, object.height);
 	Update(dt);
 
 }
 
-void Zombie::CheckCollisions(std::vector<Object> obstacles)
+void Zombie::CheckCollisions(std::vector<Obstacle> obstacles)
 {
 	for (auto obs : obstacles) {
-		this->object.IsOverLapping(obs, aimsRight, aimsLeft, aimsDown, aimsUp);
+		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}
 }
 

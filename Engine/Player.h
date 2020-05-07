@@ -34,7 +34,7 @@ class Player
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("player.png", 98, 156);
+	Surface surface = Surface("player.png", 110, 161);
 	std::vector<Vec2D> canBeHit;
 	Weapon * weapon = nullptr;
 	public:

@@ -18,6 +18,9 @@ std::vector<Obstacle> Board::GetObstacles()
 	return map->GetObstacles();
 }
 
-
+//std::vector<Enemy*> Board::GetEnemies()
+//{
+//	return map->GetEnemies();
+//}
 
 

@@ -46,7 +46,7 @@ void Game::Go()
 void Game::UpdateModel()
 {
     float clock = ft.Mark();
-    for (auto opponent : enemy) {opponent->Movement(clock, player.getObject());}
+    for (auto opponent : enemy) {opponent->Movement(clock, player.getObject(), board.GetObstacles());}
     if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles()); }
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles()); }
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles()); }

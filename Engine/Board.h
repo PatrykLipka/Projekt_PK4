@@ -22,5 +22,6 @@ public:
 	void InitBoard();
 	void DrawBoard(Graphics & gfx);
 	std::vector<Obstacle> GetObstacles();
+	//std::vector<Enemy*> GetEnemies();
 	
 };
