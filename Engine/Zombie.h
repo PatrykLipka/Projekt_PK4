@@ -27,7 +27,7 @@ public:
 	void Attack()override;
 	void ChangeHealth(float changeHP)override;
 	bool IsAlive()override;
-	void Movement(float dt,const Object & playerObject)override;
+	void Movement(float dt,const Object & playerObject, std::vector<Obstacle> obstacles)override;
 	void Update(float dt)override;
 	Object Getobject()const override;
 	void CalculateDistance(const Vec2D& pos)override;

@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+#include "Obstacle.h"
 #include "Graphics.h"
 #include <list>
 #include <vector>
@@ -28,7 +29,7 @@ public:
 	virtual void Attack() = 0;
 	virtual void ChangeHealth(float changeHP) = 0;
 	virtual bool IsAlive() = 0;
-	virtual void Movement(float dt, const Object& playerObject) = 0;
+	virtual void Movement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles) = 0;
 	virtual void Draw(Graphics& gfx) = 0;
 	virtual void Update(float dt) = 0;
 	virtual void CalculateDistance(const Vec2D& pos)=0;

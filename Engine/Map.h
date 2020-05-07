@@ -1,5 +1,6 @@
 #pragma once
 #include "Obstacle.h"
+#include "Enemy.h"
 #include "Crate.h"
 #include "vector"
 #include "Surface.h"
@@ -10,6 +11,6 @@ public:
 	virtual void DrawMap(Graphics& gfx)=0;
 	virtual void InitMap()=0;
 	virtual std::vector<Obstacle> GetObstacles()=0;
-	
+	//virtual std::vector<Enemy*> GetEnemies() = 0;
 };
 
