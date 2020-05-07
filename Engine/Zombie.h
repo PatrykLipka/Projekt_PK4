@@ -22,7 +22,7 @@ public:
 	//Zombie();
 	Zombie(Object object, float health, float probability, bool isAlive, int points);
 	void Draw(Graphics& gfx)override;
-	void CheckCollisions(std::vector<Object> obstacles)override;
+	void CheckCollisions(std::vector<Obstacle> obstacles)override;
 	void DrawEnemy(Graphics & gtx)override;
 	void Attack()override;
 	void ChangeHealth(float changeHP)override;

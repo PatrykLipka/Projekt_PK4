@@ -5,6 +5,7 @@
 #include <vector>
 #include "Surface.h"
 #include "Animation.h"
+#include "Obstacle.h"
 
 
 class Enemy 
@@ -22,7 +23,7 @@ protected:
 public:
 	float distance;
 	Enemy(Object object, float health, float probability, bool isAlive, int points);
-	virtual void CheckCollisions(std::vector<Object> obstacles) = 0;
+	virtual void CheckCollisions(std::vector<Obstacle> obstacles) = 0;
 	virtual void DrawEnemy(Graphics& gtx) = 0;
 	virtual void Attack() = 0;
 	virtual void ChangeHealth(float changeHP) = 0;

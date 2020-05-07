@@ -86,8 +86,8 @@ void Zombie::Movement(float dt, const Object& playerObject)
 	}
 
 	else if (dirX < 0 && dirY > 0 && desiredDistance < distance) {
-		aimsRight = true;
-		aimsLeft = false;
+		aimsRight = false;
+		aimsLeft = true;
 		aimsDown = false;
 		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingLeft;
@@ -96,8 +96,8 @@ void Zombie::Movement(float dt, const Object& playerObject)
 		object.pos.y += object.movement.y;
 	}
 	else if (dirX < 0 && dirY < 0 && desiredDistance < distance) {
-		aimsRight = true;
-		aimsLeft = false;
+		aimsRight = false;
+		aimsLeft = true;
 		aimsDown = false;
 		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingLeft;
@@ -120,10 +120,10 @@ void Zombie::Movement(float dt, const Object& playerObject)
 
 }
 
-void Zombie::CheckCollisions(std::vector<Object> obstacles)
+void Zombie::CheckCollisions(std::vector<Obstacle> obstacles)
 {
 	for (auto obs : obstacles) {
-		this->object.IsOverLapping(obs, aimsRight, aimsLeft, aimsDown, aimsUp);
+		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}
 }
 
