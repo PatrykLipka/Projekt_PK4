@@ -46,6 +46,7 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+    std::vector<Enemy*> getEnemies(); //to powinno byæ w round
 private:
 	void ComposeFrame();
 	void UpdateModel();

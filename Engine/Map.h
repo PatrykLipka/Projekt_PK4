@@ -10,7 +10,7 @@ class Map {
 public:
 	virtual void DrawMap(Graphics& gfx)=0;
 	virtual void InitMap()=0;
-	virtual std::vector<Obstacle> GetObstacles()=0;
+	virtual std::vector<Obstacle> GetObstacles() = 0;
 	//virtual std::vector<Enemy*> GetEnemies() = 0;
 };
 

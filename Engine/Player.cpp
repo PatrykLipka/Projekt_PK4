@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles)
+void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
 {
 	if (aim_R) {
 		aimsRight = true;
@@ -61,16 +61,21 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		else if (aim_L)iCurrentSeqence = Sequences::StandLeft;
 		else if (aim_U)iCurrentSeqence = Sequences::StandUp;
 	}
-	CheckCollisions(obstacles);
+	CheckCollisions(obstacles, enemies);
 	object.hitbox.DoActualization(object.pos,object.width,object.height);
 	Update(dt);
 }
 
-void Player::CheckCollisions(std::vector<Obstacle> obstacles)
+void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
 {
 	for (auto obs : obstacles) {
 		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}
+
+	/*for (auto enem : enemies) {
+		this->object.IsOverLapping(enem->GetObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+	}*/
+	//to po odkomentowaniu powoduje dziwne zachowanie
 }
 
 void Player::Draw( Graphics & gfx)

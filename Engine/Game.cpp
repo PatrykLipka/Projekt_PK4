@@ -21,6 +21,11 @@
 #include "MainWindow.h"
 #include "Game.h"
 
+std::vector<Enemy*> Game::getEnemies()
+{
+    return enemy;
+}
+
 
 Game::Game(MainWindow& wnd)
     :
@@ -46,12 +51,14 @@ void Game::Go()
 void Game::UpdateModel()
 {
     float clock = ft.Mark();
-    for (auto opponent : enemy) {opponent->Movement(clock, player.getObject(), board.GetObstacles());}
-    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles()); }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles()); }
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles()); }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles()); }
-    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles()); }
+    
+    for (auto opponent : enemy) { opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), this->getEnemies());}
+
+    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles(), this->getEnemies()); }
+    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), this->getEnemies()); }
+    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
+    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), this->getEnemies()); }
+    if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy); }
     enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](Enemy* e) {return !e->IsAlive();}), enemy.end());
     mov = { 0.0,0.0 };

@@ -26,6 +26,7 @@ public:
 	Object(Vec2D pos, Vec2D mov, float width, float height);
 	Object(const Object& obj);
 	bool Object::IsOverLapping(const Object other, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp);
+	bool Object::IsOverLappingEnemy(const Object other, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp);
 	void Move(const Vec2D& mov);
 };
 
