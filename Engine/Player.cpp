@@ -113,8 +113,14 @@ Player::Player(Object obj, float hel,bool isAlive,Weapon * weapon):object(obj),h
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(0, obj.height * i, obj.width, obj.height, 4, surface, 0.1f));
 	}
-	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
+	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandDownWithShot; i++) {
 		animations.emplace_back(Animation(0, obj.height * (i-(int)Sequences::StandDown), obj.width, obj.height ,1, surface, 0.1f));
+	}
+	for (int i = 0; i < (int)Sequences::StandDownWithShot; i++) {
+		animations.emplace_back(Animation(5*obj.width, obj.height * i, obj.width, obj.height, 4, surface, 0.1f));
+	}
+	for (int i = (int)Sequences::StandDownWithShot; i < (int)Sequences::Count; i++) {
+		animations.emplace_back(Animation(5 * obj.width, obj.height * (i - (int)Sequences::StandDownWithShot), obj.width, obj.height, 1, surface, 0.1f));
 	}
 }
 

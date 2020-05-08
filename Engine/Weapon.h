@@ -18,5 +18,5 @@ protected:
 	//Sound sound;
 public:
 	Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo);
-	virtual void Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)=0;
+	virtual int Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)=0;
 };

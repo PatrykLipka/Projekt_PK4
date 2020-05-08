@@ -23,8 +23,17 @@ class Player
 		StandUp,
 		StandRight,
 		StandLeft,
+		WalkingDownWithShot,
+		WalkingUpWithShot,
+		WalkingRightWithShot,
+		WalkingLeftWithShot,
+		StandDownWithShot,
+		StandUpWithShot,
+		StandRightWithShot,
+		StandLeftWithShot,
 		Count
 	};
+	
 	float health;
 	bool isAlive;
 	bool aimsRight;
@@ -34,7 +43,7 @@ class Player
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("player.png", 110, 161);
+	Surface surface = Surface("player_glock.png", 230, 164);
 	std::vector<Vec2D> canBeHit;
 	Weapon * weapon = nullptr;
 	public:

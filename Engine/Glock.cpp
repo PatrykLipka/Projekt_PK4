@@ -36,7 +36,7 @@ bool compare_distance(Enemy * obj1 , Enemy * obj2){
 	return obj1->distance < obj2->distance;
 }
 
-void Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)
+int Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)
 {
  	calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsDown, pos);
 	std::vector<Enemy*> avaliableTarget;
@@ -51,9 +51,13 @@ void Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 		}
 	}
 	std::stable_sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
-	if(!avaliableTarget.empty())
-	avaliableTarget[0]->Hitted(damage);
-	CleanVector();
+	if (!avaliableTarget.empty()) {
+		
+		avaliableTarget[0]->Hitted(damage);
+		CleanVector();
+		//if(aimsRight)
+	}
+	
 
 }
 void Glock::CleanVector() {
