@@ -6,6 +6,7 @@
 #include <vector>
 #include "Surface.h"
 #include "Animation.h"
+#include "Obstacle.h"
 
 
 class Enemy 
