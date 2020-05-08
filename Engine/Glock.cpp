@@ -65,8 +65,8 @@ void Glock::CleanVector() {
 	possibleShot.pop_back();
 }
 
-bool Glock::CheckIfEnemyCanBeHitted(const Enemy* enemy)
-{	Object obj = enemy->Getobject();
+bool Glock::CheckIfEnemyCanBeHitted(Enemy* enemy)
+{	Object obj = enemy->GetObject();
 	for (int i = 0; i < possibleShot.size(); i++) {
 		if (possibleShot[i].x > obj.hitbox.left && possibleShot[i].x < obj.hitbox.right && possibleShot[i].y < obj.hitbox.bottom && possibleShot[i].y > obj.hitbox.top) return true;	
 	}

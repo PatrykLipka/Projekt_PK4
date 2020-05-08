@@ -10,121 +10,151 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-void Zombie::Movement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles)
+void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
-
+	
 	float dirX = playerX - object.pos.x;
 	float dirY = playerY - object.pos.y;
-
+	
 	float distance = sqrt(dirX * dirX + dirY * dirY);
 	float desiredX = playerObject.width / 2 + object.width / 2;
 	float desiredY = playerObject.height / 2 + object.height / 2;
 	float desiredDistance = sqrt(desiredX * desiredX/4 + desiredY * desiredY/4);
-
-	
-
-	
-	if (dirX > 0 && dirY == 0 && desiredDistance < distance) {
-		aimsRight = true;
-		aimsLeft = false;
-		aimsDown = false;
-		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingRight;
-
-		object.pos.x += object.movement.x;
-	}
-	else if (dirX < 0 && dirY == 0 && desiredDistance < distance) {
-
-		aimsRight = false;
-		aimsLeft = true;
-		aimsDown = false;
-		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingLeft;
-		
-		object.pos.x -= object.movement.x;
-	}
-	else if (dirY > 0 && dirX == 0 && desiredDistance < distance) {
+	if (dirY < 0 && desiredDistance < distance) {
+		Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = false;
 		aimsUp = true;
-		iCurrentSeqence = Sequences::WalkingDown;
-
-		object.pos.y += object.movement.y;
 	}
-	else if (dirY < 0 && dirX == 0 && desiredDistance < distance) {
+	if (dirY > 0 && desiredDistance < distance) {
+		Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = true;
 		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingUp;
-		
-		object.pos.y -= object.movement.y;
 	}
-	else if (dirX > 0 && dirY > 0 && desiredDistance < distance) {
+	if (dirX > 0 && desiredDistance < distance) {
+		Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
 		aimsRight = true;
 		aimsLeft = false;
 		aimsDown = false;
 		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingRight;
-
-		object.pos.x += object.movement.x;
-		object.pos.y += object.movement.y;
 	}
-	else if (dirX > 0 && dirY < 0 && desiredDistance < distance) {
+	if (dirX < 0 && desiredDistance < distance) {
+		Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+		aimsRight = false;
+		aimsLeft = true;
+		aimsDown = false;
+		aimsUp = false;
+	}
+	if (desiredDistance >= distance) {
+		Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+	}
+}
+
+void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY)
+{
+	if (aim_R) {
 		aimsRight = true;
 		aimsLeft = false;
 		aimsDown = false;
 		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingRight;
-
-		object.pos.x += object.movement.x;
-		object.pos.y -= object.movement.y;
+		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
+		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
+		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
+		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
 		
+		
+		if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
+			object.pos.x += object.movement.x;
+		else {
+			float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
+			object.pos.x += dx;
+		}
 	}
+	else if (aim_L) {
 
-	else if (dirX < 0 && dirY > 0 && desiredDistance < distance) {
 		aimsRight = false;
 		aimsLeft = true;
 		aimsDown = false;
 		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingLeft;
-
-		object.pos.x -= object.movement.x;
-		object.pos.y += object.movement.y;
-	}
-	else if (dirX < 0 && dirY < 0 && desiredDistance < distance) {
-		aimsRight = false;
-		aimsLeft = true;
-		aimsDown = false;
-		aimsUp = false;
-		iCurrentSeqence = Sequences::WalkingLeft;
+		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
+		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
+		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
+		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
 		
-		object.pos.x -= object.movement.x;
-		object.pos.y -= object.movement.y;
+		if ((object.hitbox.left -= object.movement.x) > 0)
+			object.pos.x -= object.movement.x;
+		else {
+			object.pos.x = object.width / 2;
+		}
 	}
+	else if (aim_U) {
+		aimsRight = false;
+		aimsLeft = false;
+		aimsDown = false;
+		aimsUp = true;
+		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
+		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
+		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
+		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
+		
+		if ((object.hitbox.top -= object.movement.y) > 0)
+			object.pos.y -= object.movement.y;
+		else {
 
+			object.pos.y = object.height / 2;
+		}
+	}
+	else if (aim_D) {
+		aimsRight = false;
+		aimsLeft = false;
+		aimsDown = true;
+		aimsUp = false;
+		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
+		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
+		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
+		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
+		
+		if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1)
+			object.pos.y += object.movement.y;
+		else {
+			float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
+			object.pos.y += dy;
+		}
+
+	}
 	else {
-		if (dirX > 12) iCurrentSeqence = Sequences::StandRight;
-		else if (dirX < -12) iCurrentSeqence = Sequences::StandLeft;
+		if (dirX >= 12) iCurrentSeqence = Sequences::StandRight;
+		else if (dirX <= -12) iCurrentSeqence = Sequences::StandLeft;
 		else if (dirX >= -12 && dirX <= 12 && dirY > 0) iCurrentSeqence = Sequences::StandDown;
 		else if (dirX >= -12 && dirX <= 12 && dirY < 0) iCurrentSeqence = Sequences::StandUp;
 		else {
 			iCurrentSeqence = Sequences::StandDown;
 		}
 	}
-	CheckCollisions(obstacles);
+	CheckCollisions(obstacles, enemies);
 	object.hitbox.DoActualization(object.pos, object.width, object.height);
 	Update(dt);
 
 }
 
-void Zombie::CheckCollisions(std::vector<Obstacle> obstacles)
+
+
+void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
 {
 	for (auto obs : obstacles) {
 		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+	}
+
+	for (auto enem : enemies) {
+		if (this != enem)
+		{
+			this->object.IsOverLapping(enem->GetObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+		}
 	}
 }
 
@@ -164,7 +194,7 @@ void Zombie::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-Object Zombie::Getobject()const 
+Object Zombie::GetObject() 
 {
 	return this->object;
 }

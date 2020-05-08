@@ -21,13 +21,52 @@ void Object::HitBox::DoActualization(const Vec2D& pos, float width, float height
 bool Object::IsOverLapping(const Object other,bool aimsRight,bool aimsLeft,bool aimsDown,bool aimsUp)
 {
 		if (this->hitbox.IsOverLapping(other.hitbox)) {
-		if (aimsRight ) { this->pos.x += other.hitbox.left - this->hitbox.right; }
+		if (aimsRight) { this->pos.x += other.hitbox.left - this->hitbox.right; }
 		 else if (aimsLeft) { this->pos.x += other.hitbox.right - this->hitbox.left; }
 		 if (aimsDown) { this->pos.y += other.hitbox.top - this->hitbox.bottom; }
 		 else if (aimsUp) { this->pos.y += other.hitbox.bottom - this->hitbox.top; }
 		hitbox.DoActualization(this->pos, width, height);
 		return true;
 		}
+	else {
+		return false;
+	}
+}
+
+bool Object::IsOverLappingEnemy(const Object other, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
+{
+	if (this->hitbox.IsOverLapping(other.hitbox)) {
+		if (aimsRight && aimsUp) { 
+			this->pos.x += other.hitbox.left - this->hitbox.right; 
+			this->pos.y += other.hitbox.bottom - this->hitbox.top;
+		}
+		else if (aimsRight && aimsDown) {
+			this->pos.x += other.hitbox.left - this->hitbox.right;
+			this->pos.y += other.hitbox.top - this->hitbox.bottom;
+		}
+		else if (aimsLeft && aimsUp) { 
+			this->pos.x += other.hitbox.right - this->hitbox.left; 
+			this->pos.y += other.hitbox.bottom - this->hitbox.top;
+		}
+		else if (aimsLeft && aimsDown) {
+			this->pos.x += other.hitbox.right - this->hitbox.left;
+			this->pos.y += other.hitbox.top - this->hitbox.bottom; 
+		}
+		else if (aimsUp) { 
+			this->pos.y += other.hitbox.bottom - this->hitbox.top; 
+		}
+		else if (aimsRight) { 
+			this->pos.x += other.hitbox.left - this->hitbox.right; 
+		}
+		else if (aimsLeft) { 
+			this->pos.x += other.hitbox.right - this->hitbox.left; 
+		}
+		else if (aimsDown) { 
+			this->pos.y += other.hitbox.top - this->hitbox.bottom; 
+		}
+		hitbox.DoActualization(this->pos, width, height);
+		return true;
+	}
 	else {
 		return false;
 	}

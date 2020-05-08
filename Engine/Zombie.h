@@ -22,14 +22,15 @@ public:
 	//Zombie();
 	Zombie(Object object, float health, float probability, bool isAlive, int points);
 	void Draw(Graphics& gfx)override;
-	void CheckCollisions(std::vector<Obstacle> obstacles)override;
+	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)override;
 	void DrawEnemy(Graphics & gtx)override;
 	void Attack()override;
 	void ChangeHealth(float changeHP)override;
 	bool IsAlive()override;
-	void Movement(float dt,const Object & playerObject, std::vector<Obstacle> obstacles)override;
+	void PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies);
+	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt,const Object & playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY)override;
 	void Update(float dt)override;
-	Object Getobject()const override;
+	Object GetObject();
 	void CalculateDistance(const Vec2D& pos)override;
 	void Hitted(const float& dmg)override;
 };
