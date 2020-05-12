@@ -16,7 +16,7 @@ class Zombie : public Enemy
 	};
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("Zombie.png", 160, 192);
+	Surface surface = Surface("Zombie.png", 114, 164);
 	std::vector<Vec2D> canBeHit;
 public:
 	//Zombie();
