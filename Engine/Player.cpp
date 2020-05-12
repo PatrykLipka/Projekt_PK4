@@ -56,10 +56,10 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 	
 	}
 	else {
-		if (aim_D)iCurrentSeqence = Sequences::StandDown;
+		if (aim_D) iCurrentSeqence = Sequences::StandDown;
 		else if (aim_R)iCurrentSeqence = Sequences::StandRight;
-		else if (aim_L)iCurrentSeqence = Sequences::StandLeft;
-		else if (aim_U)iCurrentSeqence = Sequences::StandUp;
+		else if (aim_L)iCurrentSeqence = Sequences::StandLeft; 
+		else if (aim_U)iCurrentSeqence = Sequences::StandUp; 
 	}
 	CheckCollisions(obstacles, enemies);
 	object.hitbox.DoActualization(object.pos,object.width,object.height);
@@ -89,9 +89,9 @@ void Player::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-void Player::Shot(std::vector<Enemy*> enemy)
+void Player::Shot(std::vector<Enemy*> enemy,float dt, std::vector<Obstacle>obstacles)
 {
-	weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy, object.pos);
+	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy,obstacles, object.pos,dt);
 }
 
 

@@ -6,6 +6,7 @@
 #include "Graphics.h"
 #include <algorithm>    
 #include <vector>
+#include "FrameTimer.h"
 
 class Weapon {
 protected:
@@ -15,8 +16,11 @@ protected:
 	float distance;
 	float spread;
 	int ammo;
+	float holdTime;
+	float currentTime = 0;
 	//Sound sound;
 public:
-	Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo);
-	virtual int Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, const Vec2D& pos)=0;
+	Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo,float holdTime);
+	virtual bool Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)=0;
+	virtual void DrawShot(Graphics& gfx,bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, int distance, const Vec2D & pos)=0;
 };

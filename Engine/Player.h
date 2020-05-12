@@ -40,6 +40,7 @@ class Player
 	bool aimsLeft;
 	bool aimsDown;
 	bool aimsUp;
+	bool isShooting=true;
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
@@ -54,6 +55,6 @@ class Player
 	//void CheckCrate(std::vector<Crate>& crates);
 	void Draw( Graphics& gfx);
 	void Update(float dt);
-	void Shot(std::vector<Enemy*> enemy);
+	void Shot(std::vector<Enemy*> enemy, float dt,std::vector<Obstacle>obstacles);
 };
 
