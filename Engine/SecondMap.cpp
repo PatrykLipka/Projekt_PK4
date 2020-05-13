@@ -10,13 +10,13 @@ void SecondMap::InitMap()
 	Vec2D pos = { 248 + 41,168 + 40 };
 	Obstacle ob(Object(pos, Vec2D(0, 0), 82, 79));
 	obstacles.push_back(ob);
-	Vec2D pos1 = { 322 + 41,443 + 40 };
+	Vec2D pos1 = { 254 + 41,366 + 40 };
 	Obstacle ob1(Object(pos1, Vec2D(0, 0), 82, 79));
 	obstacles.push_back(ob1);
 	Vec2D pos2 = { 403 + 41,522 + 40 };
 	Obstacle ob2(Object(pos2, Vec2D(0, 0), 82, 79));
 	obstacles.push_back(ob2);
-	Vec2D pos3 = { 653 + 41,175 + 40 };
+	Vec2D pos3 = { 523 + 41,226 + 40 };
 	Obstacle ob3(Object(pos3, Vec2D(0, 0), 82, 79));
 	obstacles.push_back(ob3);
 	Vec2D pos4 = { 735 + 41,256 + 40 };

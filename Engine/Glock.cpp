@@ -40,7 +40,7 @@ bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 }
 
 
-bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, Graphics& gfx)
+bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
 {
 	currentTime += dt;
 	if (currentTime >= holdTime) {

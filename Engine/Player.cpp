@@ -91,7 +91,7 @@ void Player::Update(float dt)
 
 void Player::Shot(std::vector<Enemy*> enemy,float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
 {	
-	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy,obstacles, object.pos,dt,gfx);
+	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy,obstacles, object.pos,dt);
 }
 
 

@@ -161,7 +161,6 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Round.h" />
     <ClInclude Include="SecondMap.h" />
-    <ClInclude Include="Sound.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vec2D.h" />
     <ClInclude Include="Weapon.h" />
@@ -190,7 +189,6 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="SecondMap.cpp" />
-    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vec2D.cpp" />
     <ClCompile Include="Weapon.cpp" />
