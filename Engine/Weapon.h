@@ -21,6 +21,6 @@ protected:
 	//Sound sound;
 public:
 	Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo,float holdTime);
-	virtual bool Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)=0;
-	virtual void DrawShot(Graphics& gfx,bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, int distance, const Vec2D & pos)=0;
+	virtual bool Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, Graphics& gfx)=0;
+
 };

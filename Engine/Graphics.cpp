@@ -341,9 +341,14 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 	}
 }
 
-void Graphics::DrawGlock()
+void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 {
+	for (int i = 0; i < vec.size(); i++) {
+		PutPixel(vec[i].x, vec[i].y, Colors::MakeRGB(247, 247, 0));
+	}
 }
+
+
 
 void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s)
 {

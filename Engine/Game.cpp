@@ -59,7 +59,7 @@ void Game::UpdateModel()
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
-    if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy,clock, board.GetObstacles()); }
+    if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy,clock, board.GetObstacles(),gfx); }
     enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](Enemy* e) {return !e->IsAlive();}), enemy.end());
     mov = { 0.0,0.0 };
 }

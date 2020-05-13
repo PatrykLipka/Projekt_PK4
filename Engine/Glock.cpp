@@ -40,7 +40,7 @@ bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 }
 
 
-bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
+bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, Graphics& gfx)
 {
 	currentTime += dt;
 	if (currentTime >= holdTime) {
@@ -68,7 +68,6 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 		}
 		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
 		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
-		
 		if (!avaliableTarget.empty()&&availableObstacle.empty()) {
 
 			avaliableTarget[0]->Hitted(damage);
@@ -104,9 +103,9 @@ bool Glock::CheckIfEnemyCanBeHitted(Enemy* enemy)
 	return false;
 }
 
-void Glock::DrawShot(Graphics& gfx, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,int distance,const Vec2D & pos)
+void Glock::DrawShot( Graphics & gfx)
 {
-	gfx.DrawGlock();
+	gfx.DrawGlock(possibleShot);
 }
 
 bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
@@ -116,5 +115,10 @@ bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 		if (possibleShot[i].x > obj.hitbox.left && possibleShot[i].x < obj.hitbox.right && possibleShot[i].y < obj.hitbox.bottom && possibleShot[i].y > obj.hitbox.top) return true;
 	}
 	return false;
+}
+
+void Glock::MakeCalculationoOfShot(const Vec2D& pos_Player, const Vec2D& pos_Object)
+{
+	
 }
 
