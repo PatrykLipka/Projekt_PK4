@@ -27,7 +27,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsUp = false;
 			aimsDown = true;
 			
-			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (blockedLeft) {
@@ -36,7 +36,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsUp = true;
 			aimsDown = false;
 			
-			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (blockedUp) {
@@ -45,7 +45,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsUp = false;
 			aimsDown = false;
 			
-			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (blockedDown) {
@@ -54,7 +54,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsUp = false;
 			aimsDown = false;
 			
-			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 	}
@@ -64,7 +64,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsLeft = false;
 			aimsDown = false;
 			aimsUp = true;
-			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (dirY > 0 && desiredDistance < distance) {
@@ -72,7 +72,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsLeft = false;
 			aimsDown = true;
 			aimsUp = false;
-			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (dirX > 0 && desiredDistance < distance) {
@@ -80,7 +80,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsLeft = false;
 			aimsDown = false;
 			aimsUp = false;
-			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (dirX < 0 && desiredDistance < distance) {
@@ -88,22 +88,27 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 			aimsLeft = true;
 			aimsDown = false;
 			aimsUp = false;
-			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 			
 		}
 		if (desiredDistance >= distance) {
-			Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
 		}
 	}
 }
 
-void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY)
+void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY, float distance)
 {
 	float previousX = object.pos.x;
 	float previousY = object.pos.y;
 
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
+
+	float distanceX = sqrt(dirX * dirX);
+	float distanceY = sqrt(dirY * dirY);
+
+	float distanceToBlock = 100;
 
 	if (aim_R) {
 		aimsRight = true;
@@ -135,7 +140,7 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 			object.pos.x += dx;
 		}
 		CheckCollisions(obstacles, enemies);
-		if (previousX + object.movement.x > object.pos.x){
+		if (previousX + object.movement.x > object.pos.x && (distanceX >= distanceY || distance >= distanceToBlock)){
 			blockedRight = true;
 		}
 		else {
@@ -177,7 +182,7 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		}
 		CheckCollisions(obstacles, enemies);
 
-		if (previousX - object.movement.x < object.pos.x){
+		if (previousX - object.movement.x < object.pos.x &&  (distanceX >= distanceY || distance >= distanceToBlock)){
 			blockedLeft = true;
 		}
 		else {
@@ -216,7 +221,7 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		}
 		CheckCollisions(obstacles, enemies);
 
-		if (previousY - object.movement.y < object.pos.y)
+		if (previousY - object.movement.y < object.pos.y && ( distanceX <=  distanceY || distance >= distanceToBlock))
 		{
 			blockedUp = true;
 		}
@@ -256,7 +261,7 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 			object.pos.y += dy;
 		}
 		CheckCollisions(obstacles, enemies);
-		if (previousY + object.movement.y > object.pos.y)
+		if (previousY + object.movement.y > object.pos.y && (distanceX <= distanceY || distance>= distanceToBlock))
 		{
 			blockedDown = true;
 		}
@@ -298,25 +303,6 @@ void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*
 	}
 }
 
-bool Zombie::CheckStuck(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies) //mysle nad zmiana na return object
-{
-	
-	for (auto obs : obstacles) {
-		if (this->IsOverLappingObject(obs.getObject())) {
-			return true;
-		}
-	}
-
-	/*for (auto enem : enemies) {
-		if (this != enem)
-		{
-			if (this->IsOverLappingObject(enem->GetObject())) {
-				return true;
-			}
-		}
-	}*/
-	return false;
-}
 
 bool Zombie::IsOverLappingObject(const Object other)
 {
