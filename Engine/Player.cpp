@@ -94,6 +94,12 @@ void Player::Shot(std::vector<Enemy*> enemy,float dt, std::vector<Obstacle>obsta
 	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy,obstacles, object.pos,dt);
 }
 
+void Player::DrawShot(Graphics& gfx,float dt)
+ {	if(isShooting)
+	isShooting=weapon->DrawShot(gfx,dt);
+	
+}
+
 
 //void Player::CheckCrate(std::vector<Crate>& crates)
 //{
@@ -116,16 +122,16 @@ Player::Player(Object obj, float hel,bool isAlive,Weapon * weapon):object(obj),h
 	aimsDown = true;
 	aimsUp = false;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(0, obj.height * i, obj.width, obj.height, 4, surface, 0.1f));
+		animations.emplace_back(Animation(0,(int) obj.height * i,(int) obj.width,(int) obj.height, 4, surface, 0.1f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(0, obj.height * (i-(int)Sequences::StandDown), obj.width, obj.height ,1, surface, 0.1f));
+		animations.emplace_back(Animation(0, (int)obj.height * (i-(int)Sequences::StandDown), (int)obj.width, (int)obj.height ,1, surface, 0.1f));
 	}
 	for (int i = 0; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(5*obj.width, obj.height * i, obj.width, obj.height, 4, surface, 0.1f));
+		animations.emplace_back(Animation(5* (int)obj.width, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
 	}
 	for (int i = (int)Sequences::StandDownWithShot; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(5 * obj.width, obj.height * (i - (int)Sequences::StandDownWithShot), obj.width, obj.height, 1, surface, 0.1f));
+		animations.emplace_back(Animation(5 * (int)obj.width, (int)obj.height * (i - (int)Sequences::StandDownWithShot), (int)obj.width, (int)obj.height, 1, surface, 0.1f));
 	}
 }
 

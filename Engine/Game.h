@@ -60,6 +60,7 @@ private:
     Vec2D mov;
     Player player;
     FrameTimer ft;
+    FrameTimer shotTime;
     std::vector<Object> vec;
     Board board;
     std::vector<Enemy*>enemy;

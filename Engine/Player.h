@@ -40,7 +40,7 @@ class Player
 	bool aimsLeft;
 	bool aimsDown;
 	bool aimsUp;
-	bool isShooting=false;
+	
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
@@ -48,6 +48,7 @@ class Player
 	std::vector<Vec2D> canBeHit;
 	Weapon * weapon = nullptr;
 	public:
+	bool isShooting=false;
 	Player(Object obj, float hel,bool isAlive,Weapon * weapon);
 	Object getObject();
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies);
@@ -56,5 +57,6 @@ class Player
 	void Draw( Graphics& gfx);
 	void Update(float dt);
 	void Shot(std::vector<Enemy*> enemy, float dt,std::vector<Obstacle>obstacles,Graphics &gfx);
+	void DrawShot(Graphics& gfx,float dt);
 };
 

@@ -41,16 +41,14 @@ bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 
 
 bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
-{
+{		
 	currentTime += dt;
 	if (currentTime >= holdTime) {
-
 		currentTime -= holdTime;
-
 		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsDown, pos);
 		std::vector<Enemy*> avaliableTarget;
 		std::vector<Obstacle> availableObstacle;
-		int numberousOfEnemy = enemy.size();
+		int numberousOfEnemy = (int)enemy.size();
 		for (int i = 0; i < numberousOfEnemy; i++) {
 			if (CheckIfEnemyCanBeHitted(enemy[i])) {
 				enemy[i]->CalculateDistance(pos);
@@ -68,24 +66,22 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 		}
 		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
 		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
-		if (!avaliableTarget.empty()&&availableObstacle.empty()) {
-
+		if (!avaliableTarget.empty() && availableObstacle.empty()) {
 			avaliableTarget[0]->Hitted(damage);
-			CleanVector();
-			return true;
-			//if(aimsRight)
 		}
 		else if (!avaliableTarget.empty() && !availableObstacle.empty()) {
-			if(availableObstacle[0].distance<avaliableTarget[0]->distance){}
-			else{
+			if (availableObstacle[0].distance < avaliableTarget[0]->distance) {}
+			else {
 				avaliableTarget[0]->Hitted(damage);
-				CleanVector();
-				return true;
 			}
 		}
-			return true;
+		return true;
 	}
-	return false;
+	else {
+		return false;
+	}
+	
+ 
 
 }
 
@@ -103,9 +99,18 @@ bool Glock::CheckIfEnemyCanBeHitted(Enemy* enemy)
 	return false;
 }
 
-void Glock::DrawShot( Graphics & gfx)
+bool Glock::DrawShot( Graphics & gfx,float dt)
 {
-	gfx.DrawGlock(possibleShot);
+	currentTimeOfAnimation += dt;
+	if (currentTimeOfAnimation <= holdTimeOfAnimation) {
+		gfx.DrawGlock(possibleShot);
+		return true;
+	}
+	else {
+		currentTimeOfAnimation -= holdTimeOfAnimation;
+		CleanVector();
+		return false;
+		}
 }
 
 bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
