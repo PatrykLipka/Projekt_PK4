@@ -58,7 +58,6 @@ int Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::
 		//if(aimsRight)
 	}
 	
-
 }
 void Glock::CleanVector() {
 	while(!possibleShot.empty())

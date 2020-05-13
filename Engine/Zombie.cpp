@@ -1,9 +1,6 @@
 #include "Zombie.h"
 
 
-
-
-
 bool Zombie::IsAlive()
 {
 	if (this->isAlive == true) return true;
@@ -22,51 +19,114 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 	float desiredX = playerObject.width / 2 + object.width / 2;
 	float desiredY = playerObject.height / 2 + object.height / 2;
 	float desiredDistance = sqrt(desiredX * desiredX/4 + desiredY * desiredY/4);
-	if (dirY < 0 && desiredDistance < distance) {
-		Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
-		aimsRight = false;
-		aimsLeft = false;
-		aimsDown = false;
-		aimsUp = true;
+
+	if (blockedRight || blockedLeft || blockedUp || blockedDown) {
+		if (blockedRight) {
+			aimsRight = false;
+			aimsLeft = false;
+			aimsUp = false;
+			aimsDown = true;
+			
+			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (blockedLeft) {
+			aimsRight = false;
+			aimsLeft = false;
+			aimsUp = true;
+			aimsDown = false;
+			
+			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (blockedUp) {
+			aimsRight = true;
+			aimsLeft = false;
+			aimsUp = false;
+			aimsDown = false;
+			
+			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (blockedDown) {
+			aimsRight = false;
+			aimsLeft = true;
+			aimsUp = false;
+			aimsDown = false;
+			
+			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
 	}
-	if (dirY > 0 && desiredDistance < distance) {
-		Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
-		aimsRight = false;
-		aimsLeft = false;
-		aimsDown = true;
-		aimsUp = false;
-	}
-	if (dirX > 0 && desiredDistance < distance) {
-		Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
-		aimsRight = true;
-		aimsLeft = false;
-		aimsDown = false;
-		aimsUp = false;
-	}
-	if (dirX < 0 && desiredDistance < distance) {
-		Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
-		aimsRight = false;
-		aimsLeft = true;
-		aimsDown = false;
-		aimsUp = false;
-	}
-	if (desiredDistance >= distance) {
-		Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+	else{
+		if (dirY < 0 && desiredDistance < distance) {
+			aimsRight = false;
+			aimsLeft = false;
+			aimsDown = false;
+			aimsUp = true;
+			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (dirY > 0 && desiredDistance < distance) {
+			aimsRight = false;
+			aimsLeft = false;
+			aimsDown = true;
+			aimsUp = false;
+			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (dirX > 0 && desiredDistance < distance) {
+			aimsRight = true;
+			aimsLeft = false;
+			aimsDown = false;
+			aimsUp = false;
+			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (dirX < 0 && desiredDistance < distance) {
+			aimsRight = false;
+			aimsLeft = true;
+			aimsDown = false;
+			aimsUp = false;
+			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+			
+		}
+		if (desiredDistance >= distance) {
+			Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY);
+		}
 	}
 }
 
 void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY)
 {
+	float previousX = object.pos.x;
+	float previousY = object.pos.y;
+
+	float playerX = playerObject.pos.x;
+	float playerY = playerObject.pos.y;
+
 	if (aim_R) {
 		aimsRight = true;
 		aimsLeft = false;
 		aimsDown = false;
 		aimsUp = false;
+		if (blockedUp) {
+			blockedUp = false;
+			if (dirX <= 5) {
+				if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
+					object.pos.x += object.movement.x;
+				else {
+					float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
+					object.pos.x += dx;
+				}
+				CheckCollisions(obstacles, enemies);
+			}
+		}
+		
 		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
 		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
 		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
 		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
-		
 		
 		if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
 			object.pos.x += object.movement.x;
@@ -74,29 +134,75 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 			float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
 			object.pos.x += dx;
 		}
+		CheckCollisions(obstacles, enemies);
+		if (previousX + object.movement.x > object.pos.x){
+			blockedRight = true;
+		}
+		else {
+			blockedRight = false;
+		}
+			
 	}
+	
+	
 	else if (aim_L) {
 
 		aimsRight = false;
 		aimsLeft = true;
 		aimsDown = false;
 		aimsUp = false;
+		if (blockedDown) {
+			blockedDown = false;
+			if (dirX >= -5) {
+				if ((object.hitbox.left -= object.movement.x) > 0)
+					object.pos.x -= object.movement.x;
+				else {
+
+					object.pos.x = object.height / 2;
+				}
+				CheckCollisions(obstacles, enemies);
+			}
+		}
+
 		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
 		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
 		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
 		else if (dirX >= -36 && dirX <= 36 && dirY < 0) iCurrentSeqence = Sequences::WalkingUp;
-		
+
 		if ((object.hitbox.left -= object.movement.x) > 0)
 			object.pos.x -= object.movement.x;
 		else {
-			object.pos.x = object.width / 2;
+
+			object.pos.x = object.height / 2;
+		}
+		CheckCollisions(obstacles, enemies);
+
+		if (previousX - object.movement.x < object.pos.x){
+			blockedLeft = true;
+		}
+		else {
+			blockedLeft = false;
 		}
 	}
+	
 	else if (aim_U) {
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = false;
 		aimsUp = true;
+		if (blockedLeft) {
+			blockedLeft = false;
+			if (dirY >= -5) {
+				if ((object.hitbox.top -= object.movement.y) > 0)
+					object.pos.y -= object.movement.y;
+				else {
+
+					object.pos.y = object.height / 2;
+				}
+				CheckCollisions(obstacles, enemies);
+			}
+		}
+		
 		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
 		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
 		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
@@ -108,12 +214,36 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 
 			object.pos.y = object.height / 2;
 		}
+		CheckCollisions(obstacles, enemies);
+
+		if (previousY - object.movement.y < object.pos.y)
+		{
+			blockedUp = true;
+		}
+		else {
+			blockedUp= false;
+		}
 	}
+	
+	
 	else if (aim_D) {
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = true;
 		aimsUp = false;
+		if (blockedRight) {
+			blockedRight = false;
+			if (dirY <= 5) {
+				if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1)
+					object.pos.y += object.movement.y;
+				else {
+					float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
+					object.pos.y += dy;
+				}
+				CheckCollisions(obstacles, enemies);
+			}
+		}
+		
 		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
 		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
 		else if (dirX >= -36 && dirX <= 36 && dirY > 0) iCurrentSeqence = Sequences::WalkingDown;
@@ -124,6 +254,14 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		else {
 			float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
 			object.pos.y += dy;
+		}
+		CheckCollisions(obstacles, enemies);
+		if (previousY + object.movement.y > object.pos.y)
+		{
+			blockedDown = true;
+		}
+		else {
+			blockedDown = false;
 		}
 
 	}
@@ -144,6 +282,8 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 
 
 
+
+
 void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
 {
 	for (auto obs : obstacles) {
@@ -157,6 +297,37 @@ void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*
 		}
 	}
 }
+
+bool Zombie::CheckStuck(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies) //mysle nad zmiana na return object
+{
+	
+	for (auto obs : obstacles) {
+		if (this->IsOverLappingObject(obs.getObject())) {
+			return true;
+		}
+	}
+
+	/*for (auto enem : enemies) {
+		if (this != enem)
+		{
+			if (this->IsOverLappingObject(enem->GetObject())) {
+				return true;
+			}
+		}
+	}*/
+	return false;
+}
+
+bool Zombie::IsOverLappingObject(const Object other)
+{
+	if (this->object.hitbox.IsOverLapping(other.hitbox)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 
 void Zombie::DrawEnemy(Graphics& gtx)
 {

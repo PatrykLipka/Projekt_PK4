@@ -23,6 +23,8 @@ public:
 	Zombie(Object object, float health, float probability, bool isAlive, int points);
 	void Draw(Graphics& gfx)override;
 	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)override;
+	bool CheckStuck(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)override;
+	bool IsOverLappingObject(const Object other) override;
 	void DrawEnemy(Graphics & gtx)override;
 	void Attack()override;
 	void ChangeHealth(float changeHP)override;
