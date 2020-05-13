@@ -61,6 +61,7 @@ public:
 	void DrawRect(float left, float top, float right, float bottom);
 	void DrawSprite(float left, float top, float right, float bottom, const Surface & s);
 	void DrawSprite(int x, int y, const Rect& src, const Surface& s);
+	void DrawGlock();
 	
 	~Graphics();
 private:

@@ -33,7 +33,7 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  100,  1,  150,  1, 1))
+    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  300,  1,  150,  1, 1,0.1f))
 {  
    //enemy.push_back(new Zombie(Object(Vec2D(100, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
    enemy.push_back(new Zombie(Object(Vec2D(200, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
@@ -59,7 +59,7 @@ void Game::UpdateModel()
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), this->getEnemies()); }
-    if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy); }
+    if (wnd.kbd.KeyIsPressed(VK_SPACE)) {player.Shot(enemy,clock, board.GetObstacles()); }
     enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](Enemy* e) {return !e->IsAlive();}), enemy.end());
     mov = { 0.0,0.0 };
 }

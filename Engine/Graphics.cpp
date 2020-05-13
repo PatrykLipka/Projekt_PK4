@@ -341,6 +341,10 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 	}
 }
 
+void Graphics::DrawGlock()
+{
+}
+
 void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s)
 {
 	const int width = s.GetWidth();
