@@ -12,6 +12,6 @@ public:
 	bool CheckIfObstacleCanBeHitted(Obstacle obstacle);
 	bool CheckIfEnemyCanBeHitted(Enemy* enemy);
 	void CleanVector();
-	void MakeCalculationoOfShot(const Vec2D& pos_Player, const Vec2D& pos_Object);
+	void MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp);
 };
 

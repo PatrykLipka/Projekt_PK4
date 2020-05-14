@@ -31,7 +31,6 @@ public:
 	void PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies);
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt,const Object & playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY, float distance)override;
 	void Update(float dt)override;
-	Object GetObject();
 	void CalculateDistance(const Vec2D& pos)override;
 	void Hitted(const float& dmg)override;
 };

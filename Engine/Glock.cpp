@@ -12,14 +12,14 @@ void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, 
 	else if (aimsRight){
 		for (int i = 0; i < distance; i++) {
 			if (pos.x + i < Graphics::ScreenWidth)
-				possibleShot.push_back( { pos.x + i,pos.y  });
+				possibleShot.push_back( { pos.x+9 + i,pos.y -2 });
 			else { break; }
 		}
 	}
 	else if (aimsLeft){
 		for (int i = 0; i < distance; i++) {
 			if (pos.x - i > 0)
-				possibleShot.push_back ( { pos.x - i,pos.y });
+				possibleShot.push_back ( { pos.x -9- i,pos.y-2 });
 			else { break; }
 		}
 	}
@@ -45,7 +45,7 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 	currentTime += dt;
 	if (currentTime >= holdTime) {
 		currentTime -= holdTime;
-		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsDown, pos);
+		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
 		std::vector<Enemy*> avaliableTarget;
 		std::vector<Obstacle> availableObstacle;
 		int numberousOfEnemy = (int)enemy.size();
@@ -68,13 +68,16 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
 		if (!avaliableTarget.empty() && availableObstacle.empty()) {
 			avaliableTarget[0]->Hitted(damage);
+			MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		}
 		else if (!avaliableTarget.empty() && !availableObstacle.empty()) {
-			if (availableObstacle[0].distance < avaliableTarget[0]->distance) {}
+			if (availableObstacle[0].distance < avaliableTarget[0]->distance) { MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp); }
 			else {
 				avaliableTarget[0]->Hitted(damage);
+				MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 			}
 		}
+		else if (avaliableTarget.empty() && !availableObstacle.empty())MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		return true;
 	}
 	else {
@@ -122,8 +125,48 @@ bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 	return false;
 }
 
-void Glock::MakeCalculationoOfShot(const Vec2D& pos_Player, const Vec2D& pos_Object)
+void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
 {
 	
+	if (aimsRight) {
+		for (int i = possibleShot.size() - 1; i > 0; i--) {
+			if (obj.hitbox.left < possibleShot[i].x)
+			{
+				possibleShot.pop_back();
+			
+			}
+			else { break; }
+		}
+	}
+	else if (aimsLeft) {
+		for (int i = possibleShot.size() - 1; i > 0; i--) {
+			if (obj.hitbox.right > possibleShot[i].x)
+			{
+				possibleShot.pop_back();
+				
+			}
+			else{ break; }
+		}
+	}
+	else if (aimsDown) {
+		for (int i = possibleShot.size() - 1; i > 0; i--) {
+			if (obj.hitbox.top < possibleShot[i].y)
+			{
+				possibleShot.pop_back();
+				
+			}
+			else { break; }
+		}
+	}
+	else if (aimsUp) {
+		for (int i = possibleShot.size() - 1; i > 0; i--) {
+			if (obj.hitbox.bottom > possibleShot[i].y)
+			{
+				possibleShot.pop_back();
+				
+			}
+			else { break; }
+		}
+	}
 }
 

@@ -351,10 +351,7 @@ void Zombie::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-Object Zombie::GetObject() 
-{
-	return this->object;
-}
+
 
 void Zombie::CalculateDistance(const Vec2D& pos)
 {
