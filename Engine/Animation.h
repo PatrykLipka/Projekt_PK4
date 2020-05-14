@@ -12,6 +12,7 @@ public:
 	Animation(int x, int y, int width, int height, int count, const Surface& sprite, float holdTime);
 	void Draw(const Vec2D& pos, Graphics& gfx)const;
 	void Draw(const Vec2D& pos, Graphics& gfx, const Rect& clip)const;
+	void DrawH(const Vec2D& pos, Graphics& gfx)const;
 	void Update(float dt);
 	void Advance();
 	const Surface& sprite;

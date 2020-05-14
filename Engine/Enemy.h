@@ -26,8 +26,10 @@ protected:
 	bool blockedLeft=false;
 	bool blockedDown=false;
 	bool blockedUp=false;
+	
 
 public:
+	bool isHitted = false;
 	float distance;
 	Enemy(Object object, float health, float probability, bool isAlive, int points);
 	virtual void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies) = 0;

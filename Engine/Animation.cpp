@@ -19,6 +19,11 @@ void Animation::Draw(const Vec2D& pos, Graphics& gfx, const Rect& clip) const
 {
 }
 
+void Animation::DrawH(const Vec2D& pos, Graphics& gfx) const
+{
+	gfx.DrawSpriteH(pos.x, pos.y, frames[iCurFrame], sprite);
+}
+
 void Animation::Update(float dt)
 {
 	curFrameTime += dt;

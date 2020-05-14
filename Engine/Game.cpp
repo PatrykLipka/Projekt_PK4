@@ -33,7 +33,7 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  300,  1,  150,  1, 1, 1.0f,0.1f))
+    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f,0.1f))
 {  
    enemy.push_back(new Zombie(Object(Vec2D(100, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
    enemy.push_back(new Zombie(Object(Vec2D(200, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));

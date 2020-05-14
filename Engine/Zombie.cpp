@@ -343,7 +343,13 @@ Zombie::Zombie(Object object, float health, float probability, bool isAlive, int
 void Zombie::Draw(Graphics& gfx)
 {
 	Vec2D pos{ object.hitbox.left,object.hitbox.top };
+	if(!isHitted)
 	animations[(int)iCurrentSeqence].Draw(pos, gfx);
+	else
+	{
+	animations[(int)iCurrentSeqence].DrawH(pos, gfx);
+	isHitted = false; 
+	}
 }
 
 void Zombie::Update(float dt)

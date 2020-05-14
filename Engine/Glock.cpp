@@ -5,7 +5,7 @@ void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, 
 	if (aimsDown){
 		for (int i = 0; i < distance; i++) {
 			if(pos.y + i<Graphics::ScreenHeight)
-			possibleShot.push_back({pos.x,pos.y + i});
+			possibleShot.push_back({pos.x-9,pos.y + i});
 			else { break; }
 	}
    	}
@@ -68,12 +68,14 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
 		if (!avaliableTarget.empty() && availableObstacle.empty()) {
 			avaliableTarget[0]->Hitted(damage);
+			avaliableTarget[0]->isHitted = true;
 			MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		}
 		else if (!avaliableTarget.empty() && !availableObstacle.empty()) {
 			if (availableObstacle[0].distance < avaliableTarget[0]->distance) { MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp); }
 			else {
 				avaliableTarget[0]->Hitted(damage);
+				avaliableTarget[0]->isHitted = true;
 				MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 			}
 		}
