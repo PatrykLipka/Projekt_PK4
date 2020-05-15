@@ -298,9 +298,10 @@ void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*
 	for (auto enem : enemies) {
 		if (this != enem)
 		{
-			this->object.IsOverLapping(enem->GetObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+			this->object.IsOverLapping(enem->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		}
 	}
+
 }
 
 

@@ -73,9 +73,8 @@ void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*
 	}
 
 	/*for (auto enem : enemies) {
-		this->object.IsOverLapping(enem->GetObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
-	}*/
-	//to po odkomentowaniu powoduje dziwne zachowanie
+			this->object.IsOverLapping(enem->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
+	}*/ //powoduje dziwne zachowanie
 }
 
 void Player::Draw( Graphics & gfx)
