@@ -51,12 +51,12 @@ class Player
 	bool isShooting=false;
 	Player(Object obj, float hel,bool isAlive,Weapon * weapon);
 	Object getObject();
-	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies);
-	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora
+	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies);
+	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora
 	//void CheckCrate(std::vector<Crate>& crates);
 	void Draw( Graphics& gfx);
 	void Update(float dt);
-	void Shot(std::vector<Enemy*> enemy, float dt,std::vector<Obstacle>obstacles,Graphics &gfx);
+	void Shot(std::vector<std::unique_ptr<Enemy>>& enemies, float dt,std::vector<Obstacle>obstacles,Graphics &gfx);
 	void DrawShot(Graphics& gfx,float dt);
 };
 

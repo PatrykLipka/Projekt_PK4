@@ -37,6 +37,7 @@
 #include <string>
 #include <iostream>
 #include <cctype>
+#include <xmemory>
 
 
 class Game
@@ -46,7 +47,7 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
-    std::vector<Enemy*> getEnemies(); //to powinno byæ w round
+    std::vector<std::unique_ptr<Enemy>>& getEnemies(); //to powinno byæ w round
 private:
 	void ComposeFrame();
 	void UpdateModel();
@@ -63,7 +64,7 @@ private:
     FrameTimer shotTime;
     std::vector<Object> vec;
     Board board;
-    std::vector<Enemy*>enemy;
+    std::vector<std::unique_ptr<Enemy>>enemy;
 
     
 	/********************************/

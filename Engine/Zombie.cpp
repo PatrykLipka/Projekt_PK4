@@ -7,7 +7,7 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
+void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -97,7 +97,7 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 	}
 }
 
-void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies, float dirX, float dirY, float distance)
+void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance)
 {
 	float previousX = object.pos.x;
 	float previousY = object.pos.y;
@@ -289,14 +289,14 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 
 
 
-void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
+void Zombie::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	for (auto obs : obstacles) {
 		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}
 
-	for (auto enem : enemies) {
-		if (this != enem)
+	for (auto & enem : enemies) {
+		if (this != enem.get())//potencjalnie mo¿e byæ problem
 		{
 			this->object.IsOverLapping(enem->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		}

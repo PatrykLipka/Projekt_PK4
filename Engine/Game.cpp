@@ -21,7 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-std::vector<Enemy*> Game::getEnemies()
+std::vector<std::unique_ptr<Enemy>>& Game::getEnemies()
 {
     return enemy;
 }
@@ -35,8 +35,8 @@ Game::Game(MainWindow& wnd)
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f,0.1f))
 {  
-   enemy.push_back(new Zombie(Object(Vec2D(100, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
-   enemy.push_back(new Zombie(Object(Vec2D(200, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
+   enemy.push_back(std::make_unique<Zombie>(Object(Vec2D(100, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
+   enemy.push_back(std::make_unique<Zombie>(Object(Vec2D(200, 500), Vec2D(1, 1), 23, 41), 100, 50, true, 5));
    board.InitBoard();
 }
 
@@ -52,7 +52,7 @@ void Game::UpdateModel()
 {
     float clock = ft.Mark();
     
-    for (auto opponent : enemy) { opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), this->getEnemies());}
+    for (auto & opponent : enemy) { opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), this->getEnemies());}
 
     if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles(), this->getEnemies()); }
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), this->getEnemies()); }
@@ -63,11 +63,11 @@ void Game::UpdateModel()
         float clock2 = shotTime.Mark();
         player.Shot(enemy,clock2, board.GetObstacles(),gfx); 
     }
-    enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](Enemy* e) {return !e->IsAlive();}), enemy.end());
+    enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true;}), enemy.end());
     mov = { 0.0,0.0 }; 
 
     board.DrawBoard(gfx);
-     for (auto opponent : enemy) {
+     for (auto & opponent : enemy) {
          opponent->Draw(gfx);
      }
      player.Draw(gfx);

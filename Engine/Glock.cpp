@@ -32,27 +32,30 @@ void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, 
 	}
 	
 }
-bool compare_distance(Enemy * obj1 , Enemy * obj2){
+bool compare_distance(std::unique_ptr<Enemy>&obj1 , std::unique_ptr<Enemy>& obj2){
+	if(obj1&&obj2)
 	return obj1->distance < obj2->distance;
+
+	return true;
 }
 bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
 
 
-bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std::vector<Enemy*> enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
+bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
 {		
 	currentTime += dt;
 	if (currentTime >= holdTime) {
 		currentTime -= holdTime;
 		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
-		std::vector<Enemy*> avaliableTarget;
+		std::vector<std::unique_ptr<Enemy>> avaliableTarget; //tu mo¿e byæ problem
 		std::vector<Obstacle> availableObstacle;
 		int numberousOfEnemy = (int)enemy.size();
 		for (int i = 0; i < numberousOfEnemy; i++) {
 			if (CheckIfEnemyCanBeHitted(enemy[i])) {
 				enemy[i]->CalculateDistance(pos);
-				avaliableTarget.push_back(enemy[i]);
+				avaliableTarget.push_back(std::move(enemy[i]));
 			}
 			else {
 				enemy[i]->distance = INFINITE;
@@ -80,6 +83,7 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,std:
 			}
 		}
 		else if (avaliableTarget.empty() && !availableObstacle.empty())MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+		MergeVector(avaliableTarget, enemy);
 		return true;
 	}
 	else {
@@ -95,7 +99,7 @@ void Glock::CleanVector() {
 	possibleShot.pop_back();
 }
 
-bool Glock::CheckIfEnemyCanBeHitted(Enemy* enemy)
+bool Glock::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
 {	Object obj = enemy->GetObjectW();
 	for (int i = 0; i < possibleShot.size(); i++) {
 		if (possibleShot[i].x > obj.hitbox.left && possibleShot[i].x < obj.hitbox.right && possibleShot[i].y < obj.hitbox.bottom && possibleShot[i].y > obj.hitbox.top) return true;	
@@ -170,5 +174,14 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 			else { break; }
 		}
 	}
+}
+
+void Glock::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
+{
+	for (auto& e : avaliableTarget) {
+		enemy.push_back(std::move(e));
+		std::sort(enemy.begin(), enemy.end(), compare_distance);
+	}
+	
 }
 
