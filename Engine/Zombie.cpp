@@ -110,6 +110,8 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 
 	float distanceToBlock = 100;
 
+	bool blockedByWall= false;
+
 	if (aim_R) {
 		aimsRight = true;
 		aimsLeft = false;
@@ -118,15 +120,20 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if (blockedUp) {
 			blockedUp = false;
 			if (dirX <= 5) {
-				if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
+				/*if ((object.hitbox.top -= object.movement.y) <= 0) {
+					object.pos.x -= 2 * object.movement.x;
+				}
+				else */if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1) {
 					object.pos.x += object.movement.x;
+				}					
 				else {
 					float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
 					object.pos.x += dx;
 				}
-				CheckCollisions(obstacles, enemies);
+				//CheckCollisions(obstacles, enemies);
 			}
 		}
+		
 		
 		if (dirX > 36) iCurrentSeqence = Sequences::WalkingRight;
 		else if (dirX < -36) iCurrentSeqence = Sequences::WalkingLeft;
@@ -138,9 +145,10 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		else {
 			float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
 			object.pos.x += dx;
+			blockedByWall = true;
 		}
 		CheckCollisions(obstacles, enemies);
-		if (previousX + object.movement.x > object.pos.x && (distanceX >= distanceY || distance >= distanceToBlock)){
+		if (previousX + object.movement.x > object.pos.x && (distanceX >= distanceY || distance >= distanceToBlock) && !blockedByWall){
 			blockedRight = true;
 		}
 		else {
@@ -159,13 +167,17 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if (blockedDown) {
 			blockedDown = false;
 			if (dirX >= -5) {
-				if ((object.hitbox.left -= object.movement.x) > 0)
+				/*if ((object.hitbox.bottom += object.movement.y) >= Graphics::ScreenHeight - 1) {
+					object.pos.x += 2 * object.movement.x;
+				}		
+				else */if ((object.hitbox.left -= object.movement.x) > 0) {
 					object.pos.x -= object.movement.x;
+				}
 				else {
 
 					object.pos.x = object.height / 2;
 				}
-				CheckCollisions(obstacles, enemies);
+				//CheckCollisions(obstacles, enemies);
 			}
 		}
 
@@ -177,12 +189,12 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if ((object.hitbox.left -= object.movement.x) > 0)
 			object.pos.x -= object.movement.x;
 		else {
-
-			object.pos.x = object.height / 2;
+			object.pos.x = object.width / 2;
+			blockedByWall = true;
 		}
 		CheckCollisions(obstacles, enemies);
 
-		if (previousX - object.movement.x < object.pos.x &&  (distanceX >= distanceY || distance >= distanceToBlock)){
+		if (previousX - object.movement.x < object.pos.x &&  (distanceX >= distanceY || distance >= distanceToBlock) && !blockedByWall){
 			blockedLeft = true;
 		}
 		else {
@@ -198,13 +210,17 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if (blockedLeft) {
 			blockedLeft = false;
 			if (dirY >= -5) {
-				if ((object.hitbox.top -= object.movement.y) > 0)
+				/*if ((object.hitbox.left -= object.movement.x) <= 0) {
+					object.pos.y += 2 * object.movement.y;
+				}				
+				else */if ((object.hitbox.top -= object.movement.y) > 0) {
 					object.pos.y -= object.movement.y;
+				}
 				else {
 
 					object.pos.y = object.height / 2;
 				}
-				CheckCollisions(obstacles, enemies);
+				//CheckCollisions(obstacles, enemies);
 			}
 		}
 		
@@ -216,12 +232,12 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if ((object.hitbox.top -= object.movement.y) > 0)
 			object.pos.y -= object.movement.y;
 		else {
-
 			object.pos.y = object.height / 2;
+			blockedByWall = true;
 		}
 		CheckCollisions(obstacles, enemies);
 
-		if (previousY - object.movement.y < object.pos.y && ( distanceX <=  distanceY || distance >= distanceToBlock))
+		if (previousY - object.movement.y < object.pos.y && ( distanceX <=  distanceY || distance >= distanceToBlock) && !blockedByWall)
 		{
 			blockedUp = true;
 		}
@@ -239,13 +255,17 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		if (blockedRight) {
 			blockedRight = false;
 			if (dirY <= 5) {
-				if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1)
+				/*if ((object.hitbox.right += object.movement.x) >= Graphics::ScreenWidth - 1) {
+					object.pos.y -= 2 * object.movement.y;
+				}
+				else */if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1) {
 					object.pos.y += object.movement.y;
+				}
 				else {
 					float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
 					object.pos.y += dy;
 				}
-				CheckCollisions(obstacles, enemies);
+				//CheckCollisions(obstacles, enemies);
 			}
 		}
 		
@@ -259,9 +279,10 @@ void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		else {
 			float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
 			object.pos.y += dy;
+			blockedByWall = true;
 		}
 		CheckCollisions(obstacles, enemies);
-		if (previousY + object.movement.y > object.pos.y && (distanceX <= distanceY || distance>= distanceToBlock))
+		if (previousY + object.movement.y > object.pos.y && (distanceX <= distanceY || distance>= distanceToBlock) && !blockedByWall)
 		{
 			blockedDown = true;
 		}
