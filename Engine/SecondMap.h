@@ -12,5 +12,6 @@ public:
 	void DrawMap(Graphics& gfx)override;
 	void InitMap()override;	
 	std::vector<Obstacle> GetObstacles()override;
+	
 };
 

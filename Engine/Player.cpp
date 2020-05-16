@@ -1,6 +1,6 @@
 #include "Player.h"
 
-void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
+void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	if (aim_R) {
 		aimsRight = true;
@@ -66,7 +66,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 	Update(dt);
 }
 
-void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<Enemy*> enemies)
+void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	for (auto obs : obstacles) {
 		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
@@ -88,9 +88,9 @@ void Player::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-void Player::Shot(std::vector<Enemy*> enemy,float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
+void Player::Shot(std::vector<std::unique_ptr<Enemy>>& enemies,float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
 {	
-	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemy,obstacles, object.pos,dt);
+	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemies,obstacles, object.pos,dt);
 }
 
 void Player::DrawShot(Graphics& gfx,float dt)

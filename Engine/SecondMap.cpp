@@ -37,3 +37,5 @@ std::vector<Obstacle> SecondMap::GetObstacles()
 {
 	return obstacles;
 }
+
+

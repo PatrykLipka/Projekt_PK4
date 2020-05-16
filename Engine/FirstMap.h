@@ -13,5 +13,6 @@ public:
 	void DrawMap(Graphics& gfx)override;
 	std::vector<Obstacle> GetObstacles();
 	virtual void InitMap();
+	
 };
 
