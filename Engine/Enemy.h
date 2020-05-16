@@ -43,9 +43,6 @@ public:
 	virtual void Draw(Graphics& gfx) = 0;
 	virtual void Update(float dt) = 0;
 	virtual void CalculateDistance(const Vec2D& pos)=0;
-	Object GetObjectW()
-	{
-		return object;
-	}
+	Object GetObjectW();
 	virtual void Hitted(const float& dmg) = 0;
 };

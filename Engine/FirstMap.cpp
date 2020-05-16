@@ -7,8 +7,10 @@ void FirstMap::DrawMap(Graphics& gfx)
 
 std::vector<Obstacle> FirstMap::GetObstacles()
 {
-	return obstacles;
+	return std::vector<Obstacle>();
 }
+
+
 
 void FirstMap::InitMap()
 {

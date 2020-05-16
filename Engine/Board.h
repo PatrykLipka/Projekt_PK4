@@ -10,18 +10,21 @@
 #include <list>
 
 class Board {
-	//Round round;
+	
 	//std::list<Weapon> allWeapons;
 	//Points points;
 	Map *  map;
+	Round round;
 public:
-	Board();
+	Board(int numberOfEnemiesInFirstRound);
 	void StartGame();
 	void LevelUp(Player player);
 	void SpawnEnemies();
 	void InitBoard();
 	void DrawBoard(Graphics & gfx);
 	std::vector<Obstacle> GetObstacles();
+	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
+	void SpawnEnemies(float dt);
 	//std::vector<Enemy*> GetEnemies();
 
 };

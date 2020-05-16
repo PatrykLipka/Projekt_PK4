@@ -1,6 +1,6 @@
 #include "Board.h"
 
-Board::Board()
+Board::Board(int numberOfEnemiesInFirstRound):round(numberOfEnemiesInFirstRound)
 {
 	map = new SecondMap();
 }
@@ -17,6 +17,16 @@ std::vector<Obstacle> Board::GetObstacles()
 {
 	return map->GetObstacles();
 }
+std::vector<std::unique_ptr<Enemy>>& Board::GetEnemies()
+{
+	return round.GetEnemies();
+}
+
+void Board::SpawnEnemies(float dt)
+{
+	round.SpawnEnemy(dt);
+}
+
 
 //std::vector<Enemy*> Board::GetEnemies()
 //{
