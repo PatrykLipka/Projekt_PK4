@@ -27,7 +27,7 @@ void Round::SpawnEnemy(float dt)
 		std::random_device device;
 		std::mt19937 generator(device());
 		std::uniform_int_distribution<int> distribution(1, 4);
-		int whichGate=distribution(generator);
+		int whichGate = distribution(generator);
 		bool findPosition = false;
 		float x = 15;
 		float y = 325;
@@ -87,10 +87,8 @@ void Round::SpawnEnemy(float dt)
 bool Round::CheckIfSpawnIsPossible(const Object& obj)
 {
 	for (auto& e : enemies) {
-		if (!e->GetObjectW().hitbox.IsOverLapping(obj.hitbox)) { return true; }
+		if (!e->GetObjectW().hitbox.IsOverLapping(obj.hitbox)) {}
 		else { return false; }
 	}
-	if(!enemies.empty())
-	return false;
-	else { return true; }
+	return true;
 }

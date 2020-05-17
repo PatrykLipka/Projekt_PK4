@@ -47,7 +47,7 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std
 {		
 	currentTime += dt;
 	if (currentTime >= holdTime) {
-		currentTime -= holdTime;
+		currentTime =0;
 		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
 		std::vector<std::unique_ptr<Enemy>> avaliableTarget; //tu mo¿e byæ problem
 		std::vector<Obstacle> availableObstacle;
