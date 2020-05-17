@@ -8,8 +8,13 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		aimsDown = false;
 		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingRight;
-		if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1)
-			object.pos.x += object.movement.x;
+		Object obj = object;
+		obj.pos.x += obj.movement.x;
+		obj.hitbox.DoActualization(obj.pos, obj.width, obj.height);
+		if ((object.hitbox.right += object.movement.x) < Graphics::ScreenWidth - 1) {
+			if (CheckIfMovementPossible(enemies, obj))
+				object.pos.x += object.movement.x;
+		}
 		else {
 			float dx = Graphics::ScreenWidth - object.hitbox.right + object.movement.x;
 			object.pos.x += dx;
@@ -22,8 +27,13 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		aimsDown = false;
 		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingLeft;
-		if ((object.hitbox.left -= object.movement.x) > 0)
-		object.pos.x -= object.movement.x;
+		Object obj = object;
+		obj.pos.x -= obj.movement.x;
+		obj.hitbox.DoActualization(obj.pos, obj.width, obj.height);
+		if ((object.hitbox.left -= object.movement.x) > 0) {
+			if (CheckIfMovementPossible(enemies, obj))
+				object.pos.x -= object.movement.x;
+		}
 		else {
 			object.pos.x =object.width/2;
 		}
@@ -34,8 +44,13 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		aimsDown = false;
 		aimsUp = true;
 		iCurrentSeqence = Sequences::WalkingUp;
-		if ((object.hitbox.top -= object.movement.y )> 0)
-		object.pos.y -= object.movement.y;
+		Object obj = object;
+		obj.pos.y -= obj.movement.y;
+		obj.hitbox.DoActualization(obj.pos, obj.width, obj.height);
+		if ((object.hitbox.top -= object.movement.y) > 0) {
+			if (CheckIfMovementPossible(enemies, obj))
+				object.pos.y -= object.movement.y;
+		}
 		else {
 			
 			object.pos.y = object.height/2;
@@ -47,8 +62,13 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		aimsDown = true;
 		aimsUp = false;
 		iCurrentSeqence = Sequences::WalkingDown;
-		if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1)
-		object.pos.y += object.movement.y;
+		Object obj = object;
+		obj.pos.y += obj.movement.y;
+		obj.hitbox.DoActualization(obj.pos, obj.width, obj.height);
+		if ((object.hitbox.bottom += object.movement.y) < Graphics::ScreenHeight - 1) {
+			if (CheckIfMovementPossible(enemies, obj))
+				object.pos.y += object.movement.y;
+		}
 		else {
 			float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
 			object.pos.y += dy;
@@ -61,12 +81,12 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		else if (aim_L)iCurrentSeqence = Sequences::StandLeft; 
 		else if (aim_U)iCurrentSeqence = Sequences::StandUp; 
 	}
-	CheckCollisions(obstacles, enemies);
+	CheckCollisions(obstacles);
 	object.hitbox.DoActualization(object.pos,object.width,object.height);
 	Update(dt);
 }
 
-void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
+void Player::CheckCollisions(std::vector<Obstacle> obstacles)
 {
 	for (auto obs : obstacles) {
 		this->object.IsOverLapping(obs.getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
@@ -75,6 +95,15 @@ void Player::CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::u
 	/*for (auto enem : enemies) {
 			this->object.IsOverLapping(enem->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 	}*/ //powoduje dziwne zachowanie
+}
+
+bool Player::CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemies, const Object & nextPosition)
+{
+	for (auto& enemy : enemies) {
+		if(!enemy->GetObjectW().hitbox.IsOverLappingForEnemies(nextPosition.pos)){}
+		else { return false; }
+	}
+	return true;
 }
 
 void Player::Draw( Graphics & gfx)

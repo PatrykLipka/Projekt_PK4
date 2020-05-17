@@ -16,6 +16,7 @@ class Object
 		HitBox() = delete;
 		bool IsOverLapping(const  HitBox& other);
 		void DoActualization(const Vec2D& pos, float width, float height);
+		bool IsOverLappingForEnemies(const Vec2D& other);
 	};
 public:
 	Vec2D pos;

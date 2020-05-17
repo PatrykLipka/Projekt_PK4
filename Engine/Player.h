@@ -52,7 +52,8 @@ class Player
 	Player(Object obj, float hel,bool isAlive,Weapon * weapon);
 	Object getObject();
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies);
-	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora
+	void CheckCollisions(std::vector<Obstacle> obstacles); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora
+	bool CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemies, const Object& nextPosition);
 	//void CheckCrate(std::vector<Crate>& crates);
 	void Draw( Graphics& gfx);
 	void Update(float dt);

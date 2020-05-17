@@ -18,6 +18,13 @@ void Object::HitBox::DoActualization(const Vec2D& pos, float width, float height
 	bottom = pos.y + height / 2;
 }
 
+bool Object::HitBox::IsOverLappingForEnemies(const Vec2D & other)
+{
+	if (other.x > left && other.x<right && other.y>top && other.y < bottom)return true;
+	else { return false; }
+	
+}
+
 bool Object::IsOverLapping(const Object other,bool aimsRight,bool aimsLeft,bool aimsDown,bool aimsUp)
 {
 		if (this->hitbox.IsOverLapping(other.hitbox)) {
