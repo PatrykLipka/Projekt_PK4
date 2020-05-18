@@ -36,7 +36,7 @@ class Player
 	
 	float health;
 	bool isAlive = true;
-	
+	bool isHitted = false;
 	bool aimsRight;
 	bool aimsLeft;
 	bool aimsDown;

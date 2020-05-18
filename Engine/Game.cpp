@@ -81,7 +81,9 @@ void Game::UpdateModel()
      }
      player.Draw(gfx);
      player.DrawShot(gfx, clock);
-
+     if (!player.IsAlive()) {
+         wnd.Kill();
+     }
      
 }
 

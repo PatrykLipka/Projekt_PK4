@@ -109,7 +109,12 @@ bool Player::CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemie
 void Player::Draw( Graphics & gfx)
 {
 	Vec2D pos{ object.hitbox.left,object.hitbox.top };
+	if(!isHitted)
 	animations[(int)iCurrentSeqence].Draw(pos, gfx);
+	else {
+	animations[(int)iCurrentSeqence].DrawH(pos, gfx);
+	isHitted = false;
+	}
 }
 
 void Player::Update(float dt)
@@ -172,6 +177,7 @@ void Player::ChangeHealth(float changeHP)
 {
 	if ((this->health -= changeHP) > 0) { 
 		isAlive = true; 
+		isHitted = true;
 	}
 	else { 
 		isAlive = false; 
