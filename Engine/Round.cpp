@@ -10,14 +10,13 @@
 //	}
 //}
 
-Round::Round(int numberOfEnemiesInFirstRound) :numberOfEnemiesToSpawn(numberOfEnemiesInFirstRound) {}
+Round::Round(int numberOfEnemiesInFirstRound) :numberOfEnemiesToSpawn(numberOfEnemiesInFirstRound),previousNumberOfEnemies(numberOfEnemiesInFirstRound) {}
 
 std::vector<std::unique_ptr<Enemy>>& Round::GetEnemies() { return enemies; }
 
 void Round::InitRound()
 {
-	enemies.push_back(std::make_unique<Zombie>(Object(Vec2D(100, 500), Vec2D(1, 1), 23, 41), 100, 20,  50, true, 5));
-	enemies.push_back(std::make_unique<Zombie>(Object(Vec2D(200, 500), Vec2D(1, 1), 23, 41), 100, 20, 50, true, 5));
+	
 }
 
 void Round::SpawnEnemy(float dt)
@@ -75,13 +74,21 @@ void Round::SpawnEnemy(float dt)
 			if (x >= 700)break;
 		}
 		if (findPosition == true) {
-			enemies.push_back(std::make_unique<Zombie>(obj, 100, 20, 50, true, 5));
+			enemies.push_back(std::make_unique<Zombie>(obj, 100, 50, true, 5));
 			currentTime = 0;
-			numberOfEnemiesToSpawn--;
+			--numberOfEnemiesToSpawn;
 		}
 		else {
 			currentTime =spawnTime/4;
 		}
+	}
+}
+void Round::NextRound(int additionalEnemies)
+{
+	if (enemies.size()==0) {
+		numberOfEnemiesToSpawn = additionalEnemies + previousNumberOfEnemies;
+		previousNumberOfEnemies = numberOfEnemiesToSpawn;
+		currentRound++;
 	}
 }
 bool Round::CheckIfSpawnIsPossible(const Object& obj)

@@ -25,6 +25,12 @@ std::vector<std::unique_ptr<Enemy>>& Board::GetEnemies()
 void Board::SpawnEnemies(float dt)
 {
 	round.SpawnEnemy(dt);
+	
+}
+
+void Board::NextRound()
+{
+	round.NextRound(2);
 }
 
 

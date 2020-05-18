@@ -20,7 +20,7 @@ void Object::HitBox::DoActualization(const Vec2D& pos, float width, float height
 
 bool Object::HitBox::IsOverLappingForEnemies(const Vec2D & other)
 {
-	if (other.x >= left && other.x <= right && other.y>= top && other.y <= bottom)return true;
+	if (other.x > left && other.x<right && other.y>top && other.y <bottom)return true;
 	else { return false; }
 	
 }

@@ -25,6 +25,7 @@ public:
 	std::vector<Obstacle> GetObstacles();
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
 	void SpawnEnemies(float dt);
+	void NextRound();
 	//std::vector<Enemy*> GetEnemies();
 
 };
