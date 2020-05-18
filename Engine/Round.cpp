@@ -74,7 +74,7 @@ void Round::SpawnEnemy(float dt)
 			if (x >= 700)break;
 		}
 		if (findPosition == true) {
-			enemies.push_back(std::make_unique<Zombie>(obj, 100, 50, true, 5));
+			enemies.push_back(std::make_unique<Zombie>(obj, 100,20, 50, true, 5));
 			currentTime = 0;
 			--numberOfEnemiesToSpawn;
 		}
