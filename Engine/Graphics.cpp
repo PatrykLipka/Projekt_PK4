@@ -318,8 +318,8 @@ void Graphics::PutPixel( int x,int y,Color c )
 
 void Graphics::DrawRect(float left, float top, float right, float bottom)
 {
-	const int width = (int)right - left;
-	const int height = (int)bottom - top;
+	 int width = (int)right - (int)left;
+	 int height = (int)bottom - (int)top;
 	for (int i = 0; i < width; i++) {
 		for (int j=0; j < height; j++) {
 			PutPixel((int)(left + i), (int)(top + j), Colors::Red);
@@ -333,10 +333,10 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 	assert(src.right <= s.GetWidth());
 	assert(src.top >= 0);
 	assert(src.bottom <= s.GetHeight() );
-	for (int dy = src.top; dy < src.bottom; dy++) {
-		for (int dx = src.left; dx < src.right; dx++) {
+	for (int dy = (int)src.top; dy < (int)src.bottom; dy++) {
+		for (int dx = (int)src.left; dx < (int)src.right; dx++) {
 			if(s.GetPixel(dx,dy)!=Colors::MakeRGB(255,0,128))
-			PutPixel(x + dx - src.left, y + dy - src.top, s.GetPixel(dx, dy));
+			PutPixel(x + dx - (int)src.left, y + dy - (int)src.top, s.GetPixel(dx, dy));
 		}
 	}
 }
@@ -347,13 +347,13 @@ void Graphics::DrawSpriteH(int x, int y, const Rect& src, const Surface& s)
 	assert(src.right <= s.GetWidth());
 	assert(src.top >= 0);
 	assert(src.bottom <= s.GetHeight());
-	for (int dy = src.top; dy < src.bottom; dy++) {
-		for (int dx = src.left; dx < src.right; dx++) {
+	for (int dy = (int)src.top; dy <(int) src.bottom; dy++) {
+		for (int dx =(int) src.left; dx < (int)src.right; dx++) {
 			if (s.GetPixel(dx, dy) != Colors::MakeRGB(255, 0, 128)) {
 				unsigned char G = s.GetPixel(dx, dy).GetG();
 				unsigned char B = s.GetPixel(dx, dy).GetB();
 
-				PutPixel(x + dx - src.left, y + dy - src.top,Colors::MakeRGB(255,G,B));
+				PutPixel(x + dx - (int)src.left, y + dy -(int)src.top,Colors::MakeRGB(255,G,B));
 			}
 		}
 	}
@@ -362,9 +362,9 @@ void Graphics::DrawSpriteH(int x, int y, const Rect& src, const Surface& s)
 
 void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 {
-	for (int j = 0; j < vec.size(); j++) {
+	for (int j = 0; j <(int) vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
-			PutPixel(vec[i].x, vec[i].y, Colors::MakeRGB(255, 255, 0));
+			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(255, 255, 0));
 			//PutPixel(j, i, Colors::MakeRGB(0, 0, 0));
 		}
 	}

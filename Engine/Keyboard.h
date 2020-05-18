@@ -41,7 +41,7 @@ public:
 	public:
 		Event()
 			:
-			type( Invalid ),
+			type(Invalid),
 			code( 0u )
 		{}
 		Event( Type type,unsigned char code )

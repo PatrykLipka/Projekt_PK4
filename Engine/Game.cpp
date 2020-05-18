@@ -31,7 +31,7 @@ Game::Game(MainWindow& wnd)
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f,0.1f)),
-    board(50)
+    board(1)
 {  
  
    board.InitBoard();
@@ -70,6 +70,8 @@ void Game::UpdateModel()
      }
      player.Draw(gfx);
      player.DrawShot(gfx, clock);
+     if(board.GetEnemies().empty())
+     board.NextRound();
 }
 
 void Game::ComposeFrame()
