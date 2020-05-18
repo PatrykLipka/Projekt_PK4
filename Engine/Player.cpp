@@ -167,3 +167,11 @@ Object Player::getObject()
 {
 	return object;
 }
+
+void Player::ChangeHealth(float changeHP)
+{
+	if (changeHP > 0) {
+		if ((this->health -= changeHP) > 0) { isAlive = true; }
+		else { isAlive = false; }
+	}
+}

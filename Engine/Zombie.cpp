@@ -7,7 +7,7 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
+float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -19,82 +19,99 @@ void Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obsta
 	float desiredX = playerObject.width / 2 + object.width / 2;
 	float desiredY = playerObject.height / 2 + object.height / 2;
 	float desiredDistance = sqrt(desiredX * desiredX/4 + desiredY * desiredY/4);
+	attackRange = 1.5*desiredDistance;
 
-	if (blockedRight || blockedLeft || blockedUp || blockedDown) {
-		if (blockedRight) {
-			aimsRight = false;
-			aimsLeft = false;
-			aimsUp = false;
-			aimsDown = true;
-			
-			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
+	float damageToPlayer;
+
+	if (desiredDistance >= distance || attackIterator > 0) {
+		dirX = playerX - object.pos.x;
+		dirY = playerY - object.pos.y;
+		attackIterator++;
+		if (attackIterator == 1)
+		{
+			attackX = dirX;
+			attackY = dirY;
 		}
-		if (blockedLeft) {
-			aimsRight = false;
-			aimsLeft = false;
-			aimsUp = true;
-			aimsDown = false;
-			
-			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (blockedUp) {
-			aimsRight = true;
-			aimsLeft = false;
-			aimsUp = false;
-			aimsDown = false;
-			
-			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (blockedDown) {
-			aimsRight = false;
-			aimsLeft = true;
-			aimsUp = false;
-			aimsDown = false;
-			
-			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
+		damageToPlayer=Attack(distance, dt);
+	}
+	else {
+		if (blockedRight || blockedLeft || blockedUp || blockedDown) {
+			if (blockedRight) {
+				aimsRight = false;
+				aimsLeft = false;
+				aimsUp = false;
+				aimsDown = true;
+
+				Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (blockedLeft) {
+				aimsRight = false;
+				aimsLeft = false;
+				aimsUp = true;
+				aimsDown = false;
+
+				Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (blockedUp) {
+				aimsRight = true;
+				aimsLeft = false;
+				aimsUp = false;
+				aimsDown = false;
+
+				Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (blockedDown) {
+				aimsRight = false;
+				aimsLeft = true;
+				aimsUp = false;
+				aimsDown = false;
+
+				Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+		}		
+		else {
+			if (dirY < 0 && desiredDistance < distance && attackIterator == 0) {
+				aimsRight = false;
+				aimsLeft = false;
+				aimsDown = false;
+				aimsUp = true;
+				Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (dirY > 0 && desiredDistance < distance && attackIterator == 0) {
+				aimsRight = false;
+				aimsLeft = false;
+				aimsDown = true;
+				aimsUp = false;
+				Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (dirX > 0 && desiredDistance < distance && attackIterator == 0) {
+				aimsRight = true;
+				aimsLeft = false;
+				aimsDown = false;
+				aimsUp = false;
+				Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (dirX < 0 && desiredDistance < distance && attackIterator == 0) {
+				aimsRight = false;
+				aimsLeft = true;
+				aimsDown = false;
+				aimsUp = false;
+				Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+
+			}
+			if (desiredDistance >= distance && attackIterator == 0) {
+				Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
+			}
 		}
 	}
-	else{
-		if (dirY < 0 && desiredDistance < distance) {
-			aimsRight = false;
-			aimsLeft = false;
-			aimsDown = false;
-			aimsUp = true;
-			Movement(false, false, true, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (dirY > 0 && desiredDistance < distance) {
-			aimsRight = false;
-			aimsLeft = false;
-			aimsDown = true;
-			aimsUp = false;
-			Movement(false, false, false, true, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (dirX > 0 && desiredDistance < distance) {
-			aimsRight = true;
-			aimsLeft = false;
-			aimsDown = false;
-			aimsUp = false;
-			Movement(true, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (dirX < 0 && desiredDistance < distance) {
-			aimsRight = false;
-			aimsLeft = true;
-			aimsDown = false;
-			aimsUp = false;
-			Movement(false, true, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-			
-		}
-		if (desiredDistance >= distance) {
-			Movement(false, false, false, false, dt, playerObject, obstacles, enemies, dirX, dirY, distance);
-		}
-	}
+	return damageToPlayer;
 }
 
 void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance)
@@ -330,13 +347,36 @@ void Zombie::DrawEnemy(Graphics& gtx)
 {
 }
 
-void Zombie::Attack()
+float Zombie::Attack(float distance, float dt)
 {
+	if (attackX > 16) iCurrentSeqence = Sequences::AttackRight;
+	else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
+	else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
+	else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
+
+	if (attackIterator > 34)
+	{
+		attackIterator = 0;
+		if (distance <= attackRange) {
+			Update(dt);
+			return damage;
+		}
+		else {
+			Update(dt);
+			return 0;
+		}
+	}
+	else {
+		Update(dt);
+		return 0;
+	}
+
+	
 }
 
 
 
-Zombie::Zombie(Object object, float health, float probability, bool isAlive, int points) :Enemy(object, health, probability, isAlive, points) {
+Zombie::Zombie(Object object, float health,float damage, float probability, bool isAlive, int points) :Enemy(object, health,damage, probability, isAlive, points) {
 	aimsRight = false;
 	aimsLeft = false;
 	aimsDown = true;
@@ -344,9 +384,13 @@ Zombie::Zombie(Object object, float health, float probability, bool isAlive, int
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(22, 40 * i, 22, 40, 4, surface, 0.15f));
 	}
-	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
+	for (int i = (int)Sequences::StandDown; i < (int)Sequences::AttackDown; i++) {
 		animations.emplace_back(Animation(0, 40 * (i - (int)Sequences::StandDown), 22, 40, 1, surface, 0.15f));
 	}
+	for (int i = (int)Sequences::AttackDown; i < (int)Sequences::Count; i++) {
+		animations.emplace_back(Animation(110, 40 * (i - (int)Sequences::AttackDown), 22, 40, 5, surface, 0.15f));
+	}
+
 }
 
 

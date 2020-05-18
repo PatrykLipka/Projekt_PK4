@@ -30,8 +30,8 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f,0.1f)),
-    board(1)
+    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 500, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f , 0.1f)),
+    board(50)
 {  
  
    board.InitBoard();
@@ -50,8 +50,11 @@ void Game::UpdateModel()
     float clock = ft.Mark();
     board.SpawnEnemies(clock);
     std::vector<std::unique_ptr<Enemy>>& enemy=board.GetEnemies();
-    for (auto & opponent : enemy) { opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy);}
+    float damageToPlayer = 0;
+    for (auto & opponent : enemy) { damageToPlayer+=opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy);}
+    player.ChangeHealth(damageToPlayer);
 
+    if (player.isAlive) {
     if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles(), enemy); }
     if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
     if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
@@ -61,17 +64,17 @@ void Game::UpdateModel()
         float clock2 = shotTime.Mark();
         player.Shot(enemy,clock2, board.GetObstacles(),gfx); 
     }
+    }
     enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true;}), enemy.end());
     mov = { 0.0,0.0 }; 
 
+    
     board.DrawBoard(gfx);
      for (auto & opponent : enemy) {
          opponent->Draw(gfx);
      }
      player.Draw(gfx);
      player.DrawShot(gfx, clock);
-     if(board.GetEnemies().empty())
-     board.NextRound();
 }
 
 void Game::ComposeFrame()

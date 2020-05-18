@@ -35,7 +35,7 @@ class Player
 	};
 	
 	float health;
-	bool isAlive;
+	
 	bool aimsRight;
 	bool aimsLeft;
 	bool aimsDown;
@@ -48,6 +48,7 @@ class Player
 	std::vector<Vec2D> canBeHit;
 	Weapon * weapon = nullptr;
 	public:
+	bool isAlive=true;
 	bool isShooting=false;
 	Player(Object obj, float hel,bool isAlive,Weapon * weapon);
 	Object getObject();
@@ -59,5 +60,6 @@ class Player
 	void Update(float dt);
 	void Shot(std::vector<std::unique_ptr<Enemy>>& enemies, float dt,std::vector<Obstacle>obstacles,Graphics &gfx);
 	void DrawShot(Graphics& gfx,float dt);
+	void ChangeHealth(float changeHP);
 };
 
