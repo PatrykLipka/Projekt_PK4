@@ -21,7 +21,7 @@ float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 	float desiredDistance = sqrt(desiredX * desiredX/4 + desiredY * desiredY/4);
 	attackRange = 1.5*desiredDistance;
 
-	float damageToPlayer;
+	float damageToPlayer=0;
 
 	if (desiredDistance >= distance || attackIterator > 0) {
 		dirX = playerX - object.pos.x;
@@ -353,7 +353,6 @@ float Zombie::Attack(float distance, float dt)
 	else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
 	else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
 	else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
-
 	if (attackIterator > 34)
 	{
 		attackIterator = 0;

@@ -5,6 +5,6 @@ Enemy::Enemy(Object object, float health, float damage, float probability, bool 
  Object Enemy::GetObjectW()
 {
 	return object;
-}
+} 
 
 
