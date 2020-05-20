@@ -12,7 +12,7 @@
 class Board {
 	
 	std::vector<std::shared_ptr<Weapon>> allWeapons;
-	//Points points;
+	Points points;
 	Map *  map;
 	Round round;
 	void InitVectorOfWeapon();
