@@ -11,8 +11,6 @@
 #include "Animation.h"
 #include "Weapon.h"
 #include "Obstacle.h"
-#include "Uzi.h"
-#include "Glock.h"
 
 class Player
 {	
@@ -43,16 +41,16 @@ class Player
 	bool aimsLeft;
 	bool aimsDown;
 	bool aimsUp;
+	
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
 	Surface surface = Surface("player_glock.png", 230, 164);
-	std::vector <std::shared_ptr<Weapon>> ownedGuns;
-	std::shared_ptr<Weapon> weapon;
+	std::vector<Vec2D> canBeHit;
+	Weapon * weapon = nullptr;
 	public:
-	Points points;
 	bool isShooting=false;
-	Player(Object obj, float hel,bool isAlive,std::shared_ptr<Weapon> gun);
+	Player(Object obj, float hel,bool isAlive,Weapon * weapon);
 	Object getObject();
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies);
 	void CheckCollisions(std::vector<Obstacle> obstacles); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora

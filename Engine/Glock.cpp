@@ -26,23 +26,22 @@ void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, 
 	else if (aimsUp){
 		for (int i = 0; i <distance; i++) {
 			if (pos.y - i>0)
-				possibleShot.push_back({ pos.x-9,pos.y-i });
+				possibleShot.push_back({ pos.x,pos.y-i });
 			else { break; }
  		}
 	}
 	
 }
-
-bool compare_distance(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
-	if (obj1 && obj2)
-		return obj1->distance < obj2->distance;
+bool compare_distance(std::unique_ptr<Enemy>&obj1 , std::unique_ptr<Enemy>& obj2){
+	if(obj1&&obj2)
+	return obj1->distance < obj2->distance;
 
 	return true;
 }
-
 bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
+
 
 bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
 {		
@@ -176,7 +175,6 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 		}
 	}
 }
-
 
 void Glock::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
 {

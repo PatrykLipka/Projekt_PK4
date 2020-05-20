@@ -372,13 +372,12 @@ void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 
 
 
-void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s,Color c)
+void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s)
 {
 	const int width = s.GetWidth();
 	const int height = s.GetHeight();
 	for (int dy = 0; dy < height; dy++) {
 		for (int dx = 0; dx < width; dx++) {
-			if(s.GetPixel(dx, dy)!=c)
 			PutPixel((int)(left + dx), (int)(top + dy), s.GetPixel(dx, dy));
 		}
 	}

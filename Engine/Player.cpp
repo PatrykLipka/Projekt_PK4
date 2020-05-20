@@ -148,9 +148,8 @@ void Player::DrawShot(Graphics& gfx,float dt)
 //	}
 //}
 
-Player::Player(Object obj, float hel,bool isAlive, std::shared_ptr<Weapon> gun):object(obj),health(hel),isAlive(isAlive),weapon(gun)
+Player::Player(Object obj, float hel,bool isAlive,Weapon * weapon):object(obj),health(hel),isAlive(isAlive),weapon(weapon)
 {
-	ownedGuns.push_back(weapon);
 	aimsRight = false;
 	aimsLeft = false;
 	aimsDown = true;

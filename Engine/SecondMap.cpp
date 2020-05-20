@@ -2,7 +2,7 @@
 
 void SecondMap::DrawMap(Graphics& gfx)
 {
-	gfx.DrawSprite(0, 0, surface.GetWidth(), surface.GetHeight(), surface,Colors::MakeRGB(255,255,255));
+	gfx.DrawSprite(0, 0, surface.GetWidth(), surface.GetHeight(), surface);
 }
 
 void SecondMap::InitMap()

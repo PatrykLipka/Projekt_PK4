@@ -3,10 +3,6 @@
 Board::Board(int numberOfEnemiesInFirstRound):round(numberOfEnemiesInFirstRound)
 {
 	map = new SecondMap();
-	InitVectorOfWeapon();
-}
-void Board::LevelUp(Player player)
-{
 }
 void Board::InitBoard()
 {
@@ -35,11 +31,6 @@ void Board::SpawnEnemies(float dt)
 void Board::NextRound()
 {
 	round.NextRound(2);
-}
-
-void Board::InitVectorOfWeapon()
-{
-	allWeapons.push_back(std::make_shared <Uzi>());
 }
 
 

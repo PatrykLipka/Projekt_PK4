@@ -2,7 +2,7 @@
 
 void FirstMap::DrawMap(Graphics& gfx)
 {
-	gfx.DrawSprite(0,0,surface.GetWidth(),surface.GetHeight(),surface,Colors::Magenta);
+	gfx.DrawSprite(0,0,surface.GetWidth(),surface.GetHeight(),surface);
 }
 
 std::vector<Obstacle> FirstMap::GetObstacles()

@@ -141,7 +141,6 @@
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="Colors.h" />
-    <ClInclude Include="Compare.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FirstMap.h" />
@@ -163,7 +162,6 @@
     <ClInclude Include="Round.h" />
     <ClInclude Include="SecondMap.h" />
     <ClInclude Include="Surface.h" />
-    <ClInclude Include="Uzi.h" />
     <ClInclude Include="Vec2D.h" />
     <ClInclude Include="Weapon.h" />
     <ClInclude Include="Zombie.h" />
@@ -192,7 +190,6 @@
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="SecondMap.cpp" />
     <ClCompile Include="Surface.cpp" />
-    <ClCompile Include="Uzi.cpp" />
     <ClCompile Include="Vec2D.cpp" />
     <ClCompile Include="Weapon.cpp" />
     <ClCompile Include="Zombie.cpp" />
