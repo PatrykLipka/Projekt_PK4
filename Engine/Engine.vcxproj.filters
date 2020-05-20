@@ -114,6 +114,9 @@
     <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Bomber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -198,6 +201,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
