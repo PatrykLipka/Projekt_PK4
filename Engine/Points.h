@@ -2,12 +2,11 @@
 
  class Points 
 {
-	static int points;
-	int multiplier;
-
+	 static int points;
 public:
+	static int GetPoints();
 	static void IncrementPoints(int addedPoints);
 	void IncrementMultiplier();
 	void DecrementMultiplier();
-	Points() : multiplier(1) { points = 0; };
+	
 };

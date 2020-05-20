@@ -190,3 +190,8 @@ bool Player::IsAlive()
 	if (this->isAlive == true) return true;
 	else return false;
 }
+
+void Player::SetNewOwnedGun(std::shared_ptr<Weapon> gun)
+{
+	ownedGuns.push_back(gun);
+}

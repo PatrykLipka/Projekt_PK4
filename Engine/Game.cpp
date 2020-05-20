@@ -81,6 +81,7 @@ void Game::UpdateModel()
      }
      player.Draw(gfx);
      player.DrawShot(gfx, clock);
+     board.LevelUp(player);
      if (!player.IsAlive()) {
        
          gfx.DrawSprite(100, 200, 1105, 624, Surface("GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));

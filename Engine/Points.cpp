@@ -1,16 +1,21 @@
 #include "Points.h"
 
-void Points::IncrementMultiplier()
+//void Points::IncrementMultiplier()
+//{
+//	this->multiplier++;
+//}
+//
+//void Points::DecrementMultiplier() 
+//{
+//	this->multiplier--;
+//}
+
+int Points::GetPoints()
 {
-	this->multiplier++;
+	return points;
 }
 
-void Points::DecrementMultiplier() 
-{
-	this->multiplier--;
-}
-
- void Points::IncrementPoints(int addedPoints) 
+void Points::IncrementPoints(int addedPoints)
 {
 	points += addedPoints ;
 }

@@ -429,5 +429,5 @@ void Zombie::ChangeHealth(float changeHP)
 {
 	
 	if ((this->health -= changeHP) > 0) { isAlive = true; }
-	else { isAlive = false; }
+	else { isAlive = false; Points::IncrementPoints(value); }
 }

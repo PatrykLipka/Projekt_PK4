@@ -63,6 +63,7 @@ class Player
 	void DrawShot(Graphics& gfx,float dt);
 	void ChangeHealth(float changeHP);
 	bool IsAlive();
+	void SetNewOwnedGun(std::shared_ptr<Weapon> gun);
 	
 };
 

@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "Animation.h"
 #include "Obstacle.h"
+#include "Points.h"
 
 
 class Enemy 
@@ -48,7 +49,7 @@ public:
 	virtual void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance) = 0;
 	virtual void Draw(Graphics& gfx) = 0;
 	virtual void Update(float dt) = 0;
-	virtual void CalculateDistance(const Vec2D& pos)=0;
+	virtual void CalculateDistance(const Vec2D & pos)=0;
 	Object GetObjectW();
 	virtual void Hitted(const float& dmg) = 0;
 };

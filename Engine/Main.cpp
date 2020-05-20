@@ -21,7 +21,9 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
+#include "Points.h"
 
+int Points::points = 0;
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 {
 	try
