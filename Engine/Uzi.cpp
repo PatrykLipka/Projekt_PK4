@@ -189,3 +189,8 @@ void Uzi::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std:
 
 }
 
+void Uzi::AddAmo(int amo)
+{
+	ammo += amo;
+}
+

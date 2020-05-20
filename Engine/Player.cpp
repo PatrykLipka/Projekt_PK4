@@ -195,3 +195,22 @@ void Player::SetNewOwnedGun(std::shared_ptr<Weapon> gun)
 {
 	ownedGuns.push_back(gun);
 }
+
+int Player::GetSizeOfOwnedGuns()
+{
+	return ownedGuns.size();
+}
+
+void Player::AddAmoTuGun(std::size_t hash_code, int amo)
+{
+	for (auto gun : ownedGuns) {
+		if (typeid(*gun).hash_code() == hash_code) { gun->AddAmo(amo); break; }
+	}
+}
+
+void Player::Recover(float hp)
+{
+	health += hp;
+}
+
+
