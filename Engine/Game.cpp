@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
     gfx(wnd),
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
-    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, new Glock( 0,  49,  1,  150,  1, 1, 1.0f , 0.1f)),
+    player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
     board(50)
 {  
  
@@ -82,7 +82,11 @@ void Game::UpdateModel()
      player.Draw(gfx);
      player.DrawShot(gfx, clock);
      if (!player.IsAlive()) {
-         wnd.Kill();
+       
+         gfx.DrawSprite(100, 200, 1105, 624, Surface("GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));
+         Sleep(100);
+        // wnd.Kill();
+         
      }
      
 }

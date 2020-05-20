@@ -1,54 +1,55 @@
-#include "Glock.h"
+#include "Uzi.h"
 
-void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,const Vec2D & pos) //pos of player
+
+void Uzi::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, const Vec2D& pos) //pos of player
 {
-	if (aimsDown){
+	if (aimsDown) {
 		for (int i = 0; i < distance; i++) {
-			if(pos.y + i<Graphics::ScreenHeight)
-			possibleShot.push_back({pos.x-9,pos.y + i});
+			if (pos.y + i < Graphics::ScreenHeight)
+				possibleShot.push_back({ pos.x - 9,pos.y + i });
 			else { break; }
+		}
 	}
-   	}
-	else if (aimsRight){
+	else if (aimsRight) {
 		for (int i = 0; i < distance; i++) {
 			if (pos.x + i < Graphics::ScreenWidth)
-				possibleShot.push_back( { pos.x+9 + i,pos.y -2 });
+				possibleShot.push_back({ pos.x + 9 + i,pos.y - 2 });
 			else { break; }
 		}
 	}
-	else if (aimsLeft){
+	else if (aimsLeft) {
 		for (int i = 0; i < distance; i++) {
 			if (pos.x - i > 0)
-				possibleShot.push_back ( { pos.x -9- i,pos.y-2 });
+				possibleShot.push_back({ pos.x - 9 - i,pos.y - 2 });
 			else { break; }
 		}
 	}
-	else if (aimsUp){
-		for (int i = 0; i <distance; i++) {
-			if (pos.y - i>0)
-				possibleShot.push_back({ pos.x-9,pos.y-i });
+	else if (aimsUp) {
+		for (int i = 0; i < distance; i++) {
+			if (pos.y - i > 0)
+				possibleShot.push_back({ pos.x-9,pos.y - i });
 			else { break; }
- 		}
+		}
 	}
-	
+
 }
 
-bool compare_distance(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
+bool compare_distanceUzi(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
 	if (obj1 && obj2)
 		return obj1->distance < obj2->distance;
 
 	return true;
 }
 
-bool compare_distance2(Obstacle obj1, Obstacle obj2) {
+bool compare_distanceUzi2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
-
-bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
-{		
+bool  Uzi::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
+{
 	currentTime += dt;
-	if (currentTime >= holdTime) {
-		currentTime =0;
+	if (currentTime >= holdTime&&ammo>0) {
+		currentTime = 0;
+		ammo--;
 		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
 		std::vector<std::unique_ptr<Enemy>> avaliableTarget; //tu mo¿e byæ problem
 		std::vector<Obstacle> availableObstacle;
@@ -68,8 +69,8 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std
 				availableObstacle.push_back(obstacles[i]);
 			}
 		}
-		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
-		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
+		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distanceUzi);
+		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distanceUzi2);
 		if (!avaliableTarget.empty() && availableObstacle.empty()) {
 			avaliableTarget[0]->Hitted(damage);
 			avaliableTarget[0]->isHitted = true;
@@ -90,26 +91,28 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std
 	else {
 		return false;
 	}
-	
- 
+
+
 
 }
 
-void Glock::CleanVector() {
-	while(!possibleShot.empty())
-	possibleShot.pop_back();
+
+void  Uzi::CleanVector() {
+	while (!possibleShot.empty())
+		possibleShot.pop_back();
 }
 
-bool Glock::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
-{	Object obj = enemy->GetObjectW();
+bool  Uzi::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
+{
+	Object obj = enemy->GetObjectW();
 	for (int i = 0; i < possibleShot.size(); i++) {
-		if (possibleShot[i].x > obj.hitbox.left && possibleShot[i].x < obj.hitbox.right && possibleShot[i].y < obj.hitbox.bottom && possibleShot[i].y > obj.hitbox.top) return true;	
+		if (possibleShot[i].x > obj.hitbox.left && possibleShot[i].x < obj.hitbox.right && possibleShot[i].y < obj.hitbox.bottom && possibleShot[i].y > obj.hitbox.top) return true;
 	}
 	// return right > other.left && left < other.right&& bottom > other.top && top < other.bottom;
 	return false;
 }
 
-bool Glock::DrawShot( Graphics & gfx,float dt)
+bool  Uzi::DrawShot(Graphics& gfx, float dt)
 {
 	currentTimeOfAnimation += dt;
 	if (currentTimeOfAnimation <= holdTimeOfAnimation) {
@@ -120,10 +123,10 @@ bool Glock::DrawShot( Graphics & gfx,float dt)
 		currentTimeOfAnimation -= holdTimeOfAnimation;
 		CleanVector();
 		return false;
-		}
+	}
 }
 
-bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
+bool  Uzi::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 {
 	Object obj = obstacle.getObject();
 	for (int i = 0; i < possibleShot.size(); i++) {
@@ -132,15 +135,15 @@ bool Glock::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 	return false;
 }
 
-void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
+void  Uzi::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
 {
-	
+
 	if (aimsRight) {
 		for (int i = possibleShot.size() - 1; i > 0; i--) {
 			if (obj.hitbox.left < possibleShot[i].x)
 			{
 				possibleShot.pop_back();
-			
+
 			}
 			else { break; }
 		}
@@ -150,9 +153,9 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 			if (obj.hitbox.right > possibleShot[i].x)
 			{
 				possibleShot.pop_back();
-				
+
 			}
-			else{ break; }
+			else { break; }
 		}
 	}
 	else if (aimsDown) {
@@ -160,7 +163,7 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 			if (obj.hitbox.top < possibleShot[i].y)
 			{
 				possibleShot.pop_back();
-				
+
 			}
 			else { break; }
 		}
@@ -170,20 +173,19 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 			if (obj.hitbox.bottom > possibleShot[i].y)
 			{
 				possibleShot.pop_back();
-				
+
 			}
 			else { break; }
 		}
 	}
 }
 
-
-void Glock::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
+void Uzi::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
 {
 	for (auto& e : avaliableTarget) {
 		enemy.push_back(std::move(e));
-		std::sort(enemy.begin(), enemy.end(), compare_distance);
+		std::sort(enemy.begin(), enemy.end(), compare_distanceUzi);
 	}
-	
+
 }
 
