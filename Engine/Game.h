@@ -31,6 +31,7 @@
 #include "Board.h"
 #include "Enemy.h"
 #include "Zombie.h"
+#include "Bomber.h"
 #include "Weapon.h"
 #include "Glock.h"
 #include <algorithm>

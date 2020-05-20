@@ -1,6 +1,7 @@
 #pragma once
 #include "Enemy.h"
 #include "Zombie.h"
+#include "Bomber.h"
 #include "Map.h"
 #include <random>
 
