@@ -50,7 +50,6 @@ class Player
 	std::vector <std::shared_ptr<Weapon>> ownedGuns;
 	std::shared_ptr<Weapon> weapon;
 	public:
-	Points points;
 	bool isShooting=false;
 	Player(Object obj, float hel,bool isAlive,std::shared_ptr<Weapon> gun);
 	Object getObject();

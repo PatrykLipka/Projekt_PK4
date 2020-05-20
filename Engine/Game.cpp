@@ -33,7 +33,7 @@ Game::Game(MainWindow& wnd)
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
     board(50)
 {  
- 
+   
    board.InitBoard();
 }
 

@@ -18,6 +18,7 @@ protected:
 	float attackRange;
 	float damage;
 	int attackIterator = 0;
+	int value;
 	float attackX;
 	float attackY;
 	bool isAlive;

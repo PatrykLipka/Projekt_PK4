@@ -1,13 +1,13 @@
 #pragma once
 
-class Points 
+ class Points 
 {
-	int points;
+	static int points;
 	int multiplier;
 
 public:
-	void IncrementPoints(int addedPoints);
+	static void IncrementPoints(int addedPoints);
 	void IncrementMultiplier();
 	void DecrementMultiplier();
-	Points() : points(0), multiplier(1) {};
+	Points() : multiplier(1) { points = 0; };
 };

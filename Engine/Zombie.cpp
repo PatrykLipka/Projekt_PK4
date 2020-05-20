@@ -380,6 +380,7 @@ Zombie::Zombie(Object object, float health,float damage, float probability, bool
 	aimsLeft = false;
 	aimsDown = true;
 	aimsUp = false;
+	value = 1;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(22, 40 * i, 22, 40, 4, surface, 0.15f));
 	}
