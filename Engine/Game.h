@@ -38,6 +38,7 @@
 #include <iostream>
 #include <cctype>
 #include <xmemory>
+#include "Uzi.h"
 
 
 class Game

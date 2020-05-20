@@ -7,14 +7,15 @@
 #include "FirstMap.h"
 #include "SecondMap.h"
 #include "Obstacle.h"
-#include <list>
+
 
 class Board {
 	
-	//std::list<Weapon> allWeapons;
+	std::vector<std::shared_ptr<Weapon>> allWeapons;
 	//Points points;
 	Map *  map;
 	Round round;
+	void InitVectorOfWeapon();
 public:
 	Board(int numberOfEnemiesInFirstRound);
 	void StartGame();
@@ -26,6 +27,8 @@ public:
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
 	void SpawnEnemies(float dt);
 	void NextRound();
+	std::shared_ptr<Weapon>& GetAvaliableGun(const  Points& points);
+	
 	//std::vector<Enemy*> GetEnemies();
 
 };
