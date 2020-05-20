@@ -14,5 +14,6 @@ public:
 	void CleanVector();
 	void MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp);
 	void MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy);
+	void AddAmo(int amo)override;
 };
 

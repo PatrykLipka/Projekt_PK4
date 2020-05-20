@@ -187,3 +187,8 @@ void Glock::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, st
 	
 }
 
+void Glock::AddAmo(int amo)
+{
+	ammo += amo;
+}
+

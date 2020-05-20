@@ -64,6 +64,9 @@ class Player
 	void ChangeHealth(float changeHP);
 	bool IsAlive();
 	void SetNewOwnedGun(std::shared_ptr<Weapon> gun);
+	int GetSizeOfOwnedGuns();
+	void AddAmoTuGun(std::size_t hash_code,int amo);
+	void Recover(float hp);
 	
 };
 
