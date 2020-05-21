@@ -37,4 +37,6 @@ public:
 	void Update(float dt)override;
 	void CalculateDistance(const Vec2D& pos)override;
 	void Hitted(const float& dmg)override;
+	float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies) override;
+	float CalculateDistanceToEnemy(const Vec2D& pos) override;
 };
