@@ -38,4 +38,8 @@ std::vector<Obstacle> SecondMap::GetObstacles()
 	return obstacles;
 }
 
+void SecondMap::AddNewBox()
+{
+}
+
 

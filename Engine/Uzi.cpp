@@ -27,7 +27,7 @@ void Uzi::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bo
 	else if (aimsUp) {
 		for (int i = 0; i < distance; i++) {
 			if (pos.y - i > 0)
-				possibleShot.push_back({ pos.x-9,pos.y - i });
+				possibleShot.push_back({ pos.x+9,pos.y - i });
 			else { break; }
 		}
 	}

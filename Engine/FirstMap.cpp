@@ -15,3 +15,7 @@ std::vector<Obstacle> FirstMap::GetObstacles()
 void FirstMap::InitMap()
 {
 }
+
+void FirstMap::AddNewBox()
+{
+}
