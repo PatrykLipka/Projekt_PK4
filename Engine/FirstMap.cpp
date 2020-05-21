@@ -16,6 +16,6 @@ void FirstMap::InitMap()
 {
 }
 
-void FirstMap::AddNewBox()
+void FirstMap::AddNewBox(float dt)
 {
 }

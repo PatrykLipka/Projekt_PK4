@@ -8,9 +8,8 @@ class Box
 	//Surface
 	bool alreadyColected = false;
 public:
-	Box(Object& obj) :object(obj) {}
-	Box(Vec2D& pos, float width, float height) :object(pos, { 0,0 }, width, height) {};
-	Box() = delete;
+	Box(Object& obj);
+	Box(Vec2D& pos, float width, float height);
 	bool IsBoxCollected(const Object& player);
 	void ColectBox(Player & player);
 	bool AlreadyColected();

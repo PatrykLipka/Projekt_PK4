@@ -1,5 +1,9 @@
 #include "Box.h"
 
+ Box::Box(Object& obj) :object(obj) {}
+
+  Box::Box(Vec2D& pos, float width, float height) : object(pos, Vec2D(0, 0), width, height) {}
+
 bool Box::IsBoxCollected(const Object& player)
 {
 	return object.hitbox.IsOverLapping(player.hitbox);
