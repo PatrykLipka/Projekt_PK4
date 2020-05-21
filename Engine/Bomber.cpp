@@ -483,6 +483,23 @@ void Bomber::Hitted(const float& dmg)
 	ChangeHealth(dmg);
 }
 
+Rect Bomber::GetBoom()
+{
+	return Rect(object.pos.x-45,object.pos.x+45,object.pos.y-45,object.pos.y+45);
+}
+
+bool Bomber::Boom(Graphics& gfx,float dt)
+{
+	currenttime += dt;
+	if (currenttime <= holdTime) {
+		gfx.DrawBoom(GetBoom().left,GetBoom().top,GetBoom().right,GetBoom().bottom, Surface("explosion.png", 90, 90), Colors::MakeRGB(255,0,128));
+		return false;
+	}
+	else {
+		animationOver = true; return true;
+	}
+}
+
 
 void Bomber::ChangeHealth(float changeHP)
 {

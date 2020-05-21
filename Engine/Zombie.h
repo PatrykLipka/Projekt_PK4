@@ -22,6 +22,7 @@ class Zombie : public Enemy
 	std::vector<Animation>animations;
 	Surface surface = Surface("Zombie.png", 224, 164);
 	std::vector<Vec2D> canBeHit;
+	bool Boom(Graphics& gfx, float dt)override;
 public:
 	//Zombie(); //trzeba dodaæ taki, co bêdzie ustawiaæ od razu probability i isAlive oraz ile jest za nie punktów, bo to siê nie bêdzie zmieniaæ
 	Zombie(Object object, float health,float damage, float probability, bool isAlive, int points);
@@ -39,4 +40,5 @@ public:
 	void Hitted(const float& dmg)override;
 	float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies) override;
 	float CalculateDistanceToEnemy(const Vec2D& pos) override;
+	Rect GetBoom()override;
 };

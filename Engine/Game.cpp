@@ -47,6 +47,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+   
     float clock = ft.Mark();
     board.SpawnEnemies(clock);
     std::vector<std::unique_ptr<Enemy>>& enemy=board.GetEnemies();
@@ -65,26 +66,46 @@ void Game::UpdateModel()
             if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
             if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
         }
-    if (wnd.kbd.KeyIsPressed(0x58)) { player.ChangeGunForNextGun(); }
-    if (wnd.kbd.KeyIsPressed(0x5A)) { player.ChangeGunForPreviousGun(); }
-    if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
-        float clock2 = shotTime.Mark();
-        player.Shot(enemy,clock2, board.GetObstacles(),gfx); 
+         if (wnd.kbd.KeyIsPressed(0x58)) { player.ChangeGunForNextGun(); }
+         if (wnd.kbd.KeyIsPressed(0x5A)) { player.ChangeGunForPreviousGun(); }
+         if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx); }
     }
+    for (auto& e : enemy) {
+        if (typeid(*e).hash_code() == typeid(Bomber).hash_code() && e->IsAlive() == false) {
+            enemyToBoom.push_back(std::move(e));
+        }
     }
-    enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true;}), enemy.end());
+    enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {
+        if (e) {return !e->IsAlive(); }
+        else {
+            return true;
+        }})
+        , enemy.end());
     mov = { 0.0,0.0 }; 
-
-    
-    
-
-    
-    board.DrawBoard(gfx);
+     board.DrawBoard(gfx);
      for (auto & opponent : enemy) {
+         if(opponent)
          opponent->Draw(gfx);
      }
-     player.Draw(gfx);
+     player.Draw(gfx); 
+     enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
+         if (e) { return !e->IsAlive() && e->IfAnimationOver(); }
+         else {
+             return true;
+         }})
+         , enemyToBoom.end());
+     for (auto& b : enemyToBoom) {
+         if (b!=nullptr)
+          b->Boom(gfx, clock); 
+     }
      player.DrawShot(gfx, clock);
+    
+     enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
+         if (e) { return !e->IsAlive()&&e->IfAnimationOver(); }
+         else {
+             return true;
+         }})
+         , enemyToBoom.end());
      board.LevelUp(player);
      if (!player.IsAlive()) {
        

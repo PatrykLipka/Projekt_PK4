@@ -269,6 +269,7 @@
   <ItemGroup>
     <Image Include="..\..\ProjektPK4\Chopek_5klatek.png" />
     <Image Include="Chili.ico" />
+    <Image Include="explosion.png" />
     <Image Include="Map0.png" />
     <Image Include="Map1.png" />
   </ItemGroup>

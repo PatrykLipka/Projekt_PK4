@@ -22,7 +22,10 @@ class Bomber : public Enemy
 	std::vector<Animation>animations;
 	Surface surface = Surface("Bomber.png", 228, 186);
 	std::vector<Vec2D> canBeHit;
+	
 public:
+	float currenttime = 0;
+	float holdTime=0.5f;
 	//Bomber(); //trzeba dodaæ taki, co bêdzie ustawiaæ od razu probability i isAlive oraz ile jest za nie punktów, bo to siê nie bêdzie zmieniaæ
 	Bomber(Object object, float health, float damage, float probability, bool isAlive, int points);
 	void Draw(Graphics& gfx)override;
@@ -43,4 +46,7 @@ public:
 	void CalculateDistance(const Vec2D& pos)override;
 	float CalculateDistanceToEnemy(const Vec2D& pos)override;
 	void Hitted(const float& dmg)override;
+	Rect GetBoom();
+	bool Boom(Graphics& gfx,float dt);
+
 };

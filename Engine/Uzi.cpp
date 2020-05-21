@@ -182,6 +182,7 @@ void  Uzi::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLe
 
 void Uzi::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
 {
+	enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true; }), enemy.end());
 	for (auto& e : avaliableTarget) {
 		enemy.push_back(std::move(e));
 		std::sort(enemy.begin(), enemy.end(), compare_distanceUzi);

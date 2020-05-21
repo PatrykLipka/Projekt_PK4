@@ -375,6 +375,11 @@ float Zombie::Attack(float distance, float dt)
 
 
 
+bool Zombie::Boom(Graphics& gfx, float dt)
+{
+	return true;
+}
+
 Zombie::Zombie(Object object, float health,float damage, float probability, bool isAlive, int points) :Enemy(object, health,damage, probability, isAlive, points) {
 	aimsRight = false;
 	aimsLeft = false;
@@ -439,4 +444,8 @@ float Zombie::Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy
 float Zombie::CalculateDistanceToEnemy(const Vec2D& pos) 
 {
 	return 0;
+}
+Rect Zombie::GetBoom()
+{
+	return Rect(object.pos.x - 45, object.pos.x + 45, object.pos.y - 45, object.pos.y + 45);
 }

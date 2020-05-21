@@ -23,13 +23,13 @@ protected:
 	int value;
 	float attackX;
 	float attackY;
-	bool isAlive;
+	bool isAlive=true;
 	int points;
 	bool aimsRight;
 	bool aimsLeft;
 	bool aimsDown;
 	bool aimsUp;
-
+	bool animationOver = false;
 	bool blockedRight=false;
 	bool blockedLeft=false;
 	bool blockedDown=false;
@@ -55,4 +55,7 @@ public:
 	virtual float CalculateDistanceToEnemy(const Vec2D& pos) = 0;
 	Object GetObjectW();
 	virtual void Hitted(const float& dmg) = 0;
+	virtual Rect GetBoom() = 0;
+	virtual bool Boom(Graphics& gfx, float dt) = 0;
+	bool IfAnimationOver();
 };

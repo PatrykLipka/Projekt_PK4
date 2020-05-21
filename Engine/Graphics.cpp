@@ -380,6 +380,21 @@ void Graphics::DrawUzi(const std::vector<Vec2D>& vec)
 	}
 }
 
+void Graphics::DrawBoom(float left, float top, float right, float bottom, const Surface& s, Color c)
+{
+	int x = 0;
+	int width = (int)right - (int)left;
+	int height = (int)bottom - (int)top;
+	for (int i = 0; i < width; i++) {
+		for (int j = 0; j < height; j++) {
+			if ((left + i) > 1 && (left + i) < ScreenWidth - 1 && (top + i) > 1 && (top + i) < ScreenHeight - 1 && s.GetPixel(i, j) != c) {
+				x++;
+				PutPixel((int)(left + i), (int)(top + j), s.GetPixel(i, j));
+			}
+		}
+	}
+}
+
 
 
 void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s,Color c)

@@ -89,47 +89,47 @@ void Round::SpawnEnemy(float dt)
 		else {
 			float x = 15;
 			float y = 325;
-			Object obj(Vec2D(x, y), Vec2D(1, 1), 22, 46);
+			Object obj(Vec2D(x, y), Vec2D(1, 1), 23, 46);
 			while (findPosition == false && whichGate == 1) {
-				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 46 };
 				if (CheckIfSpawnIsPossible(obj)) {
 					findPosition = true;
 					break;
 				}
-				y += 22;
+				y += 23;
 				if (y >= 500)break;
 			}
 			x = 1180;
 			y = 325;
 			while (findPosition == false && whichGate == 2) {
-				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 46 };
 				if (CheckIfSpawnIsPossible(obj)) {
 					findPosition = true;
 					break;
 				}
-				y += 22;
+				y += 23;
 				if (y >= 500)break;
 			}
 			x = 500;
 			y = 25;
 			while (findPosition == false && whichGate == 3) {
-				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 46 };
 				if (CheckIfSpawnIsPossible(obj)) {
 					findPosition = true;
 					break;
 				}
-				x += 12;
+				x += 13;
 				if (x >= 700)break;
 			}
 			x = 500;
 			y = 780;
 			while (findPosition == false && whichGate == 4) {
-				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 46 };
 				if (CheckIfSpawnIsPossible(obj)) {
 					findPosition = true;
 					break;
 				}
-				x += 12;
+				x += 13;
 				if (x >= 700)break;
 			}
 			if (findPosition == true) {

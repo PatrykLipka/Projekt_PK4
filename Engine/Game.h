@@ -65,6 +65,7 @@ private:
     FrameTimer shotTime;
     std::vector<Object> vec;
     Board board;
+    std::vector<std::unique_ptr<Enemy>> enemyToBoom;
 
     
 	/********************************/
