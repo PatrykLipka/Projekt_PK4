@@ -8,6 +8,7 @@ bool Box::IsBoxCollected(const Object& player)
 void Box::ColectBox(Player& player)
 {
 	if (IsBoxCollected(player.getObject())) {
+		alreadyColected = true;
 		std::random_device device;
 		std::mt19937 generator(device());
 		std::uniform_int_distribution<int> distribution(1,player.GetSizeOfOwnedGuns()+1);
@@ -23,4 +24,9 @@ void Box::ColectBox(Player& player)
 			break;
 		}
 	}
+}
+
+bool Box::AlreadyColected()
+{
+	return alreadyColected;
 }
