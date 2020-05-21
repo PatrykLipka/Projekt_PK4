@@ -4,7 +4,6 @@
 bool compare_distanceBomber(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
 	if (obj1 && obj2)
 		return obj1->distance < obj2->distance;
-
 	return true;
 }
 
@@ -131,7 +130,7 @@ void Bomber::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 	float distanceX = sqrt(dirX * dirX);
 	float distanceY = sqrt(dirY * dirY);
 
-	float distanceToBlock = 130;
+	float distanceToBlock = 15;
 
 
 	bool blockedByWall = false;
@@ -375,10 +374,11 @@ float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_p
 	{
 		attackIterator = 0;
 		std::vector<std::unique_ptr<Enemy>> enemiesHit;
-		CalculateExplosion(enemies, enemiesHit);
-		std::sort(enemies.begin(), enemies.end(), compare_distanceBomber);
+		CalculateExplosion(enemies, enemiesHit);	
 		std::sort(enemiesHit.begin(), enemiesHit.end(), compare_distanceBomber);
+		enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true; }), enemies.end());
 		HitEnemies(enemies, enemiesHit);
+		this->ChangeHealth(health);
 		if (distanceToPlayer <= attackRange) {
 			Update(dt);
 			return damage;
@@ -397,9 +397,10 @@ float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_p
 void Bomber::HitEnemies(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit)
 {
 	for (auto& enem : enemiesHit) {
-		//if (this != enem.get())
+		if (this != enem.get())
 		{
-			enem.get()->ChangeHealth(damage);
+			enem->ChangeHealth(damage);
+			enem->isHitted = true;
 		}
 	}
 	MergeVector(enemies, enemiesHit);
@@ -408,7 +409,8 @@ void Bomber::HitEnemies(std::vector<std::unique_ptr<Enemy>>& enemies, std::vecto
 
 
 void Bomber::MergeVector(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit)
-{
+{	
+	std::sort(enemies.begin(), enemies.end(), compare_distanceBomber);
 	for (auto& e : enemiesHit) {
 		enemies.push_back(std::move(e));
 		std::sort(enemies.begin(), enemies.end(), compare_distanceBomber);
@@ -458,7 +460,7 @@ void Bomber::CalculateExplosion(std::vector<std::unique_ptr<Enemy>>& enemies, st
 	for (auto& enem : enemies) {
 		if (this != enem.get())
 		{
-			if (CalculateDistanceToEnemy(enem->GetObjectW().pos) <= attackRange) {
+			if ((enem->distance=CalculateDistanceToEnemy(enem->GetObjectW().pos)) <= attackRange) {
 				enemiesHit.push_back(std::move(enem));
 			}
 		}

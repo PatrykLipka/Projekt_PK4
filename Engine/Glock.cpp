@@ -68,7 +68,7 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std
 				availableObstacle.push_back(obstacles[i]);
 			}
 		}
-		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
+  		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distance);
 		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distance2);
 		if (!avaliableTarget.empty() && availableObstacle.empty()) {
 			avaliableTarget[0]->Hitted(damage);
