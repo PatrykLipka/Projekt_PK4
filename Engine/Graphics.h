@@ -63,6 +63,7 @@ public:
 	void DrawSprite(int x, int y, const Rect& src, const Surface& s);
 	void DrawSpriteH(int x, int y, const Rect& src, const Surface& s);
 	void DrawGlock(const std::vector<Vec2D>& vec);
+	void DrawUzi(const std::vector<Vec2D>& vec);
 	
 	~Graphics();
 private:

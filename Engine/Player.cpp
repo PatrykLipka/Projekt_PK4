@@ -213,4 +213,34 @@ void Player::Recover(float hp)
 	health += hp;
 }
 
+void Player::ChangeGunForNextGun()
+{	
+	for (std::vector<std::shared_ptr<Weapon>>::iterator it = ownedGuns.begin(); it < ownedGuns.end(); it++) {
+		if(*it==weapon){
+			if (it == (--ownedGuns.end()))
+				weapon = ownedGuns[0];
+			else {
+				weapon = *(++it);
+				break;
+			}
+		}
+	}
+}
+
+void Player::ChangeGunForPreviousGun()
+{
+	for (std::vector<std::shared_ptr<Weapon>>::iterator it = ownedGuns.begin(); it < ownedGuns.end(); it++) {
+		if (*it == weapon) {
+			if (it == ownedGuns.begin()) {
+				weapon = *(--ownedGuns.end());
+				break;
+			}
+			else {
+				weapon = *(--it);
+				break;
+			}
+		}
+	}
+}
+
 
