@@ -116,7 +116,7 @@ bool  Uzi::DrawShot(Graphics& gfx, float dt)
 {
 	currentTimeOfAnimation += dt;
 	if (currentTimeOfAnimation <= holdTimeOfAnimation) {
-		gfx.DrawGlock(possibleShot);
+		gfx.DrawUzi(possibleShot);
 		return true;
 	}
 	else {

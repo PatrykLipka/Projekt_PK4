@@ -58,11 +58,15 @@ void Game::UpdateModel()
     }
 
     if (player.IsAlive()) {
-    if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock,board.GetObstacles(), enemy); }
-    if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
-    if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
-    if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
-    if (wnd.kbd.KeyIsEmpty()) {  player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
+        {
+            if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock, board.GetObstacles(), enemy); }
+            if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
+            if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
+            if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
+            if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
+        }
+    if (wnd.kbd.KeyIsPressed(0x58)) { player.ChangeGunForNextGun(); }
+    if (wnd.kbd.KeyIsPressed(0x5A)) { player.ChangeGunForPreviousGun(); }
     if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
         float clock2 = shotTime.Mark();
         player.Shot(enemy,clock2, board.GetObstacles(),gfx); 

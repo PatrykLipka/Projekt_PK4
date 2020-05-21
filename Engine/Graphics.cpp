@@ -370,6 +370,16 @@ void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 	}
 }
 
+void Graphics::DrawUzi(const std::vector<Vec2D>& vec)
+{
+	for (int j = 0; j < (int)vec.size(); j++) {
+		for (int i = 0; i < vec.size(); i++) {
+			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(128, 128, 128));
+			//PutPixel(j, i, Colors::MakeRGB(0, 0, 0));
+		}
+	}
+}
+
 
 
 void Graphics::DrawSprite(float left, float top, float right, float bottom, const Surface& s,Color c)
