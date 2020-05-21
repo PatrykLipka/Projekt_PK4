@@ -431,3 +431,12 @@ void Zombie::ChangeHealth(float changeHP)
 	if ((this->health -= changeHP) > 0) { isAlive = true; }
 	else { isAlive = false; Points::IncrementPoints(value); }
 }
+
+float Zombie::Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies)
+{
+	return 0;
+}
+float Zombie::CalculateDistanceToEnemy(const Vec2D& pos) 
+{
+	return 0;
+}

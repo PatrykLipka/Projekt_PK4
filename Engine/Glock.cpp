@@ -184,7 +184,6 @@ void Glock::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, st
 		enemy.push_back(std::move(e));
 		std::sort(enemy.begin(), enemy.end(), compare_distance);
 	}
-	
 }
 
 void Glock::AddAmo(int amo)

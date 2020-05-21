@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "Obstacle.h"
 #include "Graphics.h"
+#include <algorithm>
 #include <list>
 #include <vector>
 #include "Surface.h"
@@ -43,6 +44,7 @@ public:
 	virtual bool IsOverLappingObject(const Object other) = 0;
 	virtual void DrawEnemy(Graphics& gtx) = 0;
 	virtual float Attack(float distance, float dt) = 0;
+	virtual float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
 	virtual void ChangeHealth(float changeHP) = 0;
 	virtual bool IsAlive() = 0;
 	virtual float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
@@ -50,6 +52,7 @@ public:
 	virtual void Draw(Graphics& gfx) = 0;
 	virtual void Update(float dt) = 0;
 	virtual void CalculateDistance(const Vec2D & pos)=0;
+	virtual float CalculateDistanceToEnemy(const Vec2D& pos) = 0;
 	Object GetObjectW();
 	virtual void Hitted(const float& dmg) = 0;
 };

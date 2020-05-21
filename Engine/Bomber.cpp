@@ -1,6 +1,13 @@
 #include "Bomber.h"
 
 
+bool compare_distanceBomber(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
+	if (obj1 && obj2)
+		return obj1->distance < obj2->distance;
+
+	return true;
+}
+
 bool Bomber::IsAlive()
 {
 	if (this->isAlive == true) return true;
@@ -19,20 +26,19 @@ float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 	float desiredX = playerObject.width / 2 + object.width / 2;
 	float desiredY = playerObject.height / 2 + object.height / 2;
 	float desiredDistance = sqrt(desiredX * desiredX / 4 + desiredY * desiredY / 4);
-	attackRange = 1.5 * desiredDistance;
 
 	float damageToPlayer = 0;
 
-	if (desiredDistance >= distance || attackIterator > 0) {
+	if (3*attackRange/4 >= distance || attackIterator > 0) {
 		dirX = playerX - object.pos.x;
 		dirY = playerY - object.pos.y;
 		attackIterator++;
 		if (attackIterator == 1)
 		{
-			attackX = dirX;
+			attackX = dirX; 
 			attackY = dirY;
 		}
-		damageToPlayer = Attack(distance, dt);
+		damageToPlayer = Attack(distance, dt, enemies);
 	}
 	else {
 		if (blockedRight || blockedLeft || blockedUp || blockedDown) {
@@ -347,16 +353,33 @@ void Bomber::DrawEnemy(Graphics& gtx)
 {
 }
 
-float Bomber::Attack(float distance, float dt)
+float Bomber::Attack(float distanceToPlayer, float dt)
+{
+	return 0;
+}
+
+bool Bomber::SortByDistance(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
+	if (obj1 && obj2)
+		return CalculateDistanceToEnemy(obj1.get()->GetObjectW().pos) < CalculateDistanceToEnemy(obj2.get()->GetObjectW().pos);
+
+	return true;
+}
+
+float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_ptr<Enemy>>& enemies)
 {
 	if (attackX > 16) iCurrentSeqence = Sequences::AttackRight;
 	else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
 	else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
 	else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
-	if (attackIterator > 34)
+	if (attackIterator > 110)
 	{
 		attackIterator = 0;
-		if (distance <= attackRange) {
+		std::vector<std::unique_ptr<Enemy>> enemiesHit;
+		CalculateExplosion(enemies, enemiesHit);
+		std::sort(enemies.begin(), enemies.end(), compare_distanceBomber);
+		std::sort(enemiesHit.begin(), enemiesHit.end(), compare_distanceBomber);
+		HitEnemies(enemies, enemiesHit);
+		if (distanceToPlayer <= attackRange) {
 			Update(dt);
 			return damage;
 		}
@@ -369,17 +392,35 @@ float Bomber::Attack(float distance, float dt)
 		Update(dt);
 		return 0;
 	}
+}
 
-
+void Bomber::HitEnemies(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit)
+{
+	for (auto& enem : enemiesHit) {
+		//if (this != enem.get())
+		{
+			enem.get()->ChangeHealth(damage);
+		}
+	}
+	MergeVector(enemies, enemiesHit);
 }
 
 
+
+void Bomber::MergeVector(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit)
+{
+	for (auto& e : enemiesHit) {
+		enemies.push_back(std::move(e));
+		std::sort(enemies.begin(), enemies.end(), compare_distanceBomber);
+	}
+}
 
 Bomber::Bomber(Object object, float health, float damage, float probability, bool isAlive, int points) :Enemy(object, health, damage, probability, isAlive, points) {
 	aimsRight = false;
 	aimsLeft = false;
 	aimsDown = true;
 	aimsUp = false;
+	attackRange = 80;
 	value = 1;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(22, 46 * i, 22, 46, 4, surface, 0.15f));
@@ -388,7 +429,7 @@ Bomber::Bomber(Object object, float health, float damage, float probability, boo
 		animations.emplace_back(Animation(0, 46 * (i - (int)Sequences::StandDown), 22, 46, 1, surface, 0.15f));
 	}
 	for (int i = (int)Sequences::AttackDown; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(110, 46 * (i - (int)Sequences::AttackDown), 22, 46, 5, surface, 0.2f));
+		animations.emplace_back(Animation(110, 46 * (i - (int)Sequences::AttackDown), 22, 46, 5, surface, 0.4f));
 	}
 
 }
@@ -412,11 +453,27 @@ void Bomber::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-
+void Bomber::CalculateExplosion(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit)
+{
+	for (auto& enem : enemies) {
+		if (this != enem.get())
+		{
+			if (CalculateDistanceToEnemy(enem->GetObjectW().pos) <= attackRange) {
+				enemiesHit.push_back(std::move(enem));
+			}
+		}
+	}
+}
 
 void Bomber::CalculateDistance(const Vec2D& pos)
 {
 	distance = sqrt(pow(object.pos.x - pos.x, 2) + pow(object.pos.y - pos.y, 2));
+}
+
+float Bomber::CalculateDistanceToEnemy(const Vec2D& pos)
+{
+	float distance = sqrt(pow(object.pos.x - pos.x, 2) + pow(object.pos.y - pos.y, 2));
+	return distance;
 }
 
 void Bomber::Hitted(const float& dmg)
@@ -427,7 +484,6 @@ void Bomber::Hitted(const float& dmg)
 
 void Bomber::ChangeHealth(float changeHP)
 {
-
 	if ((this->health -= changeHP) > 0) { isAlive = true; }
 	else { isAlive = false; Points::IncrementPoints(value); }
 }
