@@ -22,68 +22,131 @@ void Round::InitRound()
 void Round::SpawnEnemy(float dt)
 {
 	currentTime += dt;
-	if (currentTime >= spawnTime&&numberOfEnemiesToSpawn>0) {
+	if (currentTime >= spawnTime && numberOfEnemiesToSpawn > 0) {
 		std::random_device device;
 		std::mt19937 generator(device());
 		std::uniform_int_distribution<int> distribution(1, 4);
+		std::uniform_int_distribution<int> propabilityforspawn(1, 100);
 		int whichGate = distribution(generator);
+		int whichTypeOfEnemy = propabilityforspawn(generator);
 		bool findPosition = false;
+		
+		if (whichTypeOfEnemy < 75) {
 		float x = 15;
 		float y = 325;
-		Object obj(Vec2D(x, y), Vec2D(1, 1), 23, 41);
-		while (findPosition == false&&whichGate==1) {
-			obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
-			if (CheckIfSpawnIsPossible(obj)) {
-				findPosition = true;
-				break;
+			Object obj(Vec2D(x, y), Vec2D(1, 1), 23, 41);
+			while (findPosition == false && whichGate == 1) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				y += 22;
+				if (y >= 500)break;
 			}
-			y+=22;
-			if (y >= 500)break;
-		}
-		x = 1180;
-		y = 325;
-		while (findPosition==false && whichGate == 2) {
-			obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
-			if (CheckIfSpawnIsPossible(obj)) {
-				findPosition = true;
-				break;
+			x = 1180;
+			y = 325;
+			while (findPosition == false && whichGate == 2) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				y += 22;
+				if (y >= 500)break;
 			}
-			y += 22;
-			if (y >= 500)break;
-		}
-		x = 500;
-		y = 25;
-		while ( findPosition == false && whichGate == 3) {
-			obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
-			if (CheckIfSpawnIsPossible(obj)) {
-				findPosition = true;
-				break;
+			x = 500;
+			y = 25;
+			while (findPosition == false && whichGate == 3) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				x += 12;
+				if (x >= 700)break;
 			}
-			x += 12;
-			if (x >= 700)break;
-		}
-		x = 500;
-		y = 780;
-		while ( findPosition == false && whichGate == 4) {
-			obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
-			if (CheckIfSpawnIsPossible(obj)) {
-				findPosition = true;
-				break;
+			x = 500;
+			y = 780;
+			while (findPosition == false && whichGate == 4) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 23, 41 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				x += 12;
+				if (x >= 700)break;
 			}
-			x += 12;
-			if (x >= 700)break;
-		}
-		if (findPosition == true) {
-			enemies.push_back(std::make_unique<Zombie>(obj, 100,20, 50, true, 5));
-			//enemies.push_back(std::make_unique<Bomber>(obj, 100, 20, 50, true, 5));
-			currentTime = 0;
-			--numberOfEnemiesToSpawn;
+			if (findPosition == true) {
+				enemies.push_back(std::make_unique<Zombie>(obj, 100, 20, 50, true, 5));
+				currentTime = 0;
+				--numberOfEnemiesToSpawn;
+			}
+			else {
+				currentTime = spawnTime / 4;
+			}
 		}
 		else {
-			currentTime =spawnTime/4;
+			float x = 15;
+			float y = 325;
+			Object obj(Vec2D(x, y), Vec2D(1, 1), 22, 46);
+			while (findPosition == false && whichGate == 1) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				y += 22;
+				if (y >= 500)break;
+			}
+			x = 1180;
+			y = 325;
+			while (findPosition == false && whichGate == 2) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				y += 22;
+				if (y >= 500)break;
+			}
+			x = 500;
+			y = 25;
+			while (findPosition == false && whichGate == 3) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				x += 12;
+				if (x >= 700)break;
+			}
+			x = 500;
+			y = 780;
+			while (findPosition == false && whichGate == 4) {
+				obj = { Vec2D(x,y),Vec2D(1, 1), 22, 46 };
+				if (CheckIfSpawnIsPossible(obj)) {
+					findPosition = true;
+					break;
+				}
+				x += 12;
+				if (x >= 700)break;
+			}
+			if (findPosition == true) {
+				enemies.push_back(std::make_unique<Bomber>(obj, 100, 20, 50, true, 5));
+				currentTime = 0;
+				--numberOfEnemiesToSpawn;
+			}
+
+			else {
+				currentTime = spawnTime / 4;
+			}
 		}
 	}
 }
+
+		
+
 void Round::NextRound(int additionalEnemies)
 {
 	if (enemies.size()==0) {
