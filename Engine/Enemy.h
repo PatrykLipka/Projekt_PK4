@@ -44,10 +44,10 @@ public:
 	virtual bool IsOverLappingObject(const Object other) = 0;
 	virtual void DrawEnemy(Graphics& gtx) = 0;
 	virtual float Attack(float distance, float dt) = 0;
-	virtual float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
+	virtual float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay) = 0;
 	virtual void ChangeHealth(float changeHP) = 0;
 	virtual bool IsAlive() = 0;
-	virtual float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
+	virtual float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay) = 0;
 	virtual void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance) = 0;
 	virtual void Draw(Graphics& gfx) = 0;
 	virtual void Update(float dt) = 0;

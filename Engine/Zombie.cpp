@@ -7,7 +7,7 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
+float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -437,7 +437,7 @@ void Zombie::ChangeHealth(float changeHP)
 	else { isAlive = false; Points::IncrementPoints(value); }
 }
 
-float Zombie::Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies)
+float Zombie::Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)
 {
 	return 0;
 }

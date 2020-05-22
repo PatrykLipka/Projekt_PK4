@@ -33,14 +33,14 @@ public:
 	bool IsOverLappingObject(const Object other) override;
 	void DrawEnemy(Graphics& gtx)override;
 	virtual float Attack(float distance, float dt) override;
-	float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies)override;
+	float Attack(float distance, float dt, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)override;
 	void HitEnemies(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit);
 	void MergeVector(std::vector<std::unique_ptr<Enemy>>& targets, std::vector<std::unique_ptr<Enemy>>& enemies);
 	bool SortByDistance(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2);
 	void CalculateExplosion(std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<std::unique_ptr<Enemy>>& enemiesHit);
 	void ChangeHealth(float changeHP)override;
 	bool IsAlive()override;
-	float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies);
+	float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay) override;
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance)override;
 	void Update(float dt)override;
 	void CalculateDistance(const Vec2D& pos)override;
