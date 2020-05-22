@@ -390,7 +390,7 @@ float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_p
 	if (attackIterator > 55+delay)
 	{
 		attackIterator = 0;
-		delay+=20;
+		delay += 20;
 		std::vector<std::unique_ptr<Enemy>> enemiesHit;
 		CalculateExplosion(enemies, enemiesHit);	
 		std::sort(enemiesHit.begin(), enemiesHit.end(), compare_distanceBomber);

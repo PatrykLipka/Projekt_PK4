@@ -52,8 +52,17 @@ void Game::UpdateModel()
     board.SpawnEnemies(clock);
     std::vector<std::unique_ptr<Enemy>>& enemy=board.GetEnemies();
     float damageToPlayer = 0;
-    int delay = 0;
-    for (auto & opponent : enemy) { damageToPlayer+=opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay);}
+    float previousDamage = 0;
+    int delay=0;
+    for (auto & opponent : enemy) 
+    { 
+        damageToPlayer+=opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay);
+        if (previousDamage!=damageToPlayer)
+        {
+            delay += 20;
+        }
+        previousDamage = damageToPlayer;
+    }
 
     if (damageToPlayer > 0) {
         player.ChangeHealth(damageToPlayer);
