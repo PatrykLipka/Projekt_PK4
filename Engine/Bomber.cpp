@@ -13,7 +13,7 @@ bool Bomber::IsAlive()
 	else return false;
 }
 
-float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
+float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -28,7 +28,7 @@ float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 
 	float damageToPlayer = 0;
 
-	if (3*attackRange/4 >= distance || attackIterator > 0) {
+	if (health >0 && (3*attackRange/5 >= distance || attackIterator > 0)) {
 		dirX = playerX - object.pos.x;
 		dirY = playerY - object.pos.y;
 		attackIterator++;
@@ -37,7 +37,12 @@ float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 			attackX = dirX; 
 			attackY = dirY;
 		}
-		damageToPlayer = Attack(distance, dt, enemies);
+		if (attackX > 16) iCurrentSeqence = Sequences::AttackRight;
+		else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
+		else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
+		else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
+		Update(dt);
+		
 	}
 	else {
 		if (blockedRight || blockedLeft || blockedUp || blockedDown) {
@@ -116,6 +121,21 @@ float Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 			}
 		}
 	}
+	if (health <= 0)
+	{
+		attackIterator++;
+		if (attackIterator == 1)
+		{
+			attackX = dirX;
+			attackY = dirY;
+		}
+		if (attackX > 16) iCurrentSeqence = Sequences::AttackRight;
+		else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
+		else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
+		else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
+		Update(dt);
+	}
+	damageToPlayer = Attack(distance, dt, enemies, delay);
 	return damageToPlayer;
 }
 
@@ -364,21 +384,20 @@ bool Bomber::SortByDistance(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>
 	return true;
 }
 
-float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_ptr<Enemy>>& enemies)
+float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)
 {
-	if (attackX > 16) iCurrentSeqence = Sequences::AttackRight;
-	else if (attackX < -16) iCurrentSeqence = Sequences::AttackLeft;
-	else if (attackX >= -16 && attackX <= 16 && attackY > 0) iCurrentSeqence = Sequences::AttackDown;
-	else if (attackX >= -16 && attackX <= 16 && attackY < 0) iCurrentSeqence = Sequences::AttackUp;
-	if (attackIterator > 110)
+	
+	if (attackIterator > 55+delay)
 	{
 		attackIterator = 0;
+		delay += 20;
 		std::vector<std::unique_ptr<Enemy>> enemiesHit;
 		CalculateExplosion(enemies, enemiesHit);	
 		std::sort(enemiesHit.begin(), enemiesHit.end(), compare_distanceBomber);
 		enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true; }), enemies.end());
 		HitEnemies(enemies, enemiesHit);
 		this->ChangeHealth(health);
+		this->isAlive = false;
 		if (distanceToPlayer <= attackRange) {
 			Update(dt);
 			return damage;
@@ -485,14 +504,14 @@ void Bomber::Hitted(const float& dmg)
 
 Rect Bomber::GetBoom()
 {
-	return Rect(object.pos.x-45,object.pos.x+45,object.pos.y-45,object.pos.y+45);
+	return Rect(object.pos.x-64,object.pos.x+ 64,object.pos.y- 64,object.pos.y+ 64);
 }
 
 bool Bomber::Boom(Graphics& gfx,float dt)
 {
 	currenttime += dt;
 	if (currenttime <= holdTime) {
-		gfx.DrawBoom(GetBoom().left,GetBoom().top,GetBoom().right,GetBoom().bottom, Surface("explosion.png", 90, 90), Colors::MakeRGB(255,0,128));
+		gfx.DrawBoom(GetBoom().left,GetBoom().top,GetBoom().right,GetBoom().bottom, Surface("explosion.png", 128, 128), Colors::MakeRGB(255,0,128));
 		return false;
 	}
 	else {
@@ -503,6 +522,6 @@ bool Bomber::Boom(Graphics& gfx,float dt)
 
 void Bomber::ChangeHealth(float changeHP)
 {
-	if ((this->health -= changeHP) > 0) { isAlive = true; }
-	else { isAlive = false; Points::IncrementPoints(value); }
+	/*if ((*/this->health -= changeHP;/*) > 0) { isAlive = true; }
+	else { isAlive = false; Points::IncrementPoints(value); }*/
 }
