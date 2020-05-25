@@ -374,21 +374,21 @@ void Graphics::DrawUzi(const std::vector<Vec2D>& vec)
 {
 	for (int j = 0; j < (int)vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
-			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(128, 128, 128));
-			//PutPixel(j, i, Colors::MakeRGB(0, 0, 0));
+			if (vec[i].x > 0 && vec[i].x < ScreenWidth && vec[i].y>0 && vec[i].y < ScreenHeight) {
+				PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(128, 128, 128));
+			}
+			
 		}
 	}
 }
-
 void Graphics::DrawBoom(float left, float top, float right, float bottom, const Surface& s, Color c)
 {
-	int x = 0;
 	int width = (int)right - (int)left;
 	int height = (int)bottom - (int)top;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
 			if ((left + i) > 1 && (left + i) < ScreenWidth - 1 && (top + j) > 1 && (top + j) < ScreenHeight - 1 && s.GetPixel(i, j) != c) {
-				x++;
+				
 				PutPixel((int)(left + i), (int)(top + j), s.GetPixel(i, j));
 			}
 		}
