@@ -14,8 +14,8 @@ void Map::AddNewBox(float dt)
 	if (time >= timeToSpawanBox) {
 		std::random_device device;
 		std::mt19937 generator(device());
-		std::uniform_real_distribution<float> distributionX(13, 1187);
-		std::uniform_real_distribution<float> distributionY(13, 787);
+		std::uniform_real_distribution<float> distributionX(25, 1170);
+		std::uniform_real_distribution<float> distributionY(25, 770);
 		std::uniform_real_distribution<float> timeD(5,15);
 		float x = distributionX(generator);
 		float y = distributionY(generator);

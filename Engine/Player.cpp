@@ -204,7 +204,8 @@ int Player::GetSizeOfOwnedGuns()
 void Player::AddAmoTuGun(std::size_t hash_code, int amo)
 {
 	for (auto gun : ownedGuns) {
-		if (typeid(*gun).hash_code() == hash_code) { gun->AddAmo(amo); break; }
+		if (typeid(*gun).hash_code() == hash_code) 
+		{ gun->AddAmo(amo); break; }
 	}
 }
 
