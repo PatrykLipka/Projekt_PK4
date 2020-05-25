@@ -32,6 +32,11 @@ std::vector<std::unique_ptr<Enemy>>& Board::GetEnemies()
 	return round.GetEnemies();
 }
 
+std::vector<Box> Board::GetBoxes()
+{
+	return map->GetBox();
+}
+
 void Board::SpawnEnemies(float dt)
 {
 	round.SpawnEnemy(dt);
@@ -40,6 +45,22 @@ void Board::SpawnEnemies(float dt)
 void Board::NextRound()
 {
 	round.NextRound(2);
+}
+
+void Board::AddNewBox(float dt)
+{
+	map->AddNewBox(dt);
+}
+
+void Board::ColectBox(Player& player)
+{
+	std::vector<Box>& boxes = map->GetBox();
+	for(auto & box:boxes){
+		box.ColectBox(player);
+	}
+	boxes.erase(std::remove_if(boxes.begin(), boxes.end(), [](Box & b) {
+			return b.AlreadyColected(); })
+			, boxes.end());
 }
 
 void Board::InitVectorOfWeapon()

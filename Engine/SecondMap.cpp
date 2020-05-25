@@ -3,6 +3,10 @@
 void SecondMap::DrawMap(Graphics& gfx)
 {
 	gfx.DrawSprite(0, 0, surface.GetWidth(), surface.GetHeight(), surface,Colors::MakeRGB(255,255,255));
+	for (auto box : boxes) {
+		Object obj = box.getObject();
+		gfx.DrawSprite(obj.hitbox.left, obj.hitbox.top, obj.hitbox.right, obj.hitbox.bottom, Surface("crate.png", 25, 24), Colors::MakeRGB(255, 0, 128));
+	}
 }
 
 void SecondMap::InitMap()
@@ -38,21 +42,6 @@ std::vector<Obstacle> SecondMap::GetObstacles()
 	return obstacles;
 }
 
-void SecondMap::AddNewBox(float dt)
-{
-	time += dt;
-	if (time >= timeToSpawanBox) {
-		std::random_device device;
-		std::mt19937 generator(device());
-		std::uniform_real_distribution<float> distributionX(13, 1187);
-		std::uniform_real_distribution<float> distributionY(13,787 );
-		std::uniform_real_distribution<float> timeD(13, 787);
-		float x = distributionX(generator);
-		float y = distributionX(generator);
-		boxes.push_back(Box(Vec2D( x,y ), 13.0f, 13.0f));
-		this->time = 0;
-		timeToSpawanBox = timeD(generator);
-	}
-}
+
 
 

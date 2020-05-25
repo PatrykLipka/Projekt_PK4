@@ -135,7 +135,7 @@ void Round::SpawnEnemy(float dt)
 			if (findPosition == true) {
 				enemies.push_back(std::make_unique<Bomber>(obj, 80, 40, 50, true, 5));
 				currentTime = 0;
-				--numberOfEnemiesToSpawn;
+				numberOfEnemiesToSpawn = numberOfEnemiesToSpawn - 1;
 			}
 
 			else {

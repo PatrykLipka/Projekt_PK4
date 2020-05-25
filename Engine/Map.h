@@ -17,7 +17,8 @@ public:
 	virtual void DrawMap(Graphics& gfx)=0;
 	virtual void InitMap()=0;
 	virtual std::vector<Obstacle> GetObstacles() = 0;
-	virtual void AddNewBox(float dt) = 0;
+	void AddNewBox(float dt);
+	std::vector<Box>& GetBox();
 	//virtual std::vector<Enemy*> GetEnemies() = 0;
 };
 

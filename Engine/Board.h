@@ -25,9 +25,12 @@ public:
 	void DrawBoard(Graphics & gfx);
 	std::vector<Obstacle> GetObstacles();
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
+	std::vector<Box> GetBoxes();
 	void SpawnEnemies(float dt);
 	void NextRound();
 	std::shared_ptr<Weapon>& GetAvaliableGun(const  Points& points);
+	void AddNewBox(float dt);
+	void ColectBox(Player& player);
 	
 	//std::vector<Enemy*> GetEnemies();
 

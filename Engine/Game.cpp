@@ -50,6 +50,8 @@ void Game::UpdateModel()
    
     float clock = ft.Mark();
     board.SpawnEnemies(clock);
+    board.AddNewBox(clock);
+    board.ColectBox(player);
     std::vector<std::unique_ptr<Enemy>>& enemy=board.GetEnemies();
     float damageToPlayer = 0;
     float previousDamage = 0;

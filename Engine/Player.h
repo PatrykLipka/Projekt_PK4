@@ -70,5 +70,6 @@ class Player
 	void ChangeGunForNextGun();
 	void ChangeGunForPreviousGun();
 	
+	
 };
 
