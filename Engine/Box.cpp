@@ -16,7 +16,7 @@ void Box::ColectBox(Player & player)
 		std::random_device device;
 		std::mt19937 generator(device());
 		std::uniform_int_distribution<int> powerUp(1, 2);
-		std::uniform_int_distribution<int> distribution(1,player.GetSizeOfOwnedGuns()+1);
+		std::uniform_int_distribution<int> distribution(1,player.GetSizeOfOwnedGuns());
 		std::uniform_int_distribution<int> distributionAmo(5,30);
 		
 		int powerUpNumber = powerUp(generator);
@@ -25,10 +25,11 @@ void Box::ColectBox(Player & player)
 		player.collectedBox = true;
 		switch (powerUpNumber) {
 		case 1: 
-			player.AddAmoTuGun(typeid(Uzi).hash_code(), amo);
-			break;
-		case 2:
 			player.Recover(40.0f);
+			break;
+			
+		case 2:
+			player.AddAmoTuGun(typeid(Uzi).hash_code(), amo);
 			break;
 
 			

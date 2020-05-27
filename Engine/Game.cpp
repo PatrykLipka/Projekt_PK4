@@ -31,7 +31,7 @@ Game::Game(MainWindow& wnd)
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
-    board(50),
+    board(1),
     game_over(L"Sounds\\game_over.wav"),
     glock_shooting(L"Sounds\\glock_shooting.wav"),
     uzi_shooting(L"Sounds\\uzi_shooting.wav"),
@@ -153,6 +153,7 @@ void Game::UpdateModel()
          , enemyToBoom.end());
      fonte.DrawTexts(player.GetInformationAboutCurrentGun(), {50.0f,750.0f}, Colors::Black, gfx);
      fonte.DrawTexts("Score:"+std::to_string(Points::GetPoints()), { 1050.0f,750.0f }, Colors::Black, gfx);
+     board.NextRound(clock, gfx);
      board.LevelUp(player);
      if (!player.IsAlive()) {
          

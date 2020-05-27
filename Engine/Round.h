@@ -9,15 +9,17 @@ class Round
 {
 	int numberOfEnemiesToSpawn;
 	int previousNumberOfEnemies;
-	int currentRound=1;
+	int currentRound=2;
 	std::vector<std::unique_ptr<Enemy>> enemies;
 	float currentTime = 0;
 	float spawnTime = 0.1f;
+	float timebetweenrounds = 1.0f;
+	float currentTimeBR=0.0f;
 public:
 	Round(int numberOfEnemiesInFirstRound);
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
 	void InitRound();
 	void SpawnEnemy(float dt);
-	void NextRound(int additionalEnemies);
+	void NextRound(int additionalEnemies, float dt, Graphics& gfx);
 	bool CheckIfSpawnIsPossible(const Object& obj);
 };

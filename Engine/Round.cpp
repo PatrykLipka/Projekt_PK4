@@ -1,4 +1,5 @@
 #include "Round.h"
+#include "Font.h"
 //
 //Round::NextRound() 
 //{
@@ -147,12 +148,21 @@ void Round::SpawnEnemy(float dt)
 
 		
 
-void Round::NextRound(int additionalEnemies)
+void Round::NextRound(int additionalEnemies, float dt,Graphics &gfx)
 {
 	if (enemies.size()==0) {
-		numberOfEnemiesToSpawn = additionalEnemies + previousNumberOfEnemies;
-		previousNumberOfEnemies = numberOfEnemiesToSpawn;
-		currentRound++;
+		currentTimeBR += dt;
+		if (currentTimeBR <= timebetweenrounds) {
+		Font f= Font("Images\\Consolas13x24.png", 416, 72);
+		f.DrawTexts("Round " + std::to_string(currentRound), { Graphics::ScreenWidth / 2 -25,Graphics::ScreenHeight / 2 }, Colors::Red, gfx);
+		}
+		else {
+			numberOfEnemiesToSpawn = additionalEnemies + previousNumberOfEnemies;
+			previousNumberOfEnemies = numberOfEnemiesToSpawn;
+			currentRound++;
+		}
+		
+		
 	}
 }
 bool Round::CheckIfSpawnIsPossible(const Object& obj)

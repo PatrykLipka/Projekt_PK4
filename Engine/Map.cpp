@@ -19,12 +19,20 @@ void Map::AddNewBox(float dt)
 		std::uniform_real_distribution<float> timeD(5,15);
 		float x = distributionX(generator);
 		float y = distributionY(generator);
-		boxes.push_back(Box(Vec2D(x, y), 13.0f, 13.0f));
+		if (CheckIfBoxCanBeSpawn({ x,y }, 13.0f, 13.0f)) {
+			boxes.push_back(Box(Vec2D(x, y), 13.0f, 13.0f));
+		}
 		this->time = 0;
-		timeToSpawanBox = timeD(generator);
+			timeToSpawanBox = timeD(generator);
 	}
 }
-
+bool Map::CheckIfBoxCanBeSpawn(const Vec2D& vec,float width,float height) {
+	Object obj(vec, { 0.0,0.0 },width,height);
+	for (auto obs : obstacles) {
+		if (obs.getObject().hitbox.IsOverLapping(obj.hitbox)) { return false; }
+	}
+	return true;
+}
 std::vector<Box>& Map::GetBox()
 {
 	return boxes;

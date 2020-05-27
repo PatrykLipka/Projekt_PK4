@@ -19,6 +19,7 @@ public:
 	virtual std::vector<Obstacle> GetObstacles() = 0;
 	void AddNewBox(float dt);
 	std::vector<Box>& GetBox();
+	bool CheckIfBoxCanBeSpawn(const Vec2D& vec, float width, float height);
 	//virtual std::vector<Enemy*> GetEnemies() = 0;
 };
 

@@ -42,9 +42,9 @@ void Board::SpawnEnemies(float dt)
 	round.SpawnEnemy(dt);
 }
 
-void Board::NextRound()
+void Board::NextRound(float dt,Graphics& gfx)
 {
-	round.NextRound(2);
+	round.NextRound(10,dt,gfx);
 }
 
 void Board::AddNewBox(float dt)

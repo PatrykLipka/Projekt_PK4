@@ -27,7 +27,7 @@ public:
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
 	std::vector<Box> GetBoxes();
 	void SpawnEnemies(float dt);
-	void NextRound();
+	void NextRound(float dt, Graphics& gfx);
 	std::shared_ptr<Weapon>& GetAvaliableGun(const  Points& points);
 	void AddNewBox(float dt);
 	void ColectBox(Player& player);
