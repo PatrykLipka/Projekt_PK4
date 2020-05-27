@@ -27,7 +27,6 @@ void Box::ColectBox(Player & player)
 		case 1: 
 			player.Recover(40.0f);
 			break;
-			
 		case 2:
 			player.AddAmoTuGun(typeid(Uzi).hash_code(), amo);
 			break;

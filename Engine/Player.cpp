@@ -135,6 +135,33 @@ void Player::DrawShot(Graphics& gfx, float dt)
 }
 
 
+void Player::LoadSurface()
+{
+	animations.clear();
+	for (int i = 0; i < (int)Sequences::StandDown; i++) {
+		animations.emplace_back(Animation(0, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
+	}
+	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandLeft; i++) {
+		animations.emplace_back(Animation(0, (int)object.height * (i - (int)Sequences::StandDown), (int)object.width, (int)object.height, 1, surface, 0.1f));
+	}
+	for (int i = 0; i < (int)Sequences::StandDown; i++) {
+		animations.emplace_back(Animation(5 * (int)object.width, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
+	}
+	
+}
+
+void Player::ChangeSurface()
+{
+	if (typeid(*weapon) == typeid(Glock)) {
+		surface= Surface("Images\\player_glock.png", 104, 164);
+		LoadSurface();
+	}
+	else if (typeid(*weapon) == typeid(Uzi)) {
+		surface = Surface("Images\\player_uzi.png", 104, 164);
+		LoadSurface();
+	}
+}
+
 Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)
 {
 	ownedGuns.push_back(weapon);
@@ -142,18 +169,7 @@ Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun)
 	aimsLeft = false;
 	aimsDown = true;
 	aimsUp = false;
-	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(0, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
-	}
-	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(0, (int)obj.height * (i - (int)Sequences::StandDown), (int)obj.width, (int)obj.height, 1, surface, 0.1f));
-	}
-	for (int i = 0; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(5 * (int)obj.width, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
-	}
-	for (int i = (int)Sequences::StandDownWithShot; i < (int)Sequences::Count; i++) {
-		animations.emplace_back(Animation(5 * (int)obj.width, (int)obj.height * (i - (int)Sequences::StandDownWithShot), (int)obj.width, (int)obj.height, 1, surface, 0.1f));
-	}
+	LoadSurface();
 }
 
 Object Player::getObject()
@@ -207,10 +223,13 @@ bool Player::ChangeGunForNextGun()
 {
 	for (std::vector<std::shared_ptr<Weapon>>::iterator it = ownedGuns.begin(); it < ownedGuns.end(); it++) {
 		if (*it == weapon) {
-			if (it == (--ownedGuns.end()))
+			if (it == (--ownedGuns.end())) {
 				weapon = ownedGuns[0];
+				ChangeSurface();
+			}
 			else {
 				weapon = *(++it);
+				ChangeSurface();
 				break;
 			}
 		}
@@ -224,10 +243,12 @@ bool Player::ChangeGunForPreviousGun()
 		if (*it == weapon) {
 			if (it == ownedGuns.begin()) {
 				weapon = *(--ownedGuns.end());
+				ChangeSurface();
 				break;
 			}
 			else {
 				weapon = *(--it);
+				ChangeSurface();
 				break;
 			}
 		}

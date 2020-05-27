@@ -7,7 +7,7 @@ Board::Board(int numberOfEnemiesInFirstRound):round(numberOfEnemiesInFirstRound)
 }
 void Board::LevelUp(Player& player)
 {
-	if (Points::GetPoints() >= 15) {
+	if (Points::GetPoints() >=0) {
        		if (allWeapons.size()==1&& typeid(*allWeapons[0]) == typeid(Uzi)) {
   			player.SetNewOwnedGun(allWeapons[0]);
 			allWeapons.erase(std::remove_if(allWeapons.begin(), allWeapons.end(), [](std::shared_ptr<Weapon> e) {if (typeid(*e) == typeid(Uzi))return true; else return false; }), allWeapons.end());
