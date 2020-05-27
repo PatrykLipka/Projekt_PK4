@@ -32,12 +32,14 @@ Game::Game(MainWindow& wnd)
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
     board(50),
+    game_over(L"Sounds\\game_over.wav"),
     glock_shooting(L"Sounds\\glock_shooting.wav"),
     uzi_shooting(L"Sounds\\uzi_shooting.wav"),
     zombie_attack(L"Sounds\\zombie_attack.wav"),
     bomber_attack(L"Sounds\\bomber_attack.wav"),
     box_collected(L"Sounds\\box_collected.wav"),
-    change_weapon(L"Sounds\\change_weapon.wav")
+    change_weapon(L"Sounds\\change_weapon.wav"),
+    player_getting_hit(L"Sounds\\player_getting_hit.wav")
 {  
    
    board.InitBoard();
@@ -67,10 +69,10 @@ void Game::UpdateModel()
         enemyType = opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay, damageToPlayer);
         
         if(enemyType==1){
-            zombie_attack.Play();
+            zombie_attack.Play(1.0, 0.8);
         }
         else if(enemyType==2){
-            bomber_attack.Play();
+            bomber_attack.Play(1.0, 2.0);
         }
         if (previousDamage!=damageToPlayer)
         {
@@ -81,6 +83,7 @@ void Game::UpdateModel()
 
     if (damageToPlayer > 0) {
         player.ChangeHealth(damageToPlayer);
+        player_getting_hit.Play(1.0, 3.0);
     }
 
     if (player.IsAlive()) {
@@ -102,8 +105,8 @@ void Game::UpdateModel()
              std::string weaponName = player.GetCurrentWeaponName();
              if (player.isShooting)
              {
-                 if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play();
-                 else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play();
+                 if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play(1.0, 0.3);
+                 else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play(1.0, 0.2);
              }
          }
     }
@@ -146,9 +149,9 @@ void Game::UpdateModel()
      fonte.DrawTexts(player.GetInformationAboutCurrentGun(), {50.0f,750.0f}, Colors::Black, gfx);
      board.LevelUp(player);
      if (!player.IsAlive()) {
-       
+         game_over.Play(0.1, 0.4);
          gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));
-         Sleep(100);
+         Sleep(50);
         // wnd.Kill();
          
      }

@@ -69,12 +69,14 @@ private:
     Board board;
     std::vector<std::unique_ptr<Enemy>> enemyToBoom;
     Font fonte=Font("Consolas13x24.png",416,72);
+    Sound game_over;
     Sound glock_shooting;
     Sound uzi_shooting;
     Sound zombie_attack;
     Sound bomber_attack;
     Sound box_collected;
     Sound change_weapon;
+    Sound player_getting_hit;
     
 	/********************************/
 	/*  User Variables              */
