@@ -31,7 +31,8 @@ Game::Game(MainWindow& wnd)
     frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
-    board(50)
+    board(50),
+    glock_shooting(L"Sounds\\glock_shooting.wav")
 {  
    
    board.InitBoard();
@@ -80,7 +81,14 @@ void Game::UpdateModel()
         }
          if (wnd.kbd.KeyIsPressed(0x58)) { player.ChangeGunForNextGun(); }
          if (wnd.kbd.KeyIsPressed(0x5A)) { player.ChangeGunForPreviousGun(); }
-         if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx); }
+         if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
+             float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx);
+             std::string weaponName = player.GetCurrentWeaponName();
+             if (player.isShooting && player.GetCurrentWeaponName()==" Glock")
+             {
+                 glock_shooting.Play();
+             }
+         }
     }
     for (auto& e : enemy) {
         if (typeid(*e).hash_code() == typeid(Bomber).hash_code() && e->IsAlive() == false) {

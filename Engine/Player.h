@@ -70,6 +70,6 @@ class Player
 	void ChangeGunForNextGun();
 	void ChangeGunForPreviousGun();
 	std::string GetInformationAboutCurrentGun();
-	
+	std::string GetCurrentWeaponName();
 };
 

@@ -123,7 +123,10 @@
     <ClInclude Include="SpriteEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shotgun.h">
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -218,8 +221,8 @@
     <ClCompile Include="Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Shotgun.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
