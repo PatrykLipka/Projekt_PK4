@@ -409,6 +409,7 @@ float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_p
 		HitEnemies(enemies, enemiesHit);
 		this->ChangeHealth(health);
 		this->isAlive = false;
+		Points::IncrementPoints(points);
 		if (distanceToPlayer <= attackRange) {
 			Update(dt);
 			return damage;

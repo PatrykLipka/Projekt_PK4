@@ -115,6 +115,11 @@ public:
 			}
 		}
 	}
+	template<typename E>
+	bool IsInScreen(E x, E y) {
+		if (x > 0 && x < ScreenWidth && y>0 && y < ScreenHeight)return true;
+		else return false;
+	}
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

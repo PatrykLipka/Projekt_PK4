@@ -336,10 +336,10 @@ void Graphics::DrawSprite(int x, int y, const Rect& src, const Surface& s)
 	assert(src.left >= 0);
 	assert(src.right <= s.GetWidth());
 	assert(src.top >= 0);
-	assert(src.bottom <= s.GetHeight() );
+	assert(src.bottom <= s.GetHeight());
 	for (int dy = (int)src.top; dy < (int)src.bottom; dy++) {
 		for (int dx = (int)src.left; dx < (int)src.right; dx++) {
-			if(s.GetPixel(dx,dy)!=Colors::MakeRGB(255,0,128))
+			if(s.GetPixel(dx,dy)!=Colors::MakeRGB(255,0,128)&&IsInScreen(x + dx - (int)src.left, y + dy - (int)src.top))
 			PutPixel(x + dx - (int)src.left, y + dy - (int)src.top, s.GetPixel(dx, dy));
 		}
 	}
@@ -353,7 +353,7 @@ void Graphics::DrawSpriteH(int x, int y, const Rect& src, const Surface& s)
 	assert(src.bottom <= s.GetHeight());
 	for (int dy = (int)src.top; dy <(int) src.bottom; dy++) {
 		for (int dx =(int) src.left; dx < (int)src.right; dx++) {
-			if (s.GetPixel(dx, dy) != Colors::MakeRGB(255, 0, 128)) {
+			if (s.GetPixel(dx, dy) != Colors::MakeRGB(255, 0, 128)&&IsInScreen(x + dx - (int)src.left, y + dy - (int)src.top)) {
 				unsigned char G = s.GetPixel(dx, dy).GetG();
 				unsigned char B = s.GetPixel(dx, dy).GetB();
 
@@ -368,6 +368,7 @@ void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 {
 	for (int j = 0; j <(int) vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
+			if(IsInScreen((int)vec[i].x, (int)vec[i].y))
 			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(255, 255, 0));
 			//PutPixel(j, i, Colors::MakeRGB(0, 0, 0));
 		}
@@ -378,7 +379,7 @@ void Graphics::DrawUzi(const std::vector<Vec2D>& vec)
 {
 	for (int j = 0; j < (int)vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
-			if (vec[i].x > 0 && vec[i].x < ScreenWidth && vec[i].y>0 && vec[i].y < ScreenHeight) {
+			if (IsInScreen(vec[i].x,vec[i].y)) {
 				PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(128, 128, 128));
 			}
 			
@@ -391,8 +392,7 @@ void Graphics::DrawBoom(float left, float top, float right, float bottom, const 
 	int height = (int)bottom - (int)top;
 	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < height; j++) {
-			if ((left + i) > 1 && (left + i) < ScreenWidth - 1 && (top + j) > 1 && (top + j) < ScreenHeight - 1 && s.GetPixel(i, j) != c) {
-				
+			if (IsInScreen((left + i), (top + j)) && s.GetPixel(i, j) != c) {
 				PutPixel((int)(left + i), (int)(top + j), s.GetPixel(i, j));
 			}
 		}
@@ -412,7 +412,7 @@ void Graphics::DrawSprite(float left, float top, float right, float bottom, cons
 	const int height = s.GetHeight();
 	for (int dy = 0; dy < height; dy++) {
 		for (int dx = 0; dx < width; dx++) {
-			if(s.GetPixel(dx, dy)!=c)
+			if(s.GetPixel(dx, dy)!=c && IsInScreen((left + dx), (top + dy)))
 			PutPixel((int)(left + dx), (int)(top + dy), s.GetPixel(dx, dy));
 		}
 	}

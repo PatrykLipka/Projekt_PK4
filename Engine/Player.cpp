@@ -135,20 +135,6 @@ void Player::DrawShot(Graphics& gfx, float dt)
 }
 
 
-//void Player::CheckCrate(std::vector<Crate>& crates)
-//{
-//	int iterator = 0;
-//	for (auto crt : crates) {
-//		if (crt.Collected(this->object)){
-//			this->health = 100;
-//			//odnawianie amunicji
-//			crates.erase(crates.begin()+iterator);
-//			break;
-//		}
-//		iterator++;
-//	}
-//}
-
 Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)
 {
 	ownedGuns.push_back(weapon);

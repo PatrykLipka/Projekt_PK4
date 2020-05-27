@@ -152,6 +152,7 @@ void Game::UpdateModel()
          }})
          , enemyToBoom.end());
      fonte.DrawTexts(player.GetInformationAboutCurrentGun(), {50.0f,750.0f}, Colors::Black, gfx);
+     fonte.DrawTexts("Score:"+std::to_string(Points::GetPoints()), { 1050.0f,750.0f }, Colors::Black, gfx);
      board.LevelUp(player);
      if (!player.IsAlive()) {
          
@@ -159,7 +160,7 @@ void Game::UpdateModel()
              gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424), Colors::MakeRGB(255, 255, 255));
              Sleep(100);
       
-             //wnd.Kill();
+          
          
      }
 
@@ -172,9 +173,5 @@ void Game::UpdateModel()
 }
 
 void Game::ComposeFrame()
-{
-    //float clock;
-    
-
-  
+{ 
 }
