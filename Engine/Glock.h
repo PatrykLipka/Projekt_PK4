@@ -3,7 +3,6 @@
 class Glock :
 	public Weapon
 {
-	//Sound glock_shooting;   /*L"Sounds\\glock_shooting.wav"*/
 	std::vector<Vec2D> possibleShot;
 public:
 	Glock(int neededPoints = 20, float damage = 30, float rof = 1, float distance = 200, float spread = 1, int ammo = std::numeric_limits<int>::infinity(), float holdTime = 0.7f, float holdTimeOfAnimation = 0.2f) :Weapon(neededPoints, damage, rof, distance, spread, ammo, holdTime, holdTimeOfAnimation) {}

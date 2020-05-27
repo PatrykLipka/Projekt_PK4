@@ -32,7 +32,8 @@ Game::Game(MainWindow& wnd)
     mov(0, 0),
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
     board(50),
-    glock_shooting(L"Sounds\\glock_shooting.wav")
+    glock_shooting(L"Sounds\\glock_shooting.wav"),
+    uzi_shooting(L"Sounds\\uzi_shooting.wav")
 {  
    
    board.InitBoard();
@@ -84,9 +85,10 @@ void Game::UpdateModel()
          if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
              float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx);
              std::string weaponName = player.GetCurrentWeaponName();
-             if (player.isShooting && player.GetCurrentWeaponName()==" Glock")
+             if (player.isShooting)
              {
-                 glock_shooting.Play();
+                 if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play();
+                 else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play();
              }
          }
     }

@@ -70,7 +70,7 @@ private:
     std::vector<std::unique_ptr<Enemy>> enemyToBoom;
     Font fonte=Font("Consolas13x24.png",416,72);
     Sound glock_shooting;
-
+    Sound uzi_shooting;
     
 	/********************************/
 	/*  User Variables              */
