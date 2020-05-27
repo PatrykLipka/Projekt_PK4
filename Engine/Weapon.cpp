@@ -22,3 +22,20 @@ std::string Weapon::GetInformationAboutCurrentGun()
     return convert + ":" + std::to_string(ammo);
 }
 
+
+std::string Weapon::GetName()
+{
+    const char* nameofweapon = typeid(*this).name();
+    std::string name = "";
+    int i = 0;
+    bool space = false;
+    while (nameofweapon[i] != '\0') {
+        if (nameofweapon[i] == 32) {
+            space = true;
+        }
+        if (space)
+            name.push_back(nameofweapon[i]);
+        i++;
+    }
+    return name;
+}

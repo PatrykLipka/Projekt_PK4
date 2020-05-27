@@ -7,6 +7,7 @@
 #include <algorithm>    
 #include <vector>
 #include "FrameTimer.h"
+#include "Sound.h"
 
 class Weapon {
 protected:
@@ -27,6 +28,7 @@ public:
 	virtual bool DrawShot(Graphics& gfx, float dt) = 0;
 	virtual void AddAmo(int amo) = 0;
 	std::string GetInformationAboutCurrentGun();
+	std::string GetName();
 
 
 };
