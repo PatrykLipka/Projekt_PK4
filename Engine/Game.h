@@ -77,6 +77,7 @@ private:
     Sound box_collected;
     Sound change_weapon;
     Sound player_getting_hit;
+    int changingWeapon = 30;
     
 	/********************************/
 	/*  User Variables              */

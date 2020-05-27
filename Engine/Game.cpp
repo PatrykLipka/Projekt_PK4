@@ -55,6 +55,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+    --changingWeapon;
     float clock = ft.Mark();
     board.SpawnEnemies(clock);
     board.AddNewBox(clock);
@@ -94,14 +95,17 @@ void Game::UpdateModel()
             if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
             if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
         }
-        if (wnd.kbd.KeyIsPressed(0x58)) {
+        if (wnd.kbd.KeyIsPressed(0x58) && changingWeapon <= 0) {
+            changingWeapon = 40;
                 if(player.ChangeGunForNextGun()) change_weapon.Play();
         }
-         if (wnd.kbd.KeyIsPressed(0x5A)) {
+        if (wnd.kbd.KeyIsPressed(0x5A) && changingWeapon <= 0) {
+             changingWeapon = 40;
                  if(player.ChangeGunForPreviousGun()) change_weapon.Play();
-         }
-         if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
+        }
+        if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) {
              float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx);
+            
              std::string weaponName = player.GetCurrentWeaponName();
              if (player.isShooting)
              {
@@ -121,7 +125,7 @@ void Game::UpdateModel()
             return true;
         }})
         , enemy.end());
-    mov = { 0.0,0.0 }; 
+     mov = { 0.0,0.0 }; 
      board.DrawBoard(gfx);
      for (auto & opponent : enemy) {
          if(opponent)

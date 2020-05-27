@@ -1,5 +1,6 @@
 #include "Weapon.h"
 #include <string>
+#include <numeric>
 Weapon::Weapon(int neededPoints, float damage, float rof, float distance, float spread, int ammo,float holdTime, float holdTimeOfAnimation) : holdTimeOfAnimation(holdTimeOfAnimation), neededPoints(neededPoints), damage(damage), rof(rof), distance(distance), spread(spread), ammo(ammo),holdTime(holdTime){}
 
 std::string Weapon::GetInformationAboutCurrentGun()
@@ -16,7 +17,8 @@ std::string Weapon::GetInformationAboutCurrentGun()
         convert.push_back(nameofweapon[i]);
         i++;
     }
-    if(ammo== std::numeric_limits<int>::infinity())
+    if(ammo==0)return convert + ":" + "0";
+    else if(ammo == 10000)
 	return convert + ":" +"INF";
     else
     return convert + ":" + std::to_string(ammo);
