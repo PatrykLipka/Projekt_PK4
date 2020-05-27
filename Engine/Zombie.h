@@ -33,7 +33,7 @@ public:
 	float Attack(float distance, float dt)override;
 	void ChangeHealth(float changeHP)override;
 	bool IsAlive()override;
-	float PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay) override;
+	int PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay, float& damageToPlayer) override;
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt,const Object & playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance)override;
 	void Update(float dt)override;
 	void CalculateDistance(const Vec2D& pos)override;

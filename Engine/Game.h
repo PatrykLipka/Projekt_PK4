@@ -71,6 +71,8 @@ private:
     Font fonte=Font("Consolas13x24.png",416,72);
     Sound glock_shooting;
     Sound uzi_shooting;
+    Sound zombie_attack;
+    Sound bomber_attack;
     
 	/********************************/
 	/*  User Variables              */

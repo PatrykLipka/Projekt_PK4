@@ -7,7 +7,7 @@ bool Zombie::IsAlive()
 	else return false;
 }
 
-float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay)
+int Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, int& delay, float& damageToPlayer)
 {
 	float playerX = playerObject.pos.x;
 	float playerY = playerObject.pos.y;
@@ -21,7 +21,7 @@ float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 	float desiredDistance = sqrt(desiredX * desiredX/4 + desiredY * desiredY/4);
 	attackRange = 1.5*desiredDistance;
 
-	float damageToPlayer=0;
+	float damage = 0;
 
 	if (desiredDistance >= distance || attackIterator > 0) {
 		dirX = playerX - object.pos.x;
@@ -32,7 +32,7 @@ float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 			attackX = dirX;
 			attackY = dirY;
 		}
-		damageToPlayer=Attack(distance, dt);
+		damage+=Attack(distance, dt);
 	}
 	else {
 		if (blockedRight || blockedLeft || blockedUp || blockedDown) {
@@ -111,7 +111,17 @@ float Zombie::PreMovement(float dt, const Object& playerObject, std::vector<Obst
 			}
 		}
 	}
-	return damageToPlayer;
+	if (damage > 0) {
+		damageToPlayer += damage;
+	}
+
+	if (attackIterator == 1)
+	{
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }
 
 void Zombie::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, const Object& playerObject, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies, float dirX, float dirY, float distance)

@@ -33,7 +33,9 @@ Game::Game(MainWindow& wnd)
     player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true,std::make_shared<Glock>()),
     board(50),
     glock_shooting(L"Sounds\\glock_shooting.wav"),
-    uzi_shooting(L"Sounds\\uzi_shooting.wav")
+    uzi_shooting(L"Sounds\\uzi_shooting.wav"),
+    zombie_attack(L"Sounds\\zombie_attack.wav"),
+    bomber_attack(L"Sounds\\bomber_attack.wav")
 {  
    
    board.InitBoard();
@@ -60,7 +62,15 @@ void Game::UpdateModel()
     int delay=0;
     for (auto & opponent : enemy) 
     { 
-        damageToPlayer+=opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay);
+        int enemyType = 0;
+        enemyType = opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay, damageToPlayer);
+        
+        if(enemyType==1){
+            zombie_attack.Play();
+        }
+        else if(enemyType==2){
+            bomber_attack.Play();
+        }
         if (previousDamage!=damageToPlayer)
         {
             delay += 20;
