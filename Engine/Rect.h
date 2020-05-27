@@ -13,5 +13,6 @@ class Rect
 		:
 		Rect(topLeft.x, bottomRight.x, topLeft.y, bottomRight.y)
 	{}
+	Rect(const Vec2D& topLeft, float width, float height) :Rect(topLeft, { topLeft.x + width,topLeft.y + height }) {}
 };
 

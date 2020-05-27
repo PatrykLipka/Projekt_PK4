@@ -147,6 +147,7 @@
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FirstMap.h" />
+    <ClInclude Include="Font.h" />
     <ClInclude Include="FrameTimer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Glock.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Round.h" />
     <ClInclude Include="SecondMap.h" />
+    <ClInclude Include="SpriteEffect.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Uzi.h" />
     <ClInclude Include="Vec2D.h" />
@@ -178,6 +180,7 @@
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FirstMap.cpp" />
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="FrameTimer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Glock.cpp" />
@@ -269,6 +272,7 @@
   <ItemGroup>
     <Image Include="..\..\ProjektPK4\Chopek_5klatek.png" />
     <Image Include="Chili.ico" />
+    <Image Include="Consolas13x24.png" />
     <Image Include="explosion.png" />
     <Image Include="Map0.png" />
     <Image Include="Map1.png" />

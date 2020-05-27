@@ -117,6 +117,12 @@
     <ClInclude Include="Bomber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -206,6 +212,9 @@
     <ClCompile Include="Bomber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -234,6 +243,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="explosion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Consolas13x24.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

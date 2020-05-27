@@ -69,7 +69,7 @@ class Player
 	void Recover(float hp);
 	void ChangeGunForNextGun();
 	void ChangeGunForPreviousGun();
-	
+	std::string GetInformationAboutCurrentGun();
 	
 };
 

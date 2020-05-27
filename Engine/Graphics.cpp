@@ -252,6 +252,10 @@ Graphics::~Graphics()
 	if( pImmediateContext ) pImmediateContext->ClearState();
 }
 
+Rect Graphics::GetScreenRect()
+{
+	return{ 0,ScreenWidth,0,ScreenHeight };
+}
 void Graphics::EndFrame()
 {
 	HRESULT hr;
@@ -393,6 +397,11 @@ void Graphics::DrawBoom(float left, float top, float right, float bottom, const 
 			}
 		}
 	}
+}
+
+Color Graphics::GetPixel(int x, int y) const
+{
+	return Color();
 }
 
 

@@ -244,6 +244,11 @@ void Player::ChangeGunForPreviousGun()
 	}
 }
 
+std::string Player::GetInformationAboutCurrentGun()
+{
+	return "Hp:"+std::to_string(int(health))+weapon->GetInformationAboutCurrentGun();
+}
+
 
 
 

@@ -118,6 +118,7 @@ void Game::UpdateModel()
              return true;
          }})
          , enemyToBoom.end());
+     fonte.DrawTexts(player.GetInformationAboutCurrentGun(), {50.0f,750.0f}, Colors::Black, gfx);
      board.LevelUp(player);
      if (!player.IsAlive()) {
        

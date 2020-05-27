@@ -26,6 +26,7 @@ public:
 	virtual bool Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)=0;
 	virtual bool DrawShot(Graphics& gfx, float dt) = 0;
 	virtual void AddAmo(int amo) = 0;
+	std::string GetInformationAboutCurrentGun();
 
 
 };
