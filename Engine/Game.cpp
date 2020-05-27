@@ -51,6 +51,7 @@ void Game::Go()
     UpdateModel();
     ComposeFrame();
     gfx.EndFrame();
+    
 }
 
 void Game::UpdateModel()
@@ -69,10 +70,10 @@ void Game::UpdateModel()
         int enemyType = 0;
         enemyType = opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay, damageToPlayer);
         
-        if(enemyType==1){
+        if(enemyType==1 && player.IsAlive()){
             zombie_attack.Play(1.0, 0.8);
         }
-        else if(enemyType==2){
+        else if(enemyType==2 && player.IsAlive()){
             bomber_attack.Play(1.0, 2.0);
         }
         if (previousDamage!=damageToPlayer)
@@ -82,7 +83,7 @@ void Game::UpdateModel()
         previousDamage = damageToPlayer;
     }
 
-    if (damageToPlayer > 0) {
+    if (damageToPlayer > 0 && player.IsAlive()) {
         player.ChangeHealth(damageToPlayer);
         player_getting_hit.Play(1.0, 3.0);
     }
@@ -153,10 +154,12 @@ void Game::UpdateModel()
      fonte.DrawTexts(player.GetInformationAboutCurrentGun(), {50.0f,750.0f}, Colors::Black, gfx);
      board.LevelUp(player);
      if (!player.IsAlive()) {
-         game_over.Play(0.1, 0.4);
-         gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));
-         Sleep(50);
-        // wnd.Kill();
+         
+             game_over.Play(0.2, 1.0);
+             gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424), Colors::MakeRGB(255, 255, 255));
+             Sleep(100);
+      
+             //wnd.Kill();
          
      }
 
