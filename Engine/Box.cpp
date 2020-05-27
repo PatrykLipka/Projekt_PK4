@@ -15,11 +15,15 @@ void Box::ColectBox(Player & player)
 		this->alreadyColected = true;
 		std::random_device device;
 		std::mt19937 generator(device());
+		std::uniform_int_distribution<int> powerUp(1, 2);
 		std::uniform_int_distribution<int> distribution(1,player.GetSizeOfOwnedGuns()+1);
 		std::uniform_int_distribution<int> distributionAmo(5,30);
+		
+		int powerUpNumber = powerUp(generator);
 		int BonusNumber = distribution(generator);
 		int amo = distributionAmo(generator);
-		switch (1) {
+		player.collectedBox = true;
+		switch (powerUpNumber) {
 		case 1: 
 			player.AddAmoTuGun(typeid(Uzi).hash_code(), amo);
 			break;

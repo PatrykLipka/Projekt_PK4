@@ -73,6 +73,7 @@ private:
     Sound uzi_shooting;
     Sound zombie_attack;
     Sound bomber_attack;
+    Sound box_collected;
     
 	/********************************/
 	/*  User Variables              */

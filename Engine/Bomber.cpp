@@ -522,7 +522,7 @@ bool Bomber::Boom(Graphics& gfx, float dt)
 {
 	currenttime += dt;
 	if (currenttime <= holdTime) {
-		gfx.DrawBoom(GetBoom().left, GetBoom().top, GetBoom().right, GetBoom().bottom, Surface("explosion.png", 128, 128), Colors::MakeRGB(255, 0, 128));
+		gfx.DrawBoom(GetBoom().left, GetBoom().top, GetBoom().right, GetBoom().bottom, Surface("Images\\explosion.png", 128, 128), Colors::MakeRGB(255, 0, 128));
 		return false;
 	}
 	else {

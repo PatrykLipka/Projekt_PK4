@@ -46,11 +46,12 @@ class Player
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("player_glock.png", 230, 164);
+	Surface surface = Surface("Images\\player_glock.png", 230, 164);
 	std::vector <std::shared_ptr<Weapon>> ownedGuns;
 	std::shared_ptr<Weapon> weapon;
 	public:
 	bool isShooting=false;
+	bool collectedBox = false;
 	Player(Object obj, float hel,bool isAlive,std::shared_ptr<Weapon> gun);
 	Object getObject();
 	void Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D,float dt,std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies);

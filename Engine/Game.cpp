@@ -35,7 +35,8 @@ Game::Game(MainWindow& wnd)
     glock_shooting(L"Sounds\\glock_shooting.wav"),
     uzi_shooting(L"Sounds\\uzi_shooting.wav"),
     zombie_attack(L"Sounds\\zombie_attack.wav"),
-    bomber_attack(L"Sounds\\bomber_attack.wav")
+    bomber_attack(L"Sounds\\bomber_attack.wav"),
+    box_collected(L"Sounds\\box_collected.wav")
 {  
    
    board.InitBoard();
@@ -142,10 +143,16 @@ void Game::UpdateModel()
      board.LevelUp(player);
      if (!player.IsAlive()) {
        
-         gfx.DrawSprite(100, 200, 1105, 624, Surface("GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));
+         gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424),Colors::MakeRGB(255,255,255));
          Sleep(100);
         // wnd.Kill();
          
+     }
+
+     if (player.collectedBox)
+     {
+         box_collected.Play();
+         player.collectedBox = false;
      }
      
 }

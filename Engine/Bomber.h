@@ -20,7 +20,7 @@ class Bomber : public Enemy
 	};
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("Bomber.png", 228, 186);
+	Surface surface = Surface("Images\\Bomber.png", 228, 186);
 	std::vector<Vec2D> canBeHit;
 	
 public:
