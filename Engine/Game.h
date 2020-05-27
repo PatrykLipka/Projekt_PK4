@@ -68,7 +68,7 @@ private:
     std::vector<Object> vec;
     Board board;
     std::vector<std::unique_ptr<Enemy>> enemyToBoom;
-    Font fonte=Font("Consolas13x24.png",416,72);
+    Font fonte=Font("Images\\Consolas13x24.png",416,72);
     Sound game_over;
     Sound glock_shooting;
     Sound uzi_shooting;
