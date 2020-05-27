@@ -48,6 +48,7 @@ int Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obstac
 		attackIterator++;
 		if (attackIterator == 3)
 		{
+			Points::IncrementPoints(points);
 			attackX = dirX;
 			attackY = dirY;
 		}
@@ -409,7 +410,6 @@ float Bomber::Attack(float distanceToPlayer, float dt, std::vector<std::unique_p
 		HitEnemies(enemies, enemiesHit);
 		this->ChangeHealth(health);
 		this->isAlive = false;
-		Points::IncrementPoints(points);
 		if (distanceToPlayer <= attackRange) {
 			Update(dt);
 			return damage;
