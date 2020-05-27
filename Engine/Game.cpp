@@ -36,7 +36,8 @@ Game::Game(MainWindow& wnd)
     uzi_shooting(L"Sounds\\uzi_shooting.wav"),
     zombie_attack(L"Sounds\\zombie_attack.wav"),
     bomber_attack(L"Sounds\\bomber_attack.wav"),
-    box_collected(L"Sounds\\box_collected.wav")
+    box_collected(L"Sounds\\box_collected.wav"),
+    change_weapon(L"Sounds\\change_weapon.wav")
 {  
    
    board.InitBoard();
@@ -52,7 +53,6 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-   
     float clock = ft.Mark();
     board.SpawnEnemies(clock);
     board.AddNewBox(clock);
@@ -91,8 +91,12 @@ void Game::UpdateModel()
             if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
             if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
         }
-         if (wnd.kbd.KeyIsPressed(0x58)) { player.ChangeGunForNextGun(); }
-         if (wnd.kbd.KeyIsPressed(0x5A)) { player.ChangeGunForPreviousGun(); }
+        if (wnd.kbd.KeyIsPressed(0x58)) {
+                if(player.ChangeGunForNextGun()) change_weapon.Play();
+        }
+         if (wnd.kbd.KeyIsPressed(0x5A)) {
+                 if(player.ChangeGunForPreviousGun()) change_weapon.Play();
+         }
          if (wnd.kbd.KeyIsPressed(VK_SPACE)&&player.isShooting==false) { 
              float clock2 = shotTime.Mark(); player.Shot(enemy,clock2, board.GetObstacles(),gfx);
              std::string weaponName = player.GetCurrentWeaponName();

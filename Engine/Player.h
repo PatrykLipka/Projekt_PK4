@@ -68,8 +68,8 @@ class Player
 	int GetSizeOfOwnedGuns();
 	void AddAmoTuGun(std::size_t hash_code,int amo);
 	void Recover(float hp);
-	void ChangeGunForNextGun();
-	void ChangeGunForPreviousGun();
+	bool ChangeGunForNextGun();
+	bool ChangeGunForPreviousGun();
 	std::string GetInformationAboutCurrentGun();
 	std::string GetCurrentWeaponName();
 };

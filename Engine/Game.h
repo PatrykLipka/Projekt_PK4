@@ -74,6 +74,7 @@ private:
     Sound zombie_attack;
     Sound bomber_attack;
     Sound box_collected;
+    Sound change_weapon;
     
 	/********************************/
 	/*  User Variables              */

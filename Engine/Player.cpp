@@ -35,7 +35,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 				object.pos.x -= object.movement.x;
 		}
 		else {
-			object.pos.x =object.width/2;
+			object.pos.x = object.width / 2;
 		}
 	}
 	else if (aim_U) {
@@ -52,11 +52,11 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 				object.pos.y -= object.movement.y;
 		}
 		else {
-			
-			object.pos.y = object.height/2;
+
+			object.pos.y = object.height / 2;
 		}
 	}
-	else if(aim_D){
+	else if (aim_D) {
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = true;
@@ -73,16 +73,16 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 			float dy = Graphics::ScreenHeight - object.hitbox.bottom + object.movement.y;
 			object.pos.y += dy;
 		}
-	
+
 	}
 	else {
 		if (aim_D) iCurrentSeqence = Sequences::StandDown;
 		else if (aim_R)iCurrentSeqence = Sequences::StandRight;
-		else if (aim_L)iCurrentSeqence = Sequences::StandLeft; 
-		else if (aim_U)iCurrentSeqence = Sequences::StandUp; 
+		else if (aim_L)iCurrentSeqence = Sequences::StandLeft;
+		else if (aim_U)iCurrentSeqence = Sequences::StandUp;
 	}
 	CheckCollisions(obstacles);
-	object.hitbox.DoActualization(object.pos,object.width,object.height);
+	object.hitbox.DoActualization(object.pos, object.width, object.height);
 	Update(dt);
 }
 
@@ -97,23 +97,23 @@ void Player::CheckCollisions(std::vector<Obstacle> obstacles)
 	}*/ //powoduje dziwne zachowanie
 }
 
-bool Player::CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemies, const Object & nextPosition)
+bool Player::CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemies, const Object& nextPosition)
 {
 	for (auto& enemy : enemies) {
-		if(!enemy->GetObjectW().hitbox.IsOverLappingForEnemies(nextPosition.pos)){}
+		if (!enemy->GetObjectW().hitbox.IsOverLappingForEnemies(nextPosition.pos)) {}
 		else { return false; }
 	}
 	return true;
 }
 
-void Player::Draw( Graphics & gfx)
+void Player::Draw(Graphics& gfx)
 {
 	Vec2D pos{ object.hitbox.left,object.hitbox.top };
-	if(!isHitted)
-	animations[(int)iCurrentSeqence].Draw(pos, gfx);
+	if (!isHitted)
+		animations[(int)iCurrentSeqence].Draw(pos, gfx);
 	else {
-	animations[(int)iCurrentSeqence].DrawH(pos, gfx);
-	isHitted = false;
+		animations[(int)iCurrentSeqence].DrawH(pos, gfx);
+		isHitted = false;
 	}
 }
 
@@ -122,15 +122,16 @@ void Player::Update(float dt)
 	animations[(int)iCurrentSeqence].Update(dt);
 }
 
-void Player::Shot(std::vector<std::unique_ptr<Enemy>>& enemies,float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
-{	
-	isShooting=weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemies,obstacles, object.pos,dt);
+void Player::Shot(std::vector<std::unique_ptr<Enemy>>& enemies, float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
+{
+	isShooting = weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemies, obstacles, object.pos, dt);
 }
 
-void Player::DrawShot(Graphics& gfx,float dt)
- {	if(isShooting)
-	isShooting=weapon->DrawShot(gfx,dt);
-	
+void Player::DrawShot(Graphics& gfx, float dt)
+{
+	if (isShooting)
+		isShooting = weapon->DrawShot(gfx, dt);
+
 }
 
 
@@ -148,7 +149,7 @@ void Player::DrawShot(Graphics& gfx,float dt)
 //	}
 //}
 
-Player::Player(Object obj, float hel,bool isAlive, std::shared_ptr<Weapon> gun):object(obj),health(hel),isAlive(isAlive),weapon(gun)
+Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)
 {
 	ownedGuns.push_back(weapon);
 	aimsRight = false;
@@ -156,13 +157,13 @@ Player::Player(Object obj, float hel,bool isAlive, std::shared_ptr<Weapon> gun):
 	aimsDown = true;
 	aimsUp = false;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(0,(int) obj.height * i,(int) obj.width,(int) obj.height, 4, surface, 0.1f));
+		animations.emplace_back(Animation(0, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(0, (int)obj.height * (i-(int)Sequences::StandDown), (int)obj.width, (int)obj.height ,1, surface, 0.1f));
+		animations.emplace_back(Animation(0, (int)obj.height * (i - (int)Sequences::StandDown), (int)obj.width, (int)obj.height, 1, surface, 0.1f));
 	}
 	for (int i = 0; i < (int)Sequences::StandDownWithShot; i++) {
-		animations.emplace_back(Animation(5* (int)obj.width, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
+		animations.emplace_back(Animation(5 * (int)obj.width, (int)obj.height * i, (int)obj.width, (int)obj.height, 4, surface, 0.1f));
 	}
 	for (int i = (int)Sequences::StandDownWithShot; i < (int)Sequences::Count; i++) {
 		animations.emplace_back(Animation(5 * (int)obj.width, (int)obj.height * (i - (int)Sequences::StandDownWithShot), (int)obj.width, (int)obj.height, 1, surface, 0.1f));
@@ -176,12 +177,12 @@ Object Player::getObject()
 
 void Player::ChangeHealth(float changeHP)
 {
-	if ((this->health -= changeHP) > 0) { 
-		isAlive = true; 
+	if ((this->health -= changeHP) > 0) {
+		isAlive = true;
 		isHitted = true;
 	}
-	else { 
-		isAlive = false; 
+	else {
+		isAlive = false;
 	}
 }
 
@@ -204,8 +205,10 @@ int Player::GetSizeOfOwnedGuns()
 void Player::AddAmoTuGun(std::size_t hash_code, int amo)
 {
 	for (auto gun : ownedGuns) {
-		if (typeid(*gun).hash_code() == hash_code) 
-		{ gun->AddAmo(amo); break; }
+		if (typeid(*gun).hash_code() == hash_code)
+		{
+			gun->AddAmo(amo); break;
+		}
 	}
 }
 
@@ -214,10 +217,10 @@ void Player::Recover(float hp)
 	health += hp;
 }
 
-void Player::ChangeGunForNextGun()
-{	
+bool Player::ChangeGunForNextGun()
+{
 	for (std::vector<std::shared_ptr<Weapon>>::iterator it = ownedGuns.begin(); it < ownedGuns.end(); it++) {
-		if(*it==weapon){
+		if (*it == weapon) {
 			if (it == (--ownedGuns.end()))
 				weapon = ownedGuns[0];
 			else {
@@ -226,9 +229,10 @@ void Player::ChangeGunForNextGun()
 			}
 		}
 	}
+	return true;
 }
 
-void Player::ChangeGunForPreviousGun()
+bool Player::ChangeGunForPreviousGun()
 {
 	for (std::vector<std::shared_ptr<Weapon>>::iterator it = ownedGuns.begin(); it < ownedGuns.end(); it++) {
 		if (*it == weapon) {
@@ -242,11 +246,12 @@ void Player::ChangeGunForPreviousGun()
 			}
 		}
 	}
+	return true;
 }
 
 std::string Player::GetInformationAboutCurrentGun()
 {
-	return "Hp:"+std::to_string(int(health))+weapon->GetInformationAboutCurrentGun();
+	return "Hp:" + std::to_string(int(health)) + weapon->GetInformationAboutCurrentGun();
 }
 
 std::string Player::GetCurrentWeaponName()
