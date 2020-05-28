@@ -5765,7 +5765,7 @@ out: the same pixels, but re-ordered according to PNG's Adam7 interlacing, with
 bpp: bits per pixel
 there are no padding bits, not between scanlines, not between reduced images
 in has the following size in bits: w * h * bpp.
-out is possibly bigger due to padding bits between reduced images
+out is possibly bigger due to padding bits k reduced images
 NOTE: comments about padding bits are only relevant if bpp < 8
 */
 static void Adam7_interlace(unsigned char* out, const unsigned char* in, unsigned w, unsigned h, unsigned bpp) {

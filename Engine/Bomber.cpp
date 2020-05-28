@@ -43,7 +43,7 @@ int Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obstac
 		Update(dt);
 
 	}
-	else if (health <= 0)
+	else if (health <= 0 && isAlive)
 	{
 		attackIterator++;
 		if (attackIterator == 3)
@@ -456,7 +456,7 @@ Bomber::Bomber(Object object, float health, float damage, float probability, boo
 	attackRange = 80;
 	value = 1;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(22, 46 * i, 22, 46, 4, surface, 0.15f));
+		animations.emplace_back(Animation(22, 46 * i, 22, 46, 4, surface, 0.35f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::AttackDown; i++) {
 		animations.emplace_back(Animation(0, 46 * (i - (int)Sequences::StandDown), 22, 46, 1, surface, 0.15f));

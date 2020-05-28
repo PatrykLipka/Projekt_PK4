@@ -141,37 +141,35 @@ void Player::LoadSurface()
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(0, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
 	}
-	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandLeft; i++) {
+	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
 		animations.emplace_back(Animation(0, (int)object.height * (i - (int)Sequences::StandDown), (int)object.width, (int)object.height, 1, surface, 0.1f));
 	}
-	for (int i = 0; i < (int)Sequences::StandDown; i++) {
-		animations.emplace_back(Animation(5 * (int)object.width, (int)object.height * i, (int)object.width, (int)object.height,1, surface, 0.1f));
-	}
+	/*for (int i = 0; i < (int)Sequences::StandDown; i++) {
+		animations.emplace_back(Animation(5 * (int)object.width, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
+	}*/
 	
 }
 
 void Player::ChangeSurface()
 {
 	if (typeid(*weapon) == typeid(Glock)) {
-		Surface sur = Surface("Images\\playerglock.png", unsigned int(105), unsigned int(164));
-		surface = sur;
+		surface = surfaceGlock;
 		LoadSurface();
 	}
 	else if (typeid(*weapon) == typeid(Uzi)) {
-		Surface sur = Surface("Images\\playeruzi.png", unsigned int(105), unsigned int(164));
-		surface = sur;
+		surface = surfaceUzi;
 		LoadSurface();
 	}
 }
 
 Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)
-{	LoadSurface();
+{
 	ownedGuns.push_back(weapon);
 	aimsRight = false;
 	aimsLeft = false;
 	aimsDown = true;
 	aimsUp = false;
-	
+	LoadSurface();
 }
 
 Object Player::getObject()
