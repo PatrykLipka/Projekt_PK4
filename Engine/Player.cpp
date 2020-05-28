@@ -141,23 +141,23 @@ void Player::LoadSurface()
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(0, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
 	}
-	for (int i = (int)Sequences::StandDown; i < (int)Sequences::StandLeft; i++) {
+	for (int i = (int)Sequences::StandDown; i < (int)Sequences::Count; i++) {
 		animations.emplace_back(Animation(0, (int)object.height * (i - (int)Sequences::StandDown), (int)object.width, (int)object.height, 1, surface, 0.1f));
 	}
-	for (int i = 0; i < (int)Sequences::StandDown; i++) {
+	/*for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(5 * (int)object.width, (int)object.height * i, (int)object.width, (int)object.height, 4, surface, 0.1f));
-	}
+	}*/
 	
 }
 
 void Player::ChangeSurface()
 {
 	if (typeid(*weapon) == typeid(Glock)) {
-		surface= Surface("Images\\player_glock.png", 104, 164);
+		surface = surfaceGlock;
 		LoadSurface();
 	}
 	else if (typeid(*weapon) == typeid(Uzi)) {
-		surface = Surface("Images\\player_uzi.png", 104, 164);
+		surface = surfaceUzi;
 		LoadSurface();
 	}
 }

@@ -38,7 +38,9 @@ class Player
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("Images\\player_glock.png", 104, 164);
+	Surface surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
+	Surface surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
+	Surface surface = surfaceGlock;
 	std::vector <std::shared_ptr<Weapon>> ownedGuns;
 	std::shared_ptr<Weapon> weapon;
 	void LoadSurface();

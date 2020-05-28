@@ -43,7 +43,7 @@ int Bomber::PreMovement(float dt, const Object& playerObject, std::vector<Obstac
 		Update(dt);
 
 	}
-	else if (health <= 0)
+	else if (health <= 0 && isAlive)
 	{
 		attackIterator++;
 		if (attackIterator == 3)
