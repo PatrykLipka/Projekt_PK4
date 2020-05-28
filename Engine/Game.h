@@ -42,6 +42,7 @@
 #include "Uzi.h"
 #include "Font.h"
 #include "Sound.h"
+#include "Shotgun.h"
 
 
 class Game

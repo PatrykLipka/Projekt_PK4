@@ -165,6 +165,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Round.h" />
     <ClInclude Include="SecondMap.h" />
+    <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SpriteEffect.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Round.cpp" />
     <ClCompile Include="SecondMap.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Uzi.cpp" />
