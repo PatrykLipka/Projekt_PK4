@@ -356,7 +356,6 @@ void Graphics::DrawSpriteH(int x, int y, const Rect& src, const Surface& s)
 			if (s.GetPixel(dx, dy) != Colors::MakeRGB(255, 0, 128)&&IsInScreen(x + dx - (int)src.left, y + dy - (int)src.top)) {
 				unsigned char G = s.GetPixel(dx, dy).GetG();
 				unsigned char B = s.GetPixel(dx, dy).GetB();
-
 				PutPixel(x + dx - (int)src.left, y + dy -(int)src.top,Colors::MakeRGB(255,G,B));
 			}
 		}

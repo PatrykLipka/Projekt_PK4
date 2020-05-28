@@ -17,6 +17,12 @@ public:
 	int GetHeight() const;
 	~Surface();
 	void AssignPixels(Surface& surface,int right, int top, int left, int bottom);
+	Surface& operator = (const  Surface & sur) {
+		this->pixels = sur.pixels;
+		this->width = sur.width;
+		this->height = sur.height;
+		return *this;
+	}
 	
 private:
 	 Color * pixels=nullptr;

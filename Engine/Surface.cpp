@@ -18,7 +18,7 @@ Surface::Surface(const std::string& filename,unsigned int width_s,unsigned int h
           int i = 0;
           for (int y =0; y <height; y++) {
               for (int x = 0; x < width; x++) {
-                  PutPixel(x, y, Colors::MakeRGB(image[i], image[i + 1], image[i + 2]));
+                  PutPixel(x, y, Colors::MakeRGB(unsigned char(image[i]), unsigned char(image[i +size_t(1)]), unsigned char( image[i + size_t( 2)])));
                   i = i + 4;
               }
           }
@@ -67,7 +67,7 @@ Surface::~Surface()
    
 }
 
-void  Surface::AssignPixels(Surface & surface,int right, int top, int left, int bottom)
+void Surface::AssignPixels(Surface & surface,int right, int top, int left, int bottom)
 {
     int sizeW = right - left;
     int sizeH = bottom - top;

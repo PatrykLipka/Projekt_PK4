@@ -157,6 +157,7 @@ void Round::NextRound(int additionalEnemies, float dt,Graphics &gfx)
 		f.DrawTexts("Round " + std::to_string(currentRound), { Graphics::ScreenWidth / 2 -25,Graphics::ScreenHeight / 2 }, Colors::Red, gfx);
 		}
 		else {
+			currentTimeBR = 0;
 			numberOfEnemiesToSpawn = additionalEnemies + previousNumberOfEnemies;
 			previousNumberOfEnemies = numberOfEnemiesToSpawn;
 			currentRound++;
