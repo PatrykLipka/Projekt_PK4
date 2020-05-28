@@ -73,6 +73,7 @@ private:
     Sound glock_shooting;
     Sound uzi_shooting;
     Sound zombie_attack;
+    Sound zombie_dying;
     Sound bomber_attack;
     Sound box_collected;
     Sound change_weapon;
