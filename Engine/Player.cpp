@@ -1,8 +1,9 @@
 #include "Player.h"
 
 void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)
-{
+{ 
 	if (aim_R) {
+		isMoving = true;
 		aimsRight = true;
 		aimsLeft = false;
 		aimsDown = false;
@@ -21,7 +22,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		}
 	}
 	else if (aim_L) {
-
+		isMoving = true;
 		aimsRight = false;
 		aimsLeft = true;
 		aimsDown = false;
@@ -39,6 +40,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		}
 	}
 	else if (aim_U) {
+		isMoving = true;
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = false;
@@ -57,6 +59,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 		}
 	}
 	else if (aim_D) {
+		isMoving = true;
 		aimsRight = false;
 		aimsLeft = false;
 		aimsDown = true;
@@ -76,6 +79,7 @@ void Player::Movement(bool aim_R, bool aim_L, bool aim_U, bool aim_D, float dt, 
 
 	}
 	else {
+		isMoving = false;
 		if (aim_D) iCurrentSeqence = Sequences::StandDown;
 		else if (aim_R)iCurrentSeqence = Sequences::StandRight;
 		else if (aim_L)iCurrentSeqence = Sequences::StandLeft;
@@ -124,7 +128,7 @@ void Player::Update(float dt)
 
 void Player::Shot(std::vector<std::unique_ptr<Enemy>>& enemies, float dt, std::vector<Obstacle>obstacles, Graphics& gfx)
 {
-	isShooting = weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemies, obstacles, object.pos, dt);
+	isShooting = weapon->Shoot(aimsRight, aimsLeft, aimsDown, aimsUp, enemies, obstacles, object.pos, dt,isMoving);
 }
 
 void Player::DrawShot(Graphics& gfx, float dt)

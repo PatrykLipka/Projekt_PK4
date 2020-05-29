@@ -35,6 +35,7 @@ class Player
 	bool aimsLeft;
 	bool aimsDown;
 	bool aimsUp;
+	
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
@@ -46,6 +47,7 @@ class Player
 	void LoadSurface();
 	void ChangeSurface();
 	public:
+	bool isMoving = false;
 	bool isShooting=false;
 	bool collectedBox = false;
 	Player(Object obj, float hel,bool isAlive,std::shared_ptr<Weapon> gun);

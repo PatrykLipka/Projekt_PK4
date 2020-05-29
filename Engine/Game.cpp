@@ -90,13 +90,16 @@ void Game::UpdateModel()
 	}
 
 	if (player.IsAlive()) {
+		{	if (wnd.kbd.KeyIsPressed(VK_UP) || wnd.kbd.KeyIsPressed(VK_DOWN) || wnd.kbd.KeyIsPressed(VK_RIGHT) || wnd.kbd.KeyIsPressed(VK_LEFT))
 		{
 			if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock, board.GetObstacles(), enemy); }
 			if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
 			if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
 			if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
-			if (wnd.kbd.KeyIsEmpty()) { player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); }
 		}
+		else {
+			player.isMoving = false; //player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); 
+		}}
 		if (wnd.kbd.KeyIsPressed(0x58) && changingWeapon <= 0) {
 			changingWeapon = 40;
 			if (player.ChangeGunForNextGun()) change_weapon.Play();

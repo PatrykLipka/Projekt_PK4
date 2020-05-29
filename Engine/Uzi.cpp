@@ -44,7 +44,7 @@ bool compare_distanceUzi(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& o
 bool compare_distanceUzi2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
-bool  Uzi::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt)
+bool  Uzi::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, bool isMoving)
 {
 	currentTime += dt;
 	if (currentTime >= holdTime&&ammo>0) {
