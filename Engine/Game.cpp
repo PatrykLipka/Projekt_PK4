@@ -110,7 +110,6 @@ void Game::UpdateModel()
 		}
 		if (wnd.kbd.KeyIsPressed(VK_SPACE) && player.isShooting == false) {
 			float clock2 = shotTime.Mark(); player.Shot(enemy, clock2, board.GetObstacles(), gfx);
-
 			std::string weaponName = player.GetCurrentWeaponName();
 			if (player.isShooting)
 			{
