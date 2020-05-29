@@ -164,6 +164,14 @@ void Player::ChangeSurface()
 		surface = surfaceUzi;
 		LoadSurface();
 	}
+	else if (typeid(*weapon) == typeid(Shotgun)) {
+		surface = surfaceShotgun;
+		LoadSurface();
+	}
+	else if (typeid(*weapon) == typeid(Sharpshooter)) {
+		surface = surfaceSniper;
+		LoadSurface();
+	}
 }
 
 Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)

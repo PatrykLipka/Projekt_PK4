@@ -74,6 +74,8 @@ private:
     Sound game_over;
     Sound glock_shooting;
     Sound uzi_shooting;
+    Sound shotgun_shooting;
+    Sound sniper_shooting;
     Sound zombie_attack;
     Sound zombie_dying;
     Sound bomber_attack;

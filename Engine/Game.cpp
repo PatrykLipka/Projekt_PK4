@@ -35,6 +35,8 @@ Game::Game(MainWindow& wnd)
 	game_over(L"Sounds\\game_over.wav"),
 	glock_shooting(L"Sounds\\glock_shooting.wav"),
 	uzi_shooting(L"Sounds\\uzi_shooting.wav"),
+	shotgun_shooting(L"Sounds\\shotgun_shooting.wav"),
+	sniper_shooting(L"Sounds\\sniper_shooting.wav"),
 	zombie_attack(L"Sounds\\zombie_attack.wav"),
 	zombie_dying(L"Sounds\\zombie_dying.wav"),
 	bomber_attack(L"Sounds\\bomber_attack.wav"),
@@ -115,6 +117,8 @@ void Game::UpdateModel()
 			{
 				if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play(1.0, 0.3);
 				else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play(1.0, 0.2);
+				else if (player.GetCurrentWeaponName() == " Shotgun") shotgun_shooting.Play(1.0, 0.2);
+				else if (player.GetCurrentWeaponName() == " Sharpshooter") sniper_shooting.Play(1.0, 0.2);
 			}
 		}
 	}
