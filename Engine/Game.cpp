@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	frame(Vec2D(0, 0), Vec2D(0, 0), Graphics::ScreenWidth, Graphics::ScreenHeight),
 	mov(0, 0),
-	player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, std::make_shared<Shotgun>()),
+	player(Object(Vec2D(56, 52), Vec2D(2, 2), 21, 40), 100, true, std::make_shared<Glock>()),
 	board(1),
 	game_over(L"Sounds\\game_over.wav"),
 	glock_shooting(L"Sounds\\glock_shooting.wav"),

@@ -22,4 +22,5 @@ public:
 	void SpawnEnemy(float dt);
 	void NextRound(int additionalEnemies, float dt, Graphics& gfx);
 	bool CheckIfSpawnIsPossible(const Object& obj);
+	int GetCurrentRound();
 };

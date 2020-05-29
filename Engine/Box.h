@@ -2,6 +2,7 @@
 #include <random>
 #include "Object.h"
 #include "Player.h"
+
 class Box
 {
 	Object object;
