@@ -7,11 +7,17 @@ Board::Board(int numberOfEnemiesInFirstRound):round(numberOfEnemiesInFirstRound)
 }
 void Board::LevelUp(Player& player)
 {
-	if (Points::GetPoints() >=0) {
-       		if (allWeapons.size()==1&& typeid(*allWeapons[0]) == typeid(Uzi)) {
+	if (round.GetCurrentRound()==3&&allWeapons.size()!=0&& typeid(*allWeapons[0]) == typeid(Uzi)) {
   			player.SetNewOwnedGun(allWeapons[0]);
 			allWeapons.erase(std::remove_if(allWeapons.begin(), allWeapons.end(), [](std::shared_ptr<Weapon> e) {if (typeid(*e) == typeid(Uzi))return true; else return false; }), allWeapons.end());
-		}
+	}
+	if (round.GetCurrentRound() == 6&& allWeapons.size() != 0&& typeid(*allWeapons[0]) == typeid(Shotgun)) {
+			player.SetNewOwnedGun(allWeapons[0]);
+			allWeapons.erase(std::remove_if(allWeapons.begin(), allWeapons.end(), [](std::shared_ptr<Weapon> e) {if (typeid(*e) == typeid(Shotgun))return true; else return false; }), allWeapons.end());
+	}
+	if (round.GetCurrentRound() == 8&& allWeapons.size() != 0&& typeid(*allWeapons[0]) == typeid(Sharpshooter)) {
+			player.SetNewOwnedGun(allWeapons[0]);
+			allWeapons.erase(std::remove_if(allWeapons.begin(), allWeapons.end(), [](std::shared_ptr<Weapon> e) {if (typeid(*e) == typeid(Sharpshooter))return true; else return false; }), allWeapons.end());
 	}
 }
 void Board::InitBoard()
@@ -47,6 +53,11 @@ void Board::NextRound(float dt,Graphics& gfx)
 	round.NextRound(10,dt,gfx);
 }
 
+std::shared_ptr<Weapon>& Board::GetAvaliableGun()
+{
+	// TODO: tu wstawiæ instrukcjê return
+}
+
 void Board::AddNewBox(float dt)
 {
 	map->AddNewBox(dt);
@@ -66,6 +77,8 @@ void Board::ColectBox(Player& player)
 void Board::InitVectorOfWeapon()
 {
 	allWeapons.push_back(std::make_shared <Uzi>());
+	allWeapons.push_back(std::make_shared<Shotgun>());
+	allWeapons.push_back(std::make_shared<Sharpshooter>());
 }
 
 

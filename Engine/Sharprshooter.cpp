@@ -1,7 +1,8 @@
-#include "Uzi.h"
+#include "Sharprshooter.h"
 
 
-void Uzi::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, const Vec2D& pos) //pos of player
+
+void Sharpshooter::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, const Vec2D& pos) //pos of player
 {
 	if (aimsDown) {
 		for (int i = 0; i < distance; i++) {
@@ -27,27 +28,27 @@ void Uzi::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bo
 	else if (aimsUp) {
 		for (int i = 0; i < distance; i++) {
 			if (pos.y - i > 0)
-				possibleShot.push_back({ pos.x+9,pos.y - i });
+				possibleShot.push_back({ pos.x + 9,pos.y - i });
 			else { break; }
 		}
 	}
 
 }
 
-bool compare_distanceUzi(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
+bool Compare_distanceUzi(std::unique_ptr<Enemy>& obj1, std::unique_ptr<Enemy>& obj2) {
 	if (obj1 && obj2)
 		return obj1->distance < obj2->distance;
 
 	return true;
 }
 
-bool compare_distanceUzi2(Obstacle obj1, Obstacle obj2) {
+bool Compare_distanceUzi2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
-bool  Uzi::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, bool isMoving)
+bool  Sharpshooter::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, bool isMoving)
 {
 	currentTime += dt;
-	if (currentTime >= holdTime&&ammo>0) {
+	if (currentTime >= holdTime && ammo > 0) {
 		currentTime = 0;
 		ammo--;
 		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
@@ -69,40 +70,52 @@ bool  Uzi::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std:
 				availableObstacle.push_back(obstacles[i]);
 			}
 		}
-		std::sort(avaliableTarget.begin(), avaliableTarget.end(), compare_distanceUzi);
-		std::sort(availableObstacle.begin(), availableObstacle.end(), compare_distanceUzi2);
+		std::sort(avaliableTarget.begin(), avaliableTarget.end(), Compare_distanceUzi);
+		std::sort(availableObstacle.begin(), availableObstacle.end(), Compare_distanceUzi2);
 		if (!avaliableTarget.empty() && availableObstacle.empty()) {
-			avaliableTarget[0]->Hitted(damage);
-			avaliableTarget[0]->isHitted = true;
-			MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
+			int hittedTarget = 0;
+			int copyofrof = 0;
+				for (hittedTarget=0; hittedTarget < rof; hittedTarget++) {
+					if (avaliableTarget.size() - 1 >= hittedTarget) {
+						avaliableTarget[hittedTarget]->Hitted(damage);
+						avaliableTarget[hittedTarget]->isHitted = true;
+						copyofrof = hittedTarget;
+					}
+				}
+			MakeCalculationoOfShot(avaliableTarget[copyofrof]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 		}
 		else if (!avaliableTarget.empty() && !availableObstacle.empty()) {
 			if (availableObstacle[0].distance < avaliableTarget[0]->distance) { MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp); }
 			else {
-				avaliableTarget[0]->Hitted(damage);
-				avaliableTarget[0]->isHitted = true;
-				MakeCalculationoOfShot(avaliableTarget[0]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
+				int hittedTarget = 0;
+				int copyofrof = rof;
+				for (hittedTarget=0; hittedTarget < rof; hittedTarget++) {
+					if (avaliableTarget.size() - 1 >= hittedTarget) {
+						avaliableTarget[hittedTarget]->Hitted(damage);
+						avaliableTarget[hittedTarget]->isHitted = true;
+						copyofrof = hittedTarget;
+					}
+				}
+				MakeCalculationoOfShot(avaliableTarget[copyofrof]->GetObjectW(), aimsRight, aimsLeft, aimsDown, aimsUp);
 			}
 		}
 		else if (avaliableTarget.empty() && !availableObstacle.empty())MakeCalculationoOfShot(availableObstacle[0].getObject(), aimsRight, aimsLeft, aimsDown, aimsUp);
+		//RemoveEnemiesFromVector(avaliableTarget);
 		MergeVector(avaliableTarget, enemy);
 		return true;
 	}
 	else {
 		return false;
 	}
-
-
-
 }
 
 
-void  Uzi::CleanVector() {
+void  Sharpshooter::CleanVector() {
 	while (!possibleShot.empty())
 		possibleShot.pop_back();
 }
 
-bool  Uzi::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
+bool  Sharpshooter::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
 {
 	Object obj = enemy->GetObjectW();
 	for (int i = 0; i < possibleShot.size(); i++) {
@@ -112,7 +125,7 @@ bool  Uzi::CheckIfEnemyCanBeHitted(std::unique_ptr<Enemy>& enemy)
 	return false;
 }
 
-bool  Uzi::DrawShot(Graphics& gfx, float dt)
+bool  Sharpshooter::DrawShot(Graphics& gfx, float dt)
 {
 	currentTimeOfAnimation += dt;
 	if (currentTimeOfAnimation <= holdTimeOfAnimation) {
@@ -125,8 +138,11 @@ bool  Uzi::DrawShot(Graphics& gfx, float dt)
 		return false;
 	}
 }
-
-bool  Uzi::CheckIfObstacleCanBeHitted(Obstacle obstacle)
+void Sharpshooter::RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& enemies)
+{
+	enemies.clear();
+}
+bool  Sharpshooter::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 {
 	Object obj = obstacle.getObject();
 	for (int i = 0; i < possibleShot.size(); i++) {
@@ -135,7 +151,7 @@ bool  Uzi::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 	return false;
 }
 
-void  Uzi::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
+void  Sharpshooter::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp)
 {
 
 	if (aimsRight) {
@@ -180,19 +196,19 @@ void  Uzi::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsLe
 	}
 }
 
-void Uzi::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
+void Sharpshooter::MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy)
 {
 	enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e) {if (e)return !e->IsAlive(); else return true; }), enemy.end());
-	for (auto& e : avaliableTarget) {
+	for (auto & e : avaliableTarget) {
 		if (e != nullptr) {
 			enemy.push_back(std::move(e));
-			std::sort(enemy.begin(), enemy.end(), compare_distanceUzi);
+			std::sort(enemy.begin(), enemy.end(), Compare_distanceUzi);
 		}
 	}
 
 }
 
-void Uzi::AddAmo(int amo)
+void Sharpshooter::AddAmo(int amo)
 {
 	ammo += amo;
 }

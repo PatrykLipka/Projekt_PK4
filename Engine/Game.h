@@ -43,6 +43,7 @@
 #include "Font.h"
 #include "Sound.h"
 #include "Shotgun.h"
+#include "Sharprshooter.h"
 
 
 class Game

@@ -13,6 +13,8 @@
 #include "Obstacle.h"
 #include "Uzi.h"
 #include "Glock.h"
+#include "Sharprshooter.h"
+#include "Shotgun.h"
 
 class Player
 {	

@@ -174,3 +174,5 @@ bool Round::CheckIfSpawnIsPossible(const Object& obj)
 	}
 	return true;
 }
+
+int Round::GetCurrentRound() { return currentRound; }
