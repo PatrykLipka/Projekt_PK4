@@ -22,6 +22,8 @@
 #include "Game.h"
 #include "ChiliException.h"
 #include "Points.h"
+#include "vld.h"
+#include "vld_def.h"
 
 int Points::points = 0;
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
@@ -33,7 +35,7 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 		{
 			Game theGame( wnd );
 			while( wnd.ProcessMessage() )
-			{
+			{           
 				theGame.Go();
 			}
 		}
