@@ -44,6 +44,8 @@
 #include "Sound.h"
 #include "Shotgun.h"
 #include "Sharprshooter.h"
+#include "Menu.h"
+#include "ThirdMap.h"
 
 
 class Game
@@ -54,7 +56,6 @@ public:
 	Game& operator=( const Game& ) = delete;
 	void Go();
 private:
-	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
@@ -83,6 +84,7 @@ private:
     Sound change_weapon;
     Sound player_getting_hit;
     int changingWeapon = 30;
+    Menu menu;
     
 	/********************************/
 	/*  User Variables              */

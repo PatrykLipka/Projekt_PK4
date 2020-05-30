@@ -25,6 +25,12 @@ bool Object::HitBox::IsOverLappingForEnemies(const Vec2D & other)
 	
 }
 
+bool Object::HitBox::IsInHitBox(const Vec2D& pos)
+{
+	if (left <= pos.x && pos.x <= right && pos.y >= top && pos.y <= bottom)return true;
+	else { return false; }
+}
+
 bool Object::IsOverLapping(const Object other,bool aimsRight,bool aimsLeft,bool aimsDown,bool aimsUp)
 {
 		if (this->hitbox.IsOverLapping(other.hitbox)) {
