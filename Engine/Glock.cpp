@@ -192,3 +192,8 @@ void Glock::AddAmo(int amo)
 	ammo += amo;
 }
 
+void Glock::Upgrade()
+{
+	damage = 40;
+}
+

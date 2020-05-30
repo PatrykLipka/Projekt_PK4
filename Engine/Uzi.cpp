@@ -197,3 +197,8 @@ void Uzi::AddAmo(int amo)
 	ammo += amo;
 }
 
+void Uzi::Upgrade()
+{
+	damage = 40;
+}
+

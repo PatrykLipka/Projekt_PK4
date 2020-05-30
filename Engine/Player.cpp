@@ -174,6 +174,18 @@ void Player::ChangeSurface()
 	}
 }
 
+void Player::Upgrade(size_t hash_code)
+{
+	for (auto gun : ownedGuns) {
+		if (typeid(*gun).hash_code() == hash_code)
+		{
+			gun->Upgrade();
+		}
+	}
+}
+
+
+
 Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun) :object(obj), health(hel), isAlive(isAlive), weapon(gun)
 {
 	ownedGuns.push_back(weapon);

@@ -51,6 +51,7 @@ class Player
 	void LoadSurface();
 	void ChangeSurface();
 	public:
+	void Upgrade(size_t hash_code);
 	bool isMoving = false;
 	bool isShooting=false;
 	bool collectedBox = false;

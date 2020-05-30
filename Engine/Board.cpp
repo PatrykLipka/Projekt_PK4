@@ -19,6 +19,27 @@ void Board::LevelUp(Player& player)
 			player.SetNewOwnedGun(allWeapons[0]);
 			allWeapons.erase(std::remove_if(allWeapons.begin(), allWeapons.end(), [](std::shared_ptr<Weapon> e) {if (typeid(*e) == typeid(Sharpshooter))return true; else return false; }), allWeapons.end());
 	}
+	if (round.GetCurrentRound() == 10) {
+		player.Upgrade(typeid(Glock).hash_code());
+	}
+	if (round.GetCurrentRound() == 12) {
+		player.Upgrade(typeid(Uzi).hash_code());
+	}
+	if (round.GetCurrentRound() == 14) {
+		player.Upgrade(typeid(Shotgun).hash_code());
+	}
+	if (round.GetCurrentRound() == 16) {
+		player.Upgrade(typeid(Sharpshooter).hash_code());
+	}
+	if (round.GetCurrentRound() == 18) {
+		player.Upgrade(typeid(Shotgun).hash_code());
+	}
+	if (round.GetCurrentRound() == 20) {
+		player.Upgrade(typeid(Sharpshooter).hash_code());
+	}
+	if (round.GetCurrentRound() == 22) {
+		player.Upgrade(typeid(Sharpshooter).hash_code());
+	}
 }
 void Board::InitBoard()
 {
@@ -50,7 +71,7 @@ void Board::SpawnEnemies(float dt)
 
 void Board::NextRound(float dt,Graphics& gfx)
 {
-	round.NextRound(10,dt,gfx);
+	round.NextRound(5,dt,gfx);
 }
 
 

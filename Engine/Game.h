@@ -84,6 +84,7 @@ private:
     Sound change_weapon;
     Sound player_getting_hit;
     int changingWeapon = 30;
+    int clickdelay = 10;
     Menu menu;
     
 	/********************************/

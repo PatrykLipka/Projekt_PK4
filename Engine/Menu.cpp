@@ -16,10 +16,9 @@ void Menu::DrawMenu(Graphics& gfx)
 	}
 }
 
-int Menu::Settings(const Vec2D& vec,float dt)
+int Menu::Settings(const Vec2D& vec)
 {
-	time += dt;
-		if (time >= timeBettwenClick) {
+
 			if (start.hitbox.IsInHitBox(vec)) {
 				gamestart = true;
 				if (currentMap == 1)return 1;//std::make_shared<SecondMap>();
@@ -37,6 +36,6 @@ int Menu::Settings(const Vec2D& vec,float dt)
 				else if (currentMap == 2)currentMap = 1;
 				//	if (currentMap == 3)currentMap = 1;
 			}
-			time = 0;
-		}
+		
+		
 }

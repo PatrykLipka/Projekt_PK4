@@ -28,6 +28,7 @@ public:
 	virtual void AddAmo(int amo) = 0;
 	std::string GetInformationAboutCurrentGun();
 	std::string GetName();
+	virtual void Upgrade() = 0;
 
 
 };

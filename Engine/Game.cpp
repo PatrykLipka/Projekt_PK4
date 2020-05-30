@@ -59,10 +59,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	float clock = ft.Mark();
+	
 	menu.DrawMenu(gfx);
-	if (wnd.mouse.LeftIsPressed()) {
-		switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() },clock)) {
+	if (wnd.mouse.LeftIsPressed()&&clickdelay<=0) {
+		switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY()})) {
 		case 1:
 			board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
 			break;
@@ -73,12 +73,13 @@ void Game::UpdateModel()
 			wnd.Kill();
 			break;
 		}
-	
+		clickdelay = 10;
 	}
+	clickdelay--;
 	
 	if (menu.gamestart) {
 		--changingWeapon;
-		
+		float clock = ft.Mark();
 		board.SpawnEnemies(clock);
 		board.AddNewBox(clock);
 		board.ColectBox(player);

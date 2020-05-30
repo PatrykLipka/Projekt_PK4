@@ -142,6 +142,20 @@ void Sharpshooter::RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& 
 {
 	enemies.clear();
 }
+void Sharpshooter::Upgrade()
+{
+	if (holdTime == 1.0f)
+		damage = 100;
+	if (rof == 5)
+		holdTime = 1.0f;
+	if (rof == 4)
+		rof = 5;
+
+		rof = 4;
+	
+	
+	
+}
 bool  Sharpshooter::CheckIfObstacleCanBeHitted(Obstacle obstacle)
 {
 	Object obj = obstacle.getObject();

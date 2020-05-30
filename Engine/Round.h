@@ -9,10 +9,10 @@ class Round
 {
 	int numberOfEnemiesToSpawn;
 	int previousNumberOfEnemies;
-	int currentRound=2;
+	int currentRound=1;
 	std::vector<std::unique_ptr<Enemy>> enemies;
 	float currentTime = 0;
-	float spawnTime = 0.1f;
+	float spawnTime = 0.6f;
 	float timebetweenrounds = 1.0f;
 	float currentTimeBR=0.0f;
 public:

@@ -18,5 +18,6 @@ public:
 	bool Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemies, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt,bool isMoving)override;
 	bool DrawShot(Graphics& gfx, float dt)override;
 	void RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& enemies);
+	void Upgrade()override;
 };
 
