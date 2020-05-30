@@ -42,7 +42,8 @@ Game::Game(MainWindow& wnd)
 	bomber_attack(L"Sounds\\bomber_attack.wav"),
 	box_collected(L"Sounds\\box_collected.wav"),
 	change_weapon(L"Sounds\\change_weapon.wav"),
-	player_getting_hit(L"Sounds\\player_getting_hit.wav")
+	player_getting_hit(L"Sounds\\player_getting_hit.wav"),
+	button_click(L"Sounds\\button_click.wav")
 {
 
 	
@@ -62,6 +63,7 @@ void Game::UpdateModel()
 	float clock = ft.Mark();
 	menu.DrawMenu(gfx);
 	if (wnd.mouse.LeftIsPressed()) {
+		button_click.Play();
 		switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() },clock)) {
 		case 1:
 			board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
