@@ -241,6 +241,7 @@ void Player::AddAmoTuGun(std::size_t hash_code, int amo)
 void Player::Recover(float hp)
 {
 	health += hp;
+	if (health > 0) isAlive = true;
 }
 
 bool Player::ChangeGunForNextGun()

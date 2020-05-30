@@ -9,10 +9,10 @@ void Menu::DrawMenu(Graphics& gfx)
 {
 	gfx.DrawSprite(0, 0, Graphics::ScreenWidth, Graphics::ScreenHeight, menu,Colors::Magenta);
 	if(currentMap==1){
-		gfx.DrawSprite(145,230,385,390,map1, Colors::Magenta);
+		gfx.DrawSprite(478, 290, 718, 480,map1, Colors::Magenta);
 	}
 	else if (currentMap == 2) {
-		gfx.DrawSprite(145, 230, 385, 390, map2, Colors::Magenta);
+		gfx.DrawSprite(478, 290, 718, 480, map2, Colors::Magenta);
 	}
 }
 
