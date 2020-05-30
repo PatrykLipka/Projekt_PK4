@@ -197,8 +197,9 @@ void Uzi::AddAmo(int amo)
 	ammo += amo;
 }
 
-void Uzi::Upgrade()
+void Uzi::Upgrade(int number)
 {
-	damage = 40;
+	if (number == 1) damage = 40;
+	else if (number == 2) holdTime = 0.07;
 }
 

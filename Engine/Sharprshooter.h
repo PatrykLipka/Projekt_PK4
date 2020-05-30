@@ -16,6 +16,6 @@ public:
 	void MergeVector(std::vector<std::unique_ptr<Enemy>>& avaliableTarget, std::vector<std::unique_ptr<Enemy>>& enemy);
 	void AddAmo(int amo)override;
 	void RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& enemies);
-	void Upgrade()override;
+	void Upgrade(int number)override;
 };
 

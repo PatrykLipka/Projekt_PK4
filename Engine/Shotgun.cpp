@@ -105,13 +105,10 @@ void Shotgun::RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& enemi
 	enemies.clear();
 }
 
-void Shotgun::Upgrade()
-{	if (spread == 0.5f)
-		damage = 35;
-	
-	spread = 0.5f;
-	
-
+void Shotgun::Upgrade(int number)
+{	
+	if (number == 1) spread = 0.5f;
+	else if (number == 2) damage = 35;
 }
 
 bool Shotgun::CheckIfObstacleCanBeHitted(Obstacle obstacle, std::vector<Vec2D>& vec)

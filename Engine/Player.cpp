@@ -174,12 +174,12 @@ void Player::ChangeSurface()
 	}
 }
 
-void Player::Upgrade(size_t hash_code)
+void Player::Upgrade(size_t hash_code, int number)
 {
 	for (auto gun : ownedGuns) {
 		if (typeid(*gun).hash_code() == hash_code)
 		{
-			gun->Upgrade();
+			gun->Upgrade(number);
 		}
 	}
 }

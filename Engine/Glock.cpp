@@ -192,8 +192,9 @@ void Glock::AddAmo(int amo)
 	ammo += amo;
 }
 
-void Glock::Upgrade()
+void Glock::Upgrade(int number)
 {
-	damage = 40;
+	if (number==1) damage = 40;
+	else if(number==2)	holdTime = 0.45;
 }
 
