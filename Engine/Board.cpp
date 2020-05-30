@@ -2,7 +2,7 @@
 
 Board::Board(int numberOfEnemiesInFirstRound):round(numberOfEnemiesInFirstRound)
 {
-	map = new SecondMap();
+	
 	InitVectorOfWeapon();
 }
 void Board::LevelUp(Player& player)
@@ -53,10 +53,7 @@ void Board::NextRound(float dt,Graphics& gfx)
 	round.NextRound(10,dt,gfx);
 }
 
-std::shared_ptr<Weapon>& Board::GetAvaliableGun()
-{
-	// TODO: tu wstawiæ instrukcjê return
-}
+
 
 void Board::AddNewBox(float dt)
 {
@@ -72,6 +69,11 @@ void Board::ColectBox(Player& player)
 	boxes.erase(std::remove_if(boxes.begin(), boxes.end(), [](Box & b) {
 			return b.AlreadyColected(); })
 			, boxes.end());
+}
+
+void Board::LoadMap(std::shared_ptr<Map> mapa)
+{
+	this->map = mapa;
 }
 
 void Board::InitVectorOfWeapon()

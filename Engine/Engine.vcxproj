@@ -156,6 +156,7 @@
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Obstacle.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="SpriteEffect.h" />
     <ClInclude Include="Surface.h" />
+    <ClInclude Include="ThirdMap.h" />
     <ClInclude Include="Uzi.h" />
     <ClInclude Include="Vec2D.h" />
     <ClInclude Include="Weapon.h" />
@@ -194,6 +196,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -206,6 +209,7 @@
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="ThirdMap.cpp" />
     <ClCompile Include="Uzi.cpp" />
     <ClCompile Include="Vec2D.cpp" />
     <ClCompile Include="Weapon.cpp" />

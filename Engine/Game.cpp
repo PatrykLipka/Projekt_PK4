@@ -45,154 +45,170 @@ Game::Game(MainWindow& wnd)
 	player_getting_hit(L"Sounds\\player_getting_hit.wav")
 {
 
-	board.InitBoard();
+	
 }
 
 void Game::Go()
 {
 	gfx.BeginFrame();
 	UpdateModel();
-	ComposeFrame();
+	
 	gfx.EndFrame();
 
 }
 
 void Game::UpdateModel()
 {
-	--changingWeapon;
 	float clock = ft.Mark();
-	board.SpawnEnemies(clock);
-	board.AddNewBox(clock);
-	board.ColectBox(player);
-	std::vector<std::unique_ptr<Enemy>>& enemy = board.GetEnemies();
-	float damageToPlayer = 0;
-	float previousDamage = 0;
-	int delay = 0;
-	for (auto& opponent : enemy)
-	{
-		int enemyType = 0;
-		enemyType = opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay, damageToPlayer);
-
-		if (enemyType == 1 && player.IsAlive()) {
-			zombie_attack.Play(1.0, 0.8);
+	menu.DrawMenu(gfx);
+	if (wnd.mouse.LeftIsPressed()) {
+		switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() },clock)) {
+		case 1:
+			board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
+			break;
+		case 2:
+			board.LoadMap(std::make_shared<ThirdMap>()); board.InitBoard();
+			break;
+		case 3:
+			wnd.Kill();
+			break;
 		}
-		else if (enemyType == 2 && player.IsAlive()) {
-			bomber_attack.Play(1.0, 2.0);
-		}
-		if (previousDamage != damageToPlayer)
-		{
-			delay += 20;
-		}
-		previousDamage = damageToPlayer;
-	}
-
-	if (damageToPlayer > 0 && player.IsAlive()) {
-		player.ChangeHealth(damageToPlayer);
-		player_getting_hit.Play(1.0, 3.0);
-	}
-
-	if (player.IsAlive()) {
-		{	if (wnd.kbd.KeyIsPressed(VK_UP) || wnd.kbd.KeyIsPressed(VK_DOWN) || wnd.kbd.KeyIsPressed(VK_RIGHT) || wnd.kbd.KeyIsPressed(VK_LEFT))
-		{
-			if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock, board.GetObstacles(), enemy); }
-			if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
-			if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
-			if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
-		}
-		else {
-			player.isMoving = false; //player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); 
-		}}
-		if (wnd.kbd.KeyIsPressed(0x58) && changingWeapon <= 0) {
-			changingWeapon = 40;
-			if (player.ChangeGunForNextGun()) change_weapon.Play();
-		}
-		if (wnd.kbd.KeyIsPressed(0x5A) && changingWeapon <= 0) {
-			changingWeapon = 40;
-			if (player.ChangeGunForPreviousGun()) change_weapon.Play();
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE) && player.isShooting == false) {
-			float clock2 = shotTime.Mark(); player.Shot(enemy, clock2, board.GetObstacles(), gfx);
-			std::string weaponName = player.GetCurrentWeaponName();
-			if (player.isShooting)
-			{
-				if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play(1.0, 0.3);
-				else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play(1.0, 0.2);
-				else if (player.GetCurrentWeaponName() == " Shotgun") shotgun_shooting.Play(1.0, 0.2);
-				else if (player.GetCurrentWeaponName() == " Sharpshooter") sniper_shooting.Play(1.0, 0.2);
-			}
-		}
-	}
-	for (auto& e : enemy) {
-		if (typeid(*e).hash_code() == typeid(Zombie).hash_code() && e->IsAlive() == false) {
-			zombie_dying.Play();
-		}
-	}
-
-	for (auto& e : enemy) {
-		if (typeid(*e).hash_code() == typeid(Bomber).hash_code() && e->IsAlive() == false) {
-			enemyToBoom.push_back(std::move(e));
-		}
-	}
-
 	
-
-	enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e)
+	}
+	
+	if (menu.gamestart) {
+		--changingWeapon;
+		
+		board.SpawnEnemies(clock);
+		board.AddNewBox(clock);
+		board.ColectBox(player);
+		std::vector<std::unique_ptr<Enemy>>& enemy = board.GetEnemies();
+		float damageToPlayer = 0;
+		float previousDamage = 0;
+		int delay = 0;
+		for (auto& opponent : enemy)
 		{
-			if (e) {
-				return !e->IsAlive();
+			int enemyType = 0;
+			enemyType = opponent->PreMovement(clock, player.getObject(), board.GetObstacles(), enemy, delay, damageToPlayer);
+
+			if (enemyType == 1 && player.IsAlive()) {
+				zombie_attack.Play(1.0, 0.8);
+			}
+			else if (enemyType == 2 && player.IsAlive()) {
+				bomber_attack.Play(1.0, 2.0);
+			}
+			if (previousDamage != damageToPlayer)
+			{
+				delay += 20;
+			}
+			previousDamage = damageToPlayer;
+		}
+
+		if (damageToPlayer > 0 && player.IsAlive()) {
+			player.ChangeHealth(damageToPlayer);
+			player_getting_hit.Play(1.0, 3.0);
+		}
+
+		if (player.IsAlive()) {
+			{	if (wnd.kbd.KeyIsPressed(VK_UP) || wnd.kbd.KeyIsPressed(VK_DOWN) || wnd.kbd.KeyIsPressed(VK_RIGHT) || wnd.kbd.KeyIsPressed(VK_LEFT))
+			{
+				if (wnd.kbd.KeyIsPressed(VK_UP)) { player.Movement(false, false, true, false, clock, board.GetObstacles(), enemy); }
+				if (wnd.kbd.KeyIsPressed(VK_DOWN)) { player.Movement(false, false, false, true, clock, board.GetObstacles(), enemy); }
+				if (wnd.kbd.KeyIsPressed(VK_RIGHT)) { player.Movement(true, false, false, false, clock, board.GetObstacles(), enemy); }
+				if (wnd.kbd.KeyIsPressed(VK_LEFT)) { player.Movement(false, true, false, false, clock, board.GetObstacles(), enemy); }
 			}
 			else {
-				return true;
+				player.isMoving = false; //player.Movement(false, false, false, false, clock, board.GetObstacles(), enemy); 
+			}}
+			if (wnd.kbd.KeyIsPressed(0x58) && changingWeapon <= 0) {
+				changingWeapon = 40;
+				if (player.ChangeGunForNextGun()) change_weapon.Play();
 			}
-		})
-		, enemy.end());
-	mov = { 0.0,0.0 };
-	board.DrawBoard(gfx);
-	for (auto& opponent : enemy) {
-		if (opponent)
-			opponent->Draw(gfx);
-	}
-	player.Draw(gfx);
-	enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
-		if (e) { return !e->IsAlive() && e->IfAnimationOver(); }
-		else {
-			return true;
-		}})
-		, enemyToBoom.end());
-	for (auto& b : enemyToBoom) {
-		if (b != nullptr)
-			b->Boom(gfx, clock);
-	}
-	player.DrawShot(gfx, clock);
+			if (wnd.kbd.KeyIsPressed(0x5A) && changingWeapon <= 0) {
+				changingWeapon = 40;
+				if (player.ChangeGunForPreviousGun()) change_weapon.Play();
+			}
+			if (wnd.kbd.KeyIsPressed(VK_SPACE) && player.isShooting == false) {
+				float clock2 = shotTime.Mark(); player.Shot(enemy, clock2, board.GetObstacles(), gfx);
+				std::string weaponName = player.GetCurrentWeaponName();
+				if (player.isShooting)
+				{
+					if (player.GetCurrentWeaponName() == " Glock") glock_shooting.Play(1.0, 0.3);
+					else if (player.GetCurrentWeaponName() == " Uzi") uzi_shooting.Play(1.0, 0.2);
+					else if (player.GetCurrentWeaponName() == " Shotgun") shotgun_shooting.Play(1.0, 0.2);
+					else if (player.GetCurrentWeaponName() == " Sharpshooter") sniper_shooting.Play(1.0, 0.2);
+				}
+			}
+		}
+		for (auto& e : enemy) {
+			if (typeid(*e).hash_code() == typeid(Zombie).hash_code() && e->IsAlive() == false) {
+				zombie_dying.Play();
+			}
+		}
 
-	enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
-		if (e) { return !e->IsAlive() && e->IfAnimationOver(); }
-		else {
-			return true;
-		}})
-		, enemyToBoom.end());
-	fonte.DrawTexts(player.GetInformationAboutCurrentGun(), { 50.0f,750.0f }, Colors::Black, gfx);
-	fonte.DrawTexts("Score:" + std::to_string(Points::GetPoints()), { 1050.0f,750.0f }, Colors::Black, gfx);
-	board.NextRound(clock, gfx);
-	board.LevelUp(player);
-	if (!player.IsAlive()) {
-
-		game_over.Play(0.2, 1.0);
-		gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424), Colors::MakeRGB(255, 255, 255));
-		Sleep(100);
+		for (auto& e : enemy) {
+			if (typeid(*e).hash_code() == typeid(Bomber).hash_code() && e->IsAlive() == false) {
+				enemyToBoom.push_back(std::move(e));
+			}
+		}
 
 
 
-	}
+		enemy.erase(std::remove_if(enemy.begin(), enemy.end(), [](std::unique_ptr<Enemy>& e)
+			{
+				if (e) {
+					return !e->IsAlive();
+				}
+				else {
+					return true;
+				}
+			})
+			, enemy.end());
+		mov = { 0.0,0.0 };
+		board.DrawBoard(gfx);
+		for (auto& opponent : enemy) {
+			if (opponent)
+				opponent->Draw(gfx);
+		}
+		player.Draw(gfx);
+		enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
+			if (e) { return !e->IsAlive() && e->IfAnimationOver(); }
+			else {
+				return true;
+			}})
+			, enemyToBoom.end());
+		for (auto& b : enemyToBoom) {
+			if (b != nullptr)
+				b->Boom(gfx, clock);
+		}
+		player.DrawShot(gfx, clock);
 
-	if (player.collectedBox)
-	{
-		box_collected.Play();
-		player.collectedBox = false;
+		enemyToBoom.erase(std::remove_if(enemyToBoom.begin(), enemyToBoom.end(), [](std::unique_ptr<Enemy>& e) {
+			if (e) { return !e->IsAlive() && e->IfAnimationOver(); }
+			else {
+				return true;
+			}})
+			, enemyToBoom.end());
+		fonte.DrawTexts(player.GetInformationAboutCurrentGun(), { 50.0f,750.0f }, Colors::Black, gfx);
+		fonte.DrawTexts("Score:" + std::to_string(Points::GetPoints()), { 1050.0f,750.0f }, Colors::Black, gfx);
+		board.NextRound(clock, gfx);
+		board.LevelUp(player);
+		if (!player.IsAlive()) {
+
+			game_over.Play(0.2, 1.0);
+			gfx.DrawSprite(100, 200, 1105, 624, Surface("Images\\GameOver.png", 1005, 424), Colors::MakeRGB(255, 255, 255));
+			Sleep(100);
+
+
+
+		}
+
+		if (player.collectedBox)
+		{
+			box_collected.Play();
+			player.collectedBox = false;
+		}
 	}
 
 }
 
-void Game::ComposeFrame()
-{
-}

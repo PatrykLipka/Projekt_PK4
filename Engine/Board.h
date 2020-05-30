@@ -13,7 +13,7 @@
 class Board {
 	
 	std::vector<std::shared_ptr<Weapon>> allWeapons;
-	Map *  map;
+	std::shared_ptr<Map> map;
 	Round round;
 	void InitVectorOfWeapon();
 public:
@@ -28,9 +28,9 @@ public:
 	std::vector<Box> GetBoxes();
 	void SpawnEnemies(float dt);
 	void NextRound(float dt, Graphics& gfx);
-	std::shared_ptr<Weapon>& GetAvaliableGun();
 	void AddNewBox(float dt);
 	void ColectBox(Player& player);
+	void LoadMap(std::shared_ptr<Map> mapa);
 	
 	//std::vector<Enemy*> GetEnemies();
 
