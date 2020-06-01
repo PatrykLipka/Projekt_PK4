@@ -368,7 +368,7 @@ void Graphics::DrawGlock(const std::vector<Vec2D> &vec)
 	for (int j = 0; j <(int) vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
 			if(IsInScreen((int)vec[i].x, (int)vec[i].y))
-			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(255, 255, 0));
+			PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(255, 255, 128));
 			//PutPixel(j, i, Colors::MakeRGB(0, 0, 0));
 		}
 	}
@@ -379,7 +379,7 @@ void Graphics::DrawUzi(const std::vector<Vec2D>& vec)
 	for (int j = 0; j < (int)vec.size(); j++) {
 		for (int i = 0; i < vec.size(); i++) {
 			if (IsInScreen(vec[i].x,vec[i].y)) {
-				PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(128, 128, 128));
+				PutPixel((int)vec[i].x, (int)vec[i].y, Colors::MakeRGB(255, 128, 128));
 			}
 			
 		}
