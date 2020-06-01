@@ -60,25 +60,26 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	menu.DrawMenu(gfx);
-	if (wnd.mouse.LeftIsPressed() && clickdelay <= 0) {
-		button_click.Play(0.5, 3.0);
-		switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() })) {
-		case 1:
-			board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
-			break;
-		case 2:
-			board.LoadMap(std::make_shared<ThirdMap>()); board.InitBoard();
-			break;
-		case 3:
-			wnd.Kill();
-			break;
+	if (!menu.gamestart) {
+		menu.DrawMenu(gfx);
+		if (wnd.mouse.LeftIsPressed() && clickdelay <= 0) {
+			button_click.Play(0.5, 3.0);
+			switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() })) {
+			case 1:
+				board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
+				break;
+			case 2:
+				board.LoadMap(std::make_shared<ThirdMap>()); board.InitBoard();
+				break;
+			case 3:
+				wnd.Kill();
+				break;
+			}
+			clickdelay = 10;
 		}
-		clickdelay = 10;
+		clickdelay--;
 	}
-	clickdelay--;
-
-	if (menu.gamestart) {
+	else {
 		float clock = ft.Mark();
 		if (wnd.kbd.KeyIsPressed(VK_ESCAPE) && pauseDelay <= 0) {
 			pauseIterator++;
