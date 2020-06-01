@@ -13,7 +13,7 @@ class Round
 	std::vector<std::unique_ptr<Enemy>> enemies;
 	float currentTime = 0;
 	float spawnTime = 1.0f;
-	float timebetweenrounds = 1.0f;
+	float timebetweenrounds = 2.0f;
 	float currentTimeBR=0.0f;
 public:
 	Round(int numberOfEnemiesInFirstRound);

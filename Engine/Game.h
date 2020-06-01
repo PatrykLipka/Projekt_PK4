@@ -86,6 +86,8 @@ private:
     Sound button_click;
     int changingWeapon = 30;
     int clickdelay = 10;
+    int pauseDelay = 30;
+    int pauseIterator = 1;
     Menu menu;
     
 	/********************************/
