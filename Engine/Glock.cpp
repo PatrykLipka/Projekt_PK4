@@ -1,34 +1,66 @@
 #include "Glock.h"
 
-void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,const Vec2D & pos) //pos of player
+void Glock::calculatePossibleShot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp,const Vec2D & pos,  bool isMoving) //pos of player
 {
-	if (aimsDown){
-		for (int i = 0; i < distance; i++) {
-			if(pos.y + i<Graphics::ScreenHeight)
-			possibleShot.push_back({pos.x-9,pos.y + i});
-			else { break; }
-	}
-   	}
-	else if (aimsRight){
-		for (int i = 0; i < distance; i++) {
-			if (pos.x + i < Graphics::ScreenWidth)
-				possibleShot.push_back( { pos.x+9 + i,pos.y -2 });
-			else { break; }
+	if (isMoving == false) {
+		if (aimsDown) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.y + i < Graphics::ScreenHeight)
+					possibleShot.push_back({ pos.x - 9,pos.y + i });
+				else { break; }
+			}
+		}
+		else if (aimsRight) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.x + i < Graphics::ScreenWidth)
+					possibleShot.push_back({ pos.x + 9 + i,pos.y - 2 });
+				else { break; }
+			}
+		}
+		else if (aimsLeft) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.x - i > 0)
+					possibleShot.push_back({ pos.x - 9 - i,pos.y - 2 });
+				else { break; }
+			}
+		}
+		else if (aimsUp) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.y - i > 0)
+					possibleShot.push_back({ pos.x + 9,pos.y - i });
+				else { break; }
+			}
 		}
 	}
-	else if (aimsLeft){
-		for (int i = 0; i < distance; i++) {
-			if (pos.x - i > 0)
-				possibleShot.push_back ( { pos.x -9- i,pos.y-2 });
-			else { break; }
+	else {
+		if (aimsDown) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.y + i < Graphics::ScreenHeight)
+					possibleShot.push_back({ pos.x - 9,pos.y + i+10 });
+				else { break; }
+			}
 		}
-	}
-	else if (aimsUp){
-		for (int i = 0; i <distance; i++) {
-			if (pos.y - i>0)
-				possibleShot.push_back({ pos.x+9,pos.y-i });
-			else { break; }
- 		}
+		else if (aimsRight) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.x + i < Graphics::ScreenWidth)
+					possibleShot.push_back({ pos.x + 19 + i,pos.y - 2 });
+				else { break; }
+			}
+		}
+		else if (aimsLeft) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.x - i > 0)
+					possibleShot.push_back({ pos.x - 19 - i,pos.y - 2 });
+				else { break; }
+			}
+		}
+		else if (aimsUp) {
+			for (int i = 0; i < distance; i++) {
+				if (pos.y - i > 0)
+					possibleShot.push_back({ pos.x + 9,pos.y - i-10 });
+				else { break; }
+			}
+		}
 	}
 	
 }
@@ -49,7 +81,7 @@ bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std
 	currentTime += dt;
 	if (currentTime >= holdTime) {
 		currentTime =0;
-		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos);
+		calculatePossibleShot(aimsRight, aimsLeft, aimsDown, aimsUp, pos,isMoving);
 		std::vector<std::unique_ptr<Enemy>> avaliableTarget; //tu mo¿e byæ problem
 		std::vector<Obstacle> availableObstacle;
 		int numberousOfEnemy = (int)enemy.size();
