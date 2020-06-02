@@ -225,7 +225,7 @@ void Player::SetNewOwnedGun(std::shared_ptr<Weapon> gun)
 
 int Player::GetSizeOfOwnedGuns()
 {
-	return ownedGuns.size();
+	return int(ownedGuns.size());
 }
 
 void Player::AddAmoTuGun(std::size_t hash_code, int amo)

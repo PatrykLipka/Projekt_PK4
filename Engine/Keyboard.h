@@ -29,7 +29,7 @@ public:
 	class Event
 	{
 	public:
-		enum Type
+		enum  Type
 		{
 			Press,
 			Release,

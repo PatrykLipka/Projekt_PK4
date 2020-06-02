@@ -31,10 +31,10 @@ void Box::ColectBox(Player & player)
 			player.AddAmoTuGun(typeid(Uzi).hash_code(), 2*amo);
 			break;
 		case 3:
-			player.AddAmoTuGun(typeid(Shotgun).hash_code(), 0.5*amo);
+			player.AddAmoTuGun(typeid(Shotgun).hash_code(),int( 0.5f*amo));
 			break;
 		case 4:
-			player.AddAmoTuGun(typeid(Sharpshooter).hash_code(), 0.2*amo);
+			player.AddAmoTuGun(typeid(Sharpshooter).hash_code(),int( 0.2* amo));
 			break;
 
 			
