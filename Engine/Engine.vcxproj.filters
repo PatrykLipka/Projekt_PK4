@@ -108,9 +108,6 @@
     <ClInclude Include="Uzi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Compare.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>

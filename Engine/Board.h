@@ -18,9 +18,7 @@ class Board {
 	void InitVectorOfWeapon();
 public:
 	Board(int numberOfEnemiesInFirstRound);
-	void StartGame();
-	void LevelUp(Player & player);
-	void SpawnEnemies();
+	void LevelUp(Player& player);
 	void InitBoard();
 	void DrawBoard(Graphics & gfx);
 	std::vector<Obstacle> GetObstacles();
@@ -31,7 +29,5 @@ public:
 	void AddNewBox(float dt);
 	void ColectBox(Player& player);
 	void LoadMap(std::shared_ptr<Map> mapa);
-	
-	//std::vector<Enemy*> GetEnemies();
 
 };

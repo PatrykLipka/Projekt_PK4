@@ -150,7 +150,6 @@
     <ClInclude Include="ChiliException.h" />
     <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="Colors.h" />
-    <ClInclude Include="Compare.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FirstMap.h" />

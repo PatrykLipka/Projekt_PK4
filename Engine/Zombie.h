@@ -21,7 +21,7 @@ class Zombie : public Enemy
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
 	Surface surface = Surface("Images\\Zombie.png", 224, 164);
-	std::vector<Vec2D> canBeHit;
+	//std::vector<Vec2D> canBeHit;
 	bool Boom(Graphics& gfx, float dt)override;
 public:
 	//Zombie(); //trzeba dodaæ taki, co bêdzie ustawiaæ od razu probability i isAlive oraz ile jest za nie punktów, bo to siê nie bêdzie zmieniaæ
@@ -29,7 +29,6 @@ public:
 	void Draw(Graphics& gfx)override;
 	void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies)override;
 	bool IsOverLappingObject(const Object other) override;
-	void DrawEnemy(Graphics & gtx)override;
 	float Attack(float distance, float dt)override;
 	void ChangeHealth(float changeHP)override;
 	bool IsAlive()override;

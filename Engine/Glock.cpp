@@ -76,6 +76,8 @@ bool compare_distance2(Obstacle obj1, Obstacle obj2) {
 	return obj1.distance < obj2.distance;
 }
 
+Glock::Glock(int neededPoints, float damage, float rof, float distance, float spread, int ammo, float holdTime, float holdTimeOfAnimation) :Weapon(neededPoints, damage, rof, distance, spread, ammo, holdTime, holdTimeOfAnimation) {}
+
 bool Glock::Shoot(bool aimsRight, bool aimsLeft, bool aimsDown, bool aimsUp, std::vector<std::unique_ptr<Enemy>>& enemy, std::vector<Obstacle>obstacles, const Vec2D& pos, float dt, bool isMoving)
 {		
 	currentTime += dt;

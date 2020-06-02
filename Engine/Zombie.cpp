@@ -353,9 +353,7 @@ bool Zombie::IsOverLappingObject(const Object other)
 }
 
 
-void Zombie::DrawEnemy(Graphics& gtx)
-{
-}
+
 
 float Zombie::Attack(float distance, float dt)
 {

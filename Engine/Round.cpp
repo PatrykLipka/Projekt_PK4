@@ -15,10 +15,7 @@ Round::Round(int numberOfEnemiesInFirstRound) :numberOfEnemiesToSpawn(numberOfEn
 
 std::vector<std::unique_ptr<Enemy>>& Round::GetEnemies() { return enemies; }
 
-void Round::InitRound()
-{
-	
-}
+
 
 void Round::SpawnEnemy(float dt)
 {

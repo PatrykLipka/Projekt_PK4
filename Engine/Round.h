@@ -7,20 +7,29 @@
 
 class Round 
 {
+private:
+
 	int numberOfEnemiesToSpawn;
 	int previousNumberOfEnemies;
 	int currentRound=2;
-	std::vector<std::unique_ptr<Enemy>> enemies;
 	float currentTime = 0;
 	float spawnTime = 1.0f;
 	float timebetweenrounds = 2.0f;
 	float currentTimeBR=0.0f;
+
+private:
+
+	std::vector<std::unique_ptr<Enemy>> enemies;
+
+private:
+
+	bool CheckIfSpawnIsPossible(const Object& obj);
+
 public:
+
 	Round(int numberOfEnemiesInFirstRound);
 	std::vector<std::unique_ptr<Enemy>>& GetEnemies();
-	void InitRound();
 	void SpawnEnemy(float dt);
 	void NextRound(int additionalEnemies, float dt, Graphics& gfx);
-	bool CheckIfSpawnIsPossible(const Object& obj);
 	int GetCurrentRound();
 };

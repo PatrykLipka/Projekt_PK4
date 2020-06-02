@@ -13,13 +13,15 @@ protected:
 	float time=0;
 	std::vector<Obstacle> obstacles;
 	std::vector<Box> boxes;
+private:
+	bool CheckIfBoxCanBeSpawn(const Vec2D& vec, float width, float height);
 public:
 	virtual void DrawMap(Graphics& gfx)=0;
 	virtual void InitMap()=0;
 	virtual std::vector<Obstacle> GetObstacles() = 0;
 	void AddNewBox(float dt);
 	std::vector<Box>& GetBox();
-	bool CheckIfBoxCanBeSpawn(const Vec2D& vec, float width, float height);
+	
 	//virtual std::vector<Enemy*> GetEnemies() = 0;
 };
 

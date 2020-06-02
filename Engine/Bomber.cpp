@@ -380,9 +380,7 @@ bool Bomber::IsOverLappingObject(const Object other)
 }
 
 
-void Bomber::DrawEnemy(Graphics& gtx)
-{
-}
+
 
 float Bomber::Attack(float distanceToPlayer, float dt)
 {

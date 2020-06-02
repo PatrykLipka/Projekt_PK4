@@ -6,7 +6,4 @@
 public:
 	static int GetPoints();
 	static void IncrementPoints(int addedPoints);
-	void IncrementMultiplier();
-	void DecrementMultiplier();
-	
 };

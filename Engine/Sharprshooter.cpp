@@ -142,6 +142,7 @@ void Sharpshooter::RemoveEnemiesFromVector(std::vector<std::unique_ptr<Enemy>>& 
 {
 	enemies.clear();
 }
+
 void Sharpshooter::Upgrade(int number)
 {
 	if (number == 1) rof = 4;
