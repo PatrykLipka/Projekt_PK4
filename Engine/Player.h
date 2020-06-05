@@ -1,11 +1,8 @@
 #pragma once
 #include "Enemy.h"
 #include "Object.h"
-#include "Keyboard.h"
 #include "Graphics.h"
 #include "Mouse.h"
-#include "Crate.h"
-#include <list>
 #include <vector>
 #include "Surface.h"
 #include "Animation.h"
