@@ -66,7 +66,8 @@ void Game::UpdateModel()
 			button_click.Play(0.5, 3.0);
 			switch (menu.Settings({ (float)wnd.mouse.GetPosX(),(float)wnd.mouse.GetPosY() })) {
 			case 1:
-				board.LoadMap(std::make_shared<SecondMap>()); board.InitBoard();
+				board.LoadMap(std::make_shared<SecondMap>()); 
+				board.InitBoard();
 				break;
 			case 2:
 				board.LoadMap(std::make_shared<ThirdMap>()); board.InitBoard();

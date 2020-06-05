@@ -5,7 +5,7 @@ class SecondMap :
 {
 	float width = 0;
 	float height = 0;
-	const Surface& surface = Surface("Images\\Map1.png", 1200, 800);
+	Surface surface = Surface("Images\\Map1.png", 1200, 800);
 public:
 	void DrawMap(Graphics& gfx)override;
 	void InitMap()override;	
