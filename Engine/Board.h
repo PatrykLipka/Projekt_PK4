@@ -11,7 +11,6 @@
 
 
 class Board {
-	
 	std::vector<std::shared_ptr<Weapon>> allWeapons;
 	std::shared_ptr<Map> map;
 	Round round;
