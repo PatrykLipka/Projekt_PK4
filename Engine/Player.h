@@ -37,10 +37,10 @@ class Player
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
-	Surface surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
-	Surface surfaceShotgun = Surface("Images\\player_shotgun.png", 104, 164);
-	Surface surfaceSniper = Surface("Images\\player_sniper.png", 104, 164);
+	const Surface & surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
+	const Surface & surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
+	const Surface & surfaceShotgun = Surface("Images\\player_shotgun.png", 104, 164);
+	const Surface & surfaceSniper = Surface("Images\\player_sniper.png", 104, 164);
 	Surface surface = surfaceGlock;
 	std::vector <std::shared_ptr<Weapon>> ownedGuns;
 	std::shared_ptr<Weapon> weapon;

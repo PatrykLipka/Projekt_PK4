@@ -20,7 +20,7 @@ class Zombie : public Enemy
 	};
 	Sequences iCurrentSeqence = Sequences::StandDown;
 	std::vector<Animation>animations;
-	Surface surface = Surface("Images\\Zombie.png", 224, 164);
+	const Surface & surface = Surface("Images\\Zombie.png", 224, 164);
 	//std::vector<Vec2D> canBeHit;
 	bool Boom(Graphics& gfx, float dt)override;
 public:
