@@ -19,9 +19,8 @@ class Zombie : public Enemy
 		Count
 	};
 	Sequences iCurrentSeqence = Sequences::StandDown;
-	std::vector<Animation>animations;
-	Surface surface = Surface("Images\\Zombie.png", 224, 164);
-	//std::vector<Vec2D> canBeHit;
+	Surface& surface = surfaceZombie;
+	std::vector<Animation>& animations = animation;
 	bool Boom(Graphics& gfx, float dt)override;
 public:
 	//Zombie(); //trzeba dodaæ taki, co bêdzie ustawiaæ od razu probability i isAlive oraz ile jest za nie punktów, bo to siê nie bêdzie zmieniaæ

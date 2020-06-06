@@ -34,6 +34,9 @@ protected:
 	bool blockedLeft=false;
 	bool blockedDown=false;
 	bool blockedUp=false;
+	Surface surfaceZombie= Surface("Images\\Zombie.png", 224, 164);
+	Surface surfaceBomber= Surface("Images\\Bomber.png", 228, 186);
+	std::vector<Animation>animation;
 protected:
 	virtual void CheckCollisions(std::vector<Obstacle> obstacles, std::vector<std::unique_ptr<Enemy>>& enemies) = 0;
 	virtual bool IsOverLappingObject(const Object other) = 0;

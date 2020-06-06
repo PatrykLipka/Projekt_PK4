@@ -36,7 +36,7 @@ class Player
 	bool aimsUp;
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
-	std::vector<Animation>animations;
+	std::vector<Animation> animations;
 	Surface surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
 	Surface surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
 	Surface surfaceShotgun = Surface("Images\\player_shotgun.png", 104, 164);

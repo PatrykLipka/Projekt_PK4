@@ -396,12 +396,15 @@ Zombie::Zombie(Object object, float health,float damage, float probability, bool
 	value = 1;
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
 		animations.emplace_back(Animation(22, 40 * i, 22, 40, 4, surface, 0.17f));
+		//testAnimations.emplace_back(Animation(22, 40 * i, 22, 40, 4, surface, 0.17f));
 	}
 	for (int i = (int)Sequences::StandDown; i < (int)Sequences::AttackDown; i++) {
 		animations.emplace_back(Animation(0, 40 * (i - (int)Sequences::StandDown), 22, 40, 1, surface, 0.15f));
+		//testAnimations.emplace_back(Animation(0, 40 * (i - (int)Sequences::StandDown), 22, 40, 1, surface, 0.15f));
 	}
 	for (int i = (int)Sequences::AttackDown; i < (int)Sequences::Count; i++) {
 		animations.emplace_back(Animation(110, 40 * (i - (int)Sequences::AttackDown), 22, 40, 5, surface, 0.15f));
+		//testAnimations.emplace_back(Animation(110, 40 * (i - (int)Sequences::AttackDown), 22, 40, 5, surface, 0.15f));
 	}
 
 }

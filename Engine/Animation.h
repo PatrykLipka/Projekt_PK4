@@ -19,7 +19,6 @@ public:
 	std::vector<Rect>frames;
 	int iCurFrame = 0;
 	float holdTime;
-	float curFrameTime = 0.0f;
-	 
+	float curFrameTime = 0.0f;	 
 };
 

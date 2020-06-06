@@ -22,8 +22,8 @@ private:
 	};
 
 	Sequences iCurrentSeqence = Sequences::StandDown;
-	std::vector<Animation>animations;
-	Surface surface = Surface("Images\\Bomber.png", 228, 186);
+	Surface& surface = surfaceBomber;
+	std::vector<Animation>& animations = animation;
 	float currenttime = 0;
 	float holdTime=0.5f;
 private:
