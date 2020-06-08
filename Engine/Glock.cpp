@@ -170,7 +170,7 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 {
 	
 	if (aimsRight) {
-		for (int i = possibleShot.size() - 1; i > 0; i--) {
+		for (int i = (int)possibleShot.size() - 1; i > 0; i--) {
 			if (obj.hitbox.left < possibleShot[i].x)
 			{
 				possibleShot.pop_back();
@@ -180,7 +180,7 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 		}
 	}
 	else if (aimsLeft) {
-		for (int i = possibleShot.size() - 1; i > 0; i--) {
+		for (int i = (int)possibleShot.size() - 1; i > 0; i--) {
 			if (obj.hitbox.right > possibleShot[i].x)
 			{
 				possibleShot.pop_back();
@@ -190,7 +190,7 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 		}
 	}
 	else if (aimsDown) {
-		for (int i = possibleShot.size() - 1; i > 0; i--) {
+		for (int i = (int)possibleShot.size() - 1; i > 0; i--) {
 			if (obj.hitbox.top < possibleShot[i].y)
 			{
 				possibleShot.pop_back();
@@ -200,7 +200,7 @@ void Glock::MakeCalculationoOfShot(const Object& obj, bool aimsRight, bool aimsL
 		}
 	}
 	else if (aimsUp) {
-		for (int i = possibleShot.size() - 1; i > 0; i--) {
+		for (int i = (int)possibleShot.size() - 1; i > 0; i--) {
 			if (obj.hitbox.bottom > possibleShot[i].y)
 			{
 				possibleShot.pop_back();
