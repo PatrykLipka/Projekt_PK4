@@ -139,7 +139,7 @@ void Player::DrawShot(Graphics& gfx, float dt)
 }
 
 
-void Player::LoadSurface()
+void Player::LoadSurface(Surface& surface)
 {
 	animations.clear();
 	for (int i = 0; i < (int)Sequences::StandDown; i++) {
@@ -153,20 +153,16 @@ void Player::LoadSurface()
 void Player::ChangeSurface()
 {
 	if (typeid(*weapon) == typeid(Glock)) {
-		surface = surfaceGlock;
-		LoadSurface();
+		LoadSurface(surfaceGlock);
 	}
 	else if (typeid(*weapon) == typeid(Uzi)) {
-		surface = surfaceUzi;
-		LoadSurface();
+		LoadSurface(surfaceUzi);
 	}
 	else if (typeid(*weapon) == typeid(Shotgun)) {
-		surface = surfaceShotgun;
-		LoadSurface();
+		LoadSurface(surfaceShotgun);
 	}
 	else if (typeid(*weapon) == typeid(Sharpshooter)) {
-		surface = surfaceSniper;
-		LoadSurface();
+		LoadSurface(surfaceSniper);
 	}
 }
 
@@ -189,7 +185,7 @@ Player::Player(Object obj, float hel, bool isAlive, std::shared_ptr<Weapon> gun)
 	aimsLeft = false;
 	aimsDown = true;
 	aimsUp = false;
-	LoadSurface();
+	LoadSurface(surfaceGlock);
 }
 
 Object Player::getObject()
@@ -286,5 +282,4 @@ std::string Player::GetCurrentWeaponName()
 {
 	return weapon->GetName();
 }
-
 

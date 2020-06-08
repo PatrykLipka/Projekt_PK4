@@ -36,19 +36,18 @@ class Player
 	bool aimsUp;
 	Object object;
 	Sequences iCurrentSeqence = Sequences::StandDown;
-	std::vector<Animation> animations; //tu jest chyba problem
-	Surface& surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
-	Surface& surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
-	Surface& surfaceShotgun = Surface("Images\\player_shotgun.png", 104, 164);
-	Surface& surfaceSniper = Surface("Images\\player_sniper.png", 104, 164);
-	Surface surface = surfaceGlock;
+	std::vector<Animation> animations;
+	Surface surfaceGlock = Surface("Images\\player_glock.png", 104, 164);
+	Surface surfaceUzi = Surface("Images\\player_uzi.png", 104, 164);
+	Surface surfaceShotgun = Surface("Images\\player_shotgun.png", 104, 164);
+	Surface surfaceSniper = Surface("Images\\player_sniper.png", 104, 164);
 	std::vector <std::shared_ptr<Weapon>> ownedGuns;
 	std::shared_ptr<Weapon> weapon;
 	
 	private:
 	void CheckCollisions(std::vector<Obstacle> obstacles); //po zaimplementowaniu klasy obstacle zmieniæ typ vektora
 	bool CheckIfMovementPossible(std::vector<std::unique_ptr<Enemy>>& enemies, const Object& nextPosition);
-	void LoadSurface();
+	void LoadSurface(Surface& surface);
 	void ChangeSurface();
 
 	public:
